@@ -8,6 +8,7 @@ import { openQuickView } from "../../redux/action/quickViewAction";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 
 const SingleProduct = ({ product, addToCart, addToCompare, addToWishlist, openQuickView }) => {
+    
     const handleCart = (product) => {
         addToCart(product);
         toast("Product added to Cart !");
@@ -22,14 +23,20 @@ const SingleProduct = ({ product, addToCart, addToCompare, addToWishlist, openQu
         addToWishlist(product);
         toast("Added to Wishlist !");
     };
+    console.log(product);
     return (
         <>
             <div className="product-cart-wrap mb-30">
                 <div className="product-img-action-wrap">
                     <div className="product-img product-img-zoom">
                         <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-                            <img className="default-img" src={product.images[0].img} alt="nest" />
-                            <img className="hover-img" src={product.images[1].img} alt="nest" />
+                            <img className="default-img" src={
+                               product.images? product.images[0]?.img: product.image }
+                                alt="nest" />
+
+                            <img className="hover-img" src={
+                                product.images? product.images[0]?.img: product.image
+                            } alt="nest" />
                         </Link>
                     </div>
                     <div className="product-action-1">
@@ -48,17 +55,17 @@ const SingleProduct = ({ product, addToCart, addToCompare, addToWishlist, openQu
                         {product.trending && <span className="hot">Hot</span>}
                         {product.created && <span className="new">New</span>}
                         {product.totalSell > 100 && <span className="best">Best Sell</span>}
-                        {product.discount.isActive && <span className="sale">Sale</span>}
-                        {product.discount.percentage >= 5 && <span className="hot">{product.discount.percentage}%</span>}
+                        {product.discount?.isActive && <span className="sale">Sale</span>}
+                        {product.discount?.percentage >= 5 && <span className="hot">{product.discount.percentage}%</span>}
                     </div>
                 </div>
                 <div className="product-content-wrap">
                     <div className="product-category">
-                        <Link href="/products">{product.brand}</Link>
+                        <Link href="/products">{product.Company}</Link>
                     </div>
                     <h2>
                         <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-                            {product.title}
+                            {product.name}
                         </Link>
                     </h2>
 
@@ -71,7 +78,7 @@ const SingleProduct = ({ product, addToCart, addToCompare, addToWishlist, openQu
 
                     <div>
                         <span className="font-small text-muted">
-                            By <Link href="/vendor/1">NestFood</Link>
+                            By <Link href="/vendor/1">pharmacy</Link>
                         </span>
                     </div>
 

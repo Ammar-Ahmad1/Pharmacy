@@ -74,7 +74,7 @@ const ProductDetails = ({
                   <div className="col-md-6 col-sm-12 col-xs-12">
                     <div className="detail-info  pr-30 pl-30">
                       <span className="stock-status out-stock"> Sale Off </span>
-                      <h2 className="title-detail">{product.title}</h2>
+                      <h2 className="title-detail">{product.name}</h2>
                       <div className="product-detail-rating">
                         <div className="product-rate-cover text-end">
                           <div className="product-rate d-inline-block">
@@ -87,7 +87,7 @@ const ProductDetails = ({
                         <div className="product-price primary-color float-left">
                           <span className="current-price text-brand">${product.price}</span>
                           <span>
-                            <span className="save-price font-md color3 ml-15">{product.discount.percentage}% Off</span>
+                            <span className="save-price font-md color3 ml-15">{product.discount?.percentage}% Off</span>
                             <span className="old-price font-md ml-15">{product.oldPrice ? `$ ${product.oldPrice}` : null}</span>
                           </span>
                         </div>
@@ -95,16 +95,16 @@ const ProductDetails = ({
 
                       <div className="mb-2">
                         <span className="save-price font-lg mr-15">Formula/Salt:</span>
-                        <span className="font-md ml-4">{product.formula}</span>
+                        <span className="font-md ml-4">{product.Salt}</span>
                       </div>
 
                       <div className="mb-4">
                         <span className="save-price mr-15">Medicine Brand:</span>
-                        <span className="font-lg">{product.brand}</span>
+                        <span className="font-lg">{product.Company}</span>
                       </div>
 
                       <div className="short-desc mb-30">
-                        <p className="font-lg">{product.desc}</p>
+                        <p className="font-lg">{product.Use}</p>
                       </div>
 
                       {/* <div className="attr-detail attr-color mb-15">

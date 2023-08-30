@@ -13,11 +13,18 @@ function CategoryTab() {
     const [cat3, setCat3] = useState([]);
 
     const catPAll = async () => {
-        const request = await fetch(`${server}/static/product.json`);
+        try{
+        const request = await fetch(`api/medicine`);
         const allProducts = await request.json();
-        const catAllItem = allProducts.filter((item) => item.category);
-        setCatAll(catAllItem);
+        console.log(allProducts)
+        // const catAllItem = allProducts.filter((item) => item.Categories);
+        setCatAll(allProducts.data);
+        console.log(catAll.data)
         setActive("1");
+        }catch(error){
+            console.log(error);
+        }
+
     };
     const catP1 = async () => {
         const request = await fetch(`${server}/static/product.json`);

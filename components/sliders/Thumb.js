@@ -21,9 +21,9 @@ const ThumbSlider = ({ product }) => {
                 thumbs={{ swiper: thumbsSwiper }}
                 className="mySwiper2"
             >
-                {product.gallery.map((item) => (
+                {product.gallery?.map((item) => (
                     <SwiperSlide>
-                        <img src={item.thumb} />
+                        <img src={item.thumb } />
                         {/* <Zoom
                             img={item.thumb}
                             zoomScale={5}
@@ -43,11 +43,24 @@ const ThumbSlider = ({ product }) => {
                 watchSlidesProgress={true}
                 className="mySwiper"
             >
-                {product.gallery.map((item) => (
+                {
+                    product.gallery ? (product.gallery.map((item) => (
+                        <SwiperSlide>
+                            <img src={item.thumb} />
+                        </SwiperSlide>
+                    ))):(
+                        <SwiperSlide>
+                            <img src="https://lh3.googleusercontent.com/a/AAcHTtci6RJekFINCdibq0iNLKa9rfOSIFl04lh86s2ITxUu=s96-c" />
+                        </SwiperSlide>
+                    )
+
+
+                }
+                {/* {product.gallery?.map((item) => (
                     <SwiperSlide>
                         <img src={item.thumb} />
                     </SwiperSlide>
-                ))}
+                ))} */}
             </Swiper>
         </div>
     );
