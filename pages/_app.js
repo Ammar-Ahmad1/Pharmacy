@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 // import "react-input-range/lib/css/index.css";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { Provider } from "react-redux";
+import { Provider as ReduxProvider } from "react-redux";
 import { ToastContainer } from 'react-toastify';
+import { SessionProvider } from "next-auth/react";
+import Provider from '../components/Provider'
 import 'react-toastify/dist/ReactToastify.css';
 // import "slick-carousel/slick/slick-theme.css";
 // import "slick-carousel/slick/slick.css";
@@ -32,13 +34,14 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             {!loading ? (
-                <Provider store={store}>
+                <ReduxProvider store={store}>
                     <StorageWrapper>
-                       
+                            <Provider>
                             <Component {...pageProps} />
                             <ToastContainer />
+                            </Provider>
                     </StorageWrapper>
-                </Provider>
+                </ReduxProvider>
             ) : (
                 <Preloader />
             )}
