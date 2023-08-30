@@ -86,7 +86,9 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="section-padding pb-5">
+                {/* Deals of the Day Components */}
+
+                {/* <section className="section-padding pb-5">
                     <div className="container">
                         <div className="section-title wow animate__animated animate__fadeIn" data-wow-delay="0">
                             <h3 className="">Deals Of The Day</h3>
@@ -97,7 +99,7 @@ export default function Home() {
                         </div>
                         <FeatchDeals />
                     </div>
-                </section>
+                </section> */}
 
                 <Bottom />
 

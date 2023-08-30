@@ -1,5 +1,5 @@
 import CategoryTab from "../components/ecommerce/categoryTab";
-import FeatchDeals from "../components/ecommerce/fetchDeals";
+import FetchDeals from "../components/ecommerce/fetchDeals";
 import Layout from "../components/layout/Layout";
 import CategoryProduct from "../components/ecommerce/Filter/CategoryProduct";
 import PriceRangeSlider from "./../components/ecommerce/Filter/PriceRangeSlider";
@@ -30,7 +30,9 @@ function Test() {
                                 <CategoryTab />
                             </section>
 
-                            <section className="section-padding pb-5">
+                            {/* Deals of the Day Components */}
+
+                            {/* <section className="section-padding pb-5">
                                 <div className="section-title" data-wow-delay="0">
                                     <h3 className="">Deals Of The Day</h3>
                                     <Link href="/shop-grid-right" className="show-all">
@@ -38,8 +40,10 @@ function Test() {
                                         <i className="fi-rs-angle-right"></i>
                                     </Link>
                                 </div>
-                                <FeatchDeals />
-                            </section>
+                                <FetchDeals />
+                            </section> */}
+
+
                             <section className="banners mb-15">
                                 <div className="container">
                                     <div className="row">
@@ -147,8 +151,8 @@ function Test() {
                             <div className="title">
                                 <h3>Shop by Categories</h3>
                                 <Link href="/shop-grid-right" className="show-all">
-                                        All Categories
-                                        <i className="fi-rs-angle-right"></i>
+                                    All Categories
+                                    <i className="fi-rs-angle-right"></i>
                                 </Link>
                             </div>
                         </div>

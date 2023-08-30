@@ -1,6 +1,6 @@
 import Link from "next/link";
 import CategoryTab from "../components/ecommerce/categoryTab";
-import FeatchDeals from "../components/ecommerce/fetchDeals";
+import FetchDeals from "../components/ecommerce/fetchDeals";
 import Layout from "../components/layout/Layout";
 import Intro2 from "../components/sliders/Intro2";
 import FetchTabSlider from "./../components/ecommerce/fetchTabSlider";
@@ -74,7 +74,9 @@ function Index2() {
                     </div>
                 </section>
 
-                <section className="section-padding pb-5">
+                {/* Deals of the Day Components */}
+
+                {/* <section className="section-padding pb-5">
                     <div className="container">
                         <div className="section-title wow animate__animated animate__fadeIn" data-wow-delay="0">
                             <h3 className="">Deals Of The Day</h3>
@@ -83,9 +85,9 @@ function Index2() {
                                 <i className="fi-rs-angle-right"></i>
                             </Link>
                         </div>
-                        <FeatchDeals />
+                        <FetchDeals />
                     </div>
-                </section>
+                </section> */}
 
                 <section className="popular-categories section-padding">
                     <div className="container">

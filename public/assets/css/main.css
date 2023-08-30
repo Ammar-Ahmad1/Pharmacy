@@ -5196,11 +5196,10 @@ table .product-thumbnail img {
     display: block;
 }
 
-.detail-info .product-price .save-price {
-    font-size: 12px;
+.detail-info .save-price {
+    font-size: 16px;
     font-weight: 600;
     margin-bottom: 6px;
-    display: block;
     color: #fdc040;
 }
 
@@ -5619,13 +5618,17 @@ table.no-border thead {
     border-radius: 10px;
 }
 
-.payment_option .custome-radio {
+.custome-radio {
     margin-bottom: 10px;
 }
 
-.payment_option .custome-radio .form-check-label {
+.custome-radio .form-check-label {
     color: #292b2c;
     font-weight: 600;
+}
+
+.custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+    border-radius: 36px !important; /* Make the radio button a circle */
 }
 
 .custome-radio .form-check-label::before {
