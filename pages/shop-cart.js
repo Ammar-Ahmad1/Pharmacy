@@ -55,7 +55,7 @@ const Cart = ({ openCart, cartItems, activeCart, closeCart, increaseQuantity, de
                                             {cartItems.map((item, i) => (
                                                 <tr key={i}>
                                                     <td className="image product-thumbnail">
-                                                        <img src={item.images[0].img} />
+                                                        <img src={item.images? item.images[0]?.img : item.image} />
                                                     </td>
 
                                                     <td className="product-des product-name">
