@@ -20,33 +20,50 @@ import Preloader from "./../components/elements/Preloader";
 
 
 function MyApp({ Component, pageProps }) {
-    const [loading, setLoading] = useState(false);
-    useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
 
-        // new WOW.WOW({
-        //     live: false
-        //   }).init()
-    }, []);
+    // Preloader useState + Function
+
+    // const [loading, setLoading] = useState(false);
+    // useEffect(() => {
+    //     setLoading(true);
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 2000);
+
+    //     // new WOW.WOW({
+    //     //     live: false
+    //     //   }).init()
+    // }, []);
+
+    
     return (
         <>
-            {!loading ? (
-                <ReduxProvider store={store}>
-                    <StorageWrapper>
-                            <Provider>
-                            <Component {...pageProps} />
-                            <ToastContainer />
-                            </Provider>
-                    </StorageWrapper>
-                </ReduxProvider>
-            ) : (
-                <Preloader />
-            )}
+            <ReduxProvider store={store}>
+                <StorageWrapper>
+                    <Provider>
+                        <Component {...pageProps} />
+                        <ToastContainer />
+                    </Provider>
+                </StorageWrapper>
+            </ReduxProvider>
         </>
     );
 }
 
 export default MyApp;
+
+
+// Page with image preloader
+
+// {!loading ? (
+//     <ReduxProvider store={store}>
+//         <StorageWrapper>
+//                 <Provider>
+//                 <Component {...pageProps} />
+//                 <ToastContainer />
+//                 </Provider>
+//         </StorageWrapper>
+//     </ReduxProvider>
+// ) : (
+//     <Preloader />
+// )}

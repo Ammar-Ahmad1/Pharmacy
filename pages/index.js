@@ -1,70 +1,52 @@
-import CategoryTab from "../components/ecommerce/categoryTab";
-import FeatchDeals from "../components/ecommerce/fetchDeals";
-import FeatchTab from "../components/ecommerce/fetchTab";
-import FetchTabSlider from "../components/ecommerce/fetchTabSlider";
-import Bottom from "../components/elements/Bottom";
-import QuickView from "./../components/ecommerce/QuickView";
-import Banner5 from "./../components/elements/Banner5";
-import Deals1 from "./../components/elements/Deals1";
-import IntroPopup from "./../components/elements/IntroPopup";
-import Layout from "./../components/layout/Layout";
-import CategorySlider from "./../components/sliders/Category";
-import Intro1 from "./../components/sliders/Intro1";
 import Link from "next/link";
+import CategoryTab from "../components/ecommerce/categoryTab";
+import FetchDeals from "../components/ecommerce/fetchDeals";
+import Layout from "../components/layout/Layout";
+import Intro2 from "../components/sliders/Intro2";
+import FetchTabSlider from "../components/ecommerce/fetchTabSlider";
+import Banner5 from "../components/elements/Banner5";
+import Bottom from "../components/elements/Bottom";
+import CategorySlider2 from "../components/sliders/Category2";
+import IntroPopup from "./../components/elements/IntroPopup";
 
-export default function Home() {
-    console.log("Home");
+
+function Index2() {
     return (
         <>
-            <IntroPopup />
-
-            <Layout noBreadcrumb="d-none">
-                <section className="home-slider position-relative mb-30">
+            {/* <IntroPopup /> */}
+            <Layout noBreadcrumb="d-none" headerStyle="header-style-1">
+                <section className="home-slider style-2 position-relative mb-50">
                     <div className="container">
-                        <div className="home-slide-cover mt-30">
-                            <Intro1 />
-                        </div>
-                    </div>
-                </section>
-
-                <section className="popular-categories section-padding">
-                    <div className="container wow animate__fadeIn animate__animated">
-                        <div className="section-title">
-                            <div className="title">
-                                <h3>Featured Categories</h3>
-                                <ul className="list-inline nav nav-tabs links">
-                                    <li className="list-inline-item nav-item">
-                                        <Link href="/products" className="nav-link">
-                                            Cake & Milk
-                                        </Link>
-                                    </li>
-                                    <li className="list-inline-item nav-item">
-                                        <Link href="/products" className="nav-link">
-                                            Coffes & Teas
-                                        </Link>
-                                    </li>
-                                    <li className="list-inline-item nav-item">
-                                        <Link href="/products" className="nav-link">
-                                            Pet Foods
-                                        </Link>
-                                    </li>
-                                    <li className="list-inline-item nav-item">
-                                        <Link href="/products" className="nav-link">
-                                            Vegetables
-                                        </Link>
-                                    </li>
-                                </ul>
+                        <div className="row">
+                            <div className="col-xl-8 col-lg-12">
+                                <div className="home-slide-cover">
+                                    <Intro2 />
+                                </div>
                             </div>
-                        </div>
-                        <div className="carausel-10-columns-cover position-relative">
-                            <div className="carausel-10-columns" id="carausel-10-columns">
-                                <CategorySlider />
+
+                            <div className="col-lg-4 d-none d-xl-block">
+                                <div className="banner-img style-3 animated animated">
+                                    <div className="banner-text mt-50">
+                                        <h2 className="mb-50">
+                                            Delivered <br />
+                                            to
+                                            <span className="text-brand">
+                                                your
+                                                <br />
+                                                home
+                                            </span>
+                                        </h2>
+                                        <Link href="/shop-grid-right" className="btn btn-xs">
+                                            Shop Now <i className="fi-rs-arrow-small-right"></i>
+                                        </Link>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section className="banners mb-25">
+                <section className="banners mb-15">
                     <div className="container">
                         <div className="row">
                             <Banner5 />
@@ -74,11 +56,18 @@ export default function Home() {
 
                 <section className="product-tabs section-padding position-relative">
                     <div className="container">
-                        <div className="col-lg-12">
-                            <CategoryTab />
+                        <div className="row">
+                            <div className="col-lg-12">
+                                <CategoryTab />
+                            </div>
                         </div>
                     </div>
                 </section>
+                {/* <section className="banner-2 section-padding pb-0">
+                    <div className="container">
+                        <Banner2 />
+                    </div>
+                </section> */}
 
                 <section className="section-padding pb-5">
                     <div className="container">
@@ -92,19 +81,38 @@ export default function Home() {
                     <div className="container">
                         <div className="section-title wow animate__animated animate__fadeIn" data-wow-delay="0">
                             <h3 className="">Deals Of The Day</h3>
-                            <Link href="/products" className="show-all">
+                            <Link href="/shop-grid-right" className="show-all">
                                 All Deals
                                 <i className="fi-rs-angle-right"></i>
                             </Link>
                         </div>
-                        <FeatchDeals />
+                        <FetchDeals />
                     </div>
                 </section> */}
 
-                <Bottom />
+                <section className="popular-categories section-padding">
+                    <div className="container">
+                        <div className="section-title">
+                            <div className="title">
+                                <h3>Shop by Categories</h3>
+                                <Link href="/shop-grid-right" className="show-all">
+                                    All Categories
+                                    <i className="fi-rs-angle-right"></i>
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="carausel-8-columns-cover position-relative">
+                            <div className="carausel-8-columns" id="carausel-8-columns">
+                                <CategorySlider2 />
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-                <QuickView />
+                <Bottom />
             </Layout>
         </>
     );
 }
+
+export default Index2;
