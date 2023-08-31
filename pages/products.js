@@ -28,7 +28,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
     let [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        fetchProduct(searchTerm, "/static/product.json", productFilters);
+        fetchProduct(searchTerm, "/api/medicine", productFilters);
         cratePagination();
     }, [productFilters, limit, pages, products.items.length]);
 
@@ -163,7 +163,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                     <br />
                                 </div>
 
-                                <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
+                                {/* <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
                                 <h5 className="section-title style-1 mb-30">New products</h5>
                                     <div className="single-post clearfix">
                                         <div className="image">
@@ -231,7 +231,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
                                     <img
                                         src="/assets/imgs/banner/banner-11.png"

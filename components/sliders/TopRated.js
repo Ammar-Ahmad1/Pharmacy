@@ -16,7 +16,7 @@ const TopRatedSlider = () => {
 
     const fetchProducts = async () => {
         // With Category
-        const allProducts = await fetchByCatagory("/static/product.json");
+        const allProducts = await fetchByCatagory("/api/medicine");
 
         // Discount
         const discountProduct = allProducts.filter((item) => item.discount.isActive);
@@ -29,13 +29,13 @@ const TopRatedSlider = () => {
                 <article className="row align-items-center hover-up" key={i}>
                     <figure className="col-md-4 mb-0">
                         <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-                            <img src={product.images[0].img} alt="nest" />
+                            <img src={product.images?product.images[0].img:product.image} alt="nest" />
                         </Link>
                     </figure>
                     <div className="col-md-8 mb-0">
                         <h6>
                             <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-                                {product.title}
+                                {product.title||product.name}
                             </Link>
                         </h6>
                         <div className="product-rate-cover">

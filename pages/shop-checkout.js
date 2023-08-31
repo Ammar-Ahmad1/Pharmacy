@@ -1875,9 +1875,7 @@ const Cart = ({
                                                             <td className="image product-thumbnail">
                                                                 <img
                                                                     src={
-                                                                        item
-                                                                            .images[0]
-                                                                            .img
+                                                                       item.images? item.images[0]?.img : item.image
                                                                     }
                                                                     alt="#"
                                                                 />

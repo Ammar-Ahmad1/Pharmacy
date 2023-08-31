@@ -12,7 +12,7 @@ import CategorySlider2 from "./../components/sliders/Category2";
 function Index2() {
     return (
         <>
-            <IntroPopup />
+            {/* <IntroPopup /> */}
             <Layout noBreadcrumb="d-none" headerStyle="header-style-1">
                 <section className="home-slider style-2 position-relative mb-50">
                     <div className="container">
