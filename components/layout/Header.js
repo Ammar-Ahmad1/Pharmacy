@@ -28,7 +28,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                         Grand opening, <strong>up to 15%</strong> off all items. Only <strong>3 days</strong> left
                     </span>
                 </div>
-                
+
                 <div className="header-top header-top-ptb-1 d-none d-lg-block">
                     <div className="container">
                         <div className="row align-items-center">
@@ -305,16 +305,16 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                                                 <Link href="/products">Hot Deals</Link>
                                             </li>
                                             <li>
-                                                <Link href="/" className="active">
+                                                <Link href="/index">Home</Link>
+                                                {/* <Link href="/" className="active">
                                                     Home
                                                     <i className="fi-rs-angle-down"></i>
-                                                </Link>
-                                                <ul className="sub-menu">
+                                                </Link> */}
+                                                {/* <ul className="sub-menu">
                                                     <li>
                                                         <Link href="/">Home 1</Link>
                                                     </li>
                                                     <li>
-                                                        <Link href="/index-2">Home 2</Link>
                                                     </li>
                                                     <li>
                                                         <Link href="/index-3">Home 3</Link>
@@ -322,7 +322,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                                                     <li>
                                                         <Link href="/index-4">Home 4</Link>
                                                     </li>
-                                                </ul>
+                                                </ul> */}
                                             </li>
                                             <li>
                                                 <Link href="/page-about">About</Link>

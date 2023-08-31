@@ -1,7 +1,7 @@
 import Layout from "../components/layout/Layout";
 import Link from "next/link"
 import React, { useState } from "react";
-// import ImageUpload from "../components/elements/ImageUpload";
+import ImageUpload from "../components/elements/ImageUpload";
 
 function Account() {
 
@@ -230,7 +230,7 @@ function Account() {
                             </form>
                           </div>
                         </div>
-                        {/* <ImageUpload /> */}
+                        <ImageUpload />
                       </div>
                     </div>
                   </div>
