@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "bootstrap": "^5.1.3",
+        "firebase": "^10.3.0",
         "leaflet": "^1.9.4",
         "mongoose": "^7.4.5",
         "next": "13.4.7",

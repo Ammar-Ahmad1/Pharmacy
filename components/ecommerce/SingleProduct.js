@@ -23,7 +23,7 @@ const SingleProduct = ({ product, addToCart, addToCompare, addToWishlist, openQu
         addToWishlist(product);
         toast("Added to Wishlist !");
     };
-    console.log(product);
+    
     return (
         <>
             <div className="product-cart-wrap mb-30">
@@ -35,7 +35,7 @@ const SingleProduct = ({ product, addToCart, addToCompare, addToWishlist, openQu
                                 alt="nest" />
 
                             <img className="hover-img" src={
-                                product.images? product.images[0]?.img: product.image
+                                product.images? product.images[1]?.img: product.image
                             } alt="nest" />
                         </Link>
                     </div>
@@ -84,8 +84,8 @@ const SingleProduct = ({ product, addToCart, addToCompare, addToWishlist, openQu
 
                     <div className="product-card-bottom">
                         <div className="product-price">
-                            <span>${product.price} </span>
-                            <span className="old-price">{product.oldPrice && `$ ${product.oldPrice}`}</span>
+                            <span>Rs. {product.price} </span>
+                            <span className="old-price">{product.oldPrice && `Rs.  ${product.oldPrice}`}</span>
                             
                         </div>
                         <div className="add-cart">

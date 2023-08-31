@@ -17,7 +17,7 @@ const DiscountSlider = () => {
 
     const fetchProducts = async () => {
         // With Category
-        const allProducts = await fetchByCatagory("/static/product.json");
+        const allProducts = await fetchByCatagory("/api/medicine");
 
         // Discount
         const discountProduct = allProducts.filter(

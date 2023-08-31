@@ -15,10 +15,10 @@ const NewArrival = () => {
 
     const fetchProducts = async () => {
         // With Category
-        const request = await fetch(`${server}/static/product.json`);
+        const request = await fetch(`${server}/api/medicine`);
         const allProducts = await request.json();
 
-        const newArrivalProducts = allProducts.sort(function (a, b) {
+        const newArrivalProducts = allProducts.data.sort(function (a, b) {
             return a.created > b.created ? -1 : 1;
         });
 

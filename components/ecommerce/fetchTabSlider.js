@@ -13,24 +13,24 @@ function FeatchTabSlider() {
     const [newArrival, setNewArrival] = useState([]);
 
     const featuredProduct = async () => {
-        const request = await fetch(`${server}/static/product.json`);
+        const request = await fetch(`${server}/api/medicine`);
         const allProducts = await request.json();
-        const featuedItem = allProducts.filter((item) => item.featured);
+        const featuedItem = allProducts.data.filter((item) => item.featured);
         setFeatured(featuedItem);
         setActive("1");
     };
 
     const trendingProduct = async () => {
-        const request = await fetch(`${server}/static/product.json`);
+        const request = await fetch(`${server}/api/medicine`);
         const allProducts = await request.json();
-        const trendingItem = allProducts.filter((item) => item.trending);
+        const trendingItem = allProducts.data.filter((item) => item.trending);
         setTrending(trendingItem);
         setActive("2");
     };
     const newArrivalProduct = async () => {
-        const request = await fetch(`${server}/static/product.json`);
+        const request = await fetch(`${server}/api/medicine`);
         const allProducts = await request.json();
-        const newArrivalItem = allProducts.sort(function (a, b) {
+        const newArrivalItem = allProducts.data.sort(function (a, b) {
             return a.created > b.created ? -1 : 1;
         });
         setNewArrival(newArrivalItem);

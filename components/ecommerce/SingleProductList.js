@@ -31,8 +31,8 @@ const SingleProductList = ({ product, addToCart, addToCompare, addToWishlist, op
                         <div className="product-img product-img-zoom">
                             <div className="product-img-inner">
                                 <Link href="/[id]" as={`/${product.id}`}>
-                                    <img className="default-img" src={product.images[0].img} alt="nest" />
-                                    <img className="hover-img" src={product.images[1].img} alt="nest" />
+                                    <img className="default-img" src={product.images?product.images[0].img: product.image} alt="nest" />
+                                    <img className="hover-img" src={product.images?product.images[1].img: product.image} alt="nest" />
                                 </Link>
                             </div>
                         </div>
@@ -64,7 +64,7 @@ const SingleProductList = ({ product, addToCart, addToCompare, addToWishlist, op
                     </div>
                     <div className="product-content-wrap">
                         <div className="product-category">
-                            <Link href="/products">{product.brand}</Link>
+                            <Link href="/products">{product.brand||product.Company}</Link>
                         </div>
                         <h2>
                             <Link href="/[id]" as={`/${product.id}`}>
@@ -85,7 +85,7 @@ const SingleProductList = ({ product, addToCart, addToCompare, addToWishlist, op
                             <span className="old-price">{product.oldPrice && `$ ${product.oldPrice}`}</span>
                         </div>
 
-                        <p className="mt-15">{product.desc}</p>
+                        <p className="mt-15">{product.desc||product.Use}</p>
 
                         <div className="mt-30 d-flex align-items-center">
                             <a aria-label="Add To Cart" className="btn" onClick={(e) => handleCart(product)}>

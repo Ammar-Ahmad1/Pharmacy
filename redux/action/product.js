@@ -9,10 +9,9 @@ export const fetchProduct = (searchTerm, url, filters) => async dispatch => {
 
         const sendRequest = await fetch(url)
         const data = await sendRequest.json()
+        window.products = data.data
 
-        window.products = data
-
-        const searchedItems = searchItemsByText(searchTerm, data)
+        const searchedItems = searchItemsByText(searchTerm, data.data)
         const filteredList = filterProductList(searchedItems, filters)
 
         dispatch({
@@ -39,7 +38,7 @@ export const fetchMoreProduct = (url, total) => async dispatch => {
 
         dispatch({
             type: Types.FETCHED_MORE_PRODUCT,
-            payload: { products: data, total }
+            payload: { products: data.data, total }
         })
 
     } catch (error) {
@@ -56,7 +55,7 @@ export const fetchByCatagory = async (url, filters) => {
 
         const sendRequest = await fetch(url)
         const data = await sendRequest.json()
-        const filteredList = filterProductList(data, filters)
+        const filteredList = filterProductList(data.data, filters)
 
         return filteredList
 

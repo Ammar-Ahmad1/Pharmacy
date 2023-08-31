@@ -60,7 +60,7 @@ const Cart = ({ openCart, cartItems, activeCart, closeCart, increaseQuantity, de
 
                                                     <td className="product-des product-name">
                                                         <h6 className="product-name">
-                                                            <Link href="/products">{item.title}</Link>
+                                                            <Link href="/products">{item.title || item.name}</Link>
                                                         </h6>
                                                         <div className="product-rate-cover">
                                                             <div className="product-rate d-inline-block">
@@ -459,7 +459,7 @@ const Cart = ({ openCart, cartItems, activeCart, closeCart, increaseQuantity, de
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <a href="#" className="btn ">
+                                            <a href="/shop-checkout" className="btn ">
                                                 <i className="fi-rs-box-alt mr-10"></i>
                                                 Proceed To CheckOut
                                             </a>

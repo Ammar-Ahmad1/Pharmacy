@@ -29,7 +29,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
     let [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        fetchProduct(searchTerm, "/static/product.json", productFilters);
+        fetchProduct(searchTerm, "/api/medicine", productFilters);
         cratePagination();
     }, [productFilters, limit, pages, products.items.length]);
 

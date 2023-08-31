@@ -14,10 +14,10 @@ const NewArrival2 = () => {
 
     const fetchProducts = async () => {
         // With Category
-        const request = await fetch(`${server}/static/product.json`);
+        const request = await fetch(`${server}/api/medicine`);
         const allProducts = await request.json();
 
-        const newArrivalProducts = allProducts.sort(function (a, b) {
+        const newArrivalProducts = allProducts.data.sort(function (a, b) {
             return a.created > b.created ? -1 : 1;
         });
 
@@ -30,13 +30,13 @@ const NewArrival2 = () => {
                 <article className="row align-items-center hover-up" key={i}>
                     <figure className="col-md-4 mb-0">
                         <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-                            <img src={product.images[0].img} alt="nest" />
+                            <img src={product.images?product.images[0].img:product.image} alt="nest" />
                         </Link>
                     </figure>
                     <div className="col-md-8 mb-0">
                         <h6>
                             <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-                                {product.title}
+                                {product.title||product.name}
                             </Link>
                         </h6>
                         <div className="product-rate-cover">
