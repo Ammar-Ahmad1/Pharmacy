@@ -17,7 +17,7 @@ import StorageWrapper from "../components/ecommerce/storage-wrapper";
 import "../public/assets/css/main.css";
 import store from "../redux/store";
 import Preloader from "./../components/elements/Preloader";
-import { ClerkProvider } from "@clerk/nextjs";
+
 
 function MyApp({ Component, pageProps }) {
 
@@ -41,10 +41,8 @@ function MyApp({ Component, pageProps }) {
             <ReduxProvider store={store}>
                 <StorageWrapper>
                     <Provider>
-                        <ClerkProvider {...pageProps}>
                         <Component {...pageProps} />
                         <ToastContainer />
-                        </ClerkProvider>
                     </Provider>
                 </StorageWrapper>
             </ReduxProvider>

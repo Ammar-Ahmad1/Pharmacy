@@ -25,7 +25,7 @@ function CategoryTab() {
     }
   };
   const catP1 = async () => {
-    const request = await fetch(`${server}/api/medicine`);
+    const request = await fetch(`/api/medicine`);
     const allProducts = await request.json();
     console.log(allProducts);
     const cat1Item = allProducts.data.filter((item) => item.Categories == "Allergy");

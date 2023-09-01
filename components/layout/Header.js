@@ -242,7 +242,9 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                                                        
                                                             <Link href="#">
                                                             <i className="fi fi-rs-sign-out mr-10" onClick={handleLogout}></i>
+                                                            <span onClick={handleLogout}>
                                                             Sign out
+                                                            </span>
                                                             </Link>
                                                     </li>
                                                 </ul>
