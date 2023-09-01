@@ -14,7 +14,7 @@ const NewArrival2 = () => {
 
     const fetchProducts = async () => {
         // With Category
-        const request = await fetch(`${server}/api/medicine`);
+        const request = await fetch(`/api/medicine`);
         const allProducts = await request.json();
 
         const newArrivalProducts = allProducts.data.sort(function (a, b) {

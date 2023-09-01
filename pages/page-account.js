@@ -1,16 +1,33 @@
 import Layout from "../components/layout/Layout";
 import Link from "next/link"
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import ImageUpload from "../components/elements/ImageUpload";
+import {useSession} from "next-auth/react";
+import { useRouter } from "next/router";
 
 function Account() {
-
+  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(1);
-
+  const {data:session} = useSession();
+  const [user, setUser] = useState(null);
   const handleOnClick = (index) => {
     setActiveIndex(index); // remove the curly braces
   };
+  const getUser = async () => {
+    if(session){
+    const res = await fetch(`/api/users/${session.user.id}`);
+    const data = await res.json();
+    console.log(data.data);
+    setUser(data.data);
+  };
+  };
 
+  useEffect(() => {
+    if(!session){
+      router.push("/page-login");
+    }
+    getUser();
+  }, [session]);
 
   return (
     <>
@@ -183,15 +200,15 @@ function Account() {
                                 </div>
                                 <div className="form-group col-md-12">
                                   <label>Display Name <span className="required">*</span></label>
-                                  <input required="" className="form-control" name="dname" type="text" />
+                                  <input required="" className="form-control" name="dname" type="text" value={user?.name}/>
                                 </div>
                                 <div className="form-group col-md-12">
                                   <label>Email Address <span className="required">*</span></label>
-                                  <input required="" className="form-control" name="email" type="email" />
+                                  <input required="" className="form-control" name="email" type="email" value={user?.email}/>
                                 </div>
                                 <div className="form-group col-md-12">
                                   <label>Current Password <span className="required">*</span></label>
-                                  <input required="" className="form-control" name="password" type="password" />
+                                  <input required="" className="form-control" name="password" type="password" value={user?.password}/>
                                 </div>
                                 <div className="form-group col-md-12">
                                   <label>New Password <span className="required">*</span></label>
