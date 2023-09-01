@@ -21,9 +21,15 @@ const UserSchema = new Schema({
     type: String,
 
   },
-  dateOfBirth: {
-    type: Date,
+  phone: {
+    //type is mobile number ie 11 digits
+    type: String,
   },
+  address: {
+    type: String,
+
+  },
+
 
 
 });

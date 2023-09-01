@@ -13,7 +13,7 @@ function FeatchTabSlider() {
     const [newArrival, setNewArrival] = useState([]);
 
     const featuredProduct = async () => {
-        const request = await fetch(`${server}/api/medicine`);
+        const request = await fetch(`/api/medicine`);
         const allProducts = await request.json();
         const featuedItem = allProducts.data.filter((item) => item.featured);
         setFeatured(featuedItem);
@@ -21,14 +21,14 @@ function FeatchTabSlider() {
     };
 
     const trendingProduct = async () => {
-        const request = await fetch(`${server}/api/medicine`);
+        const request = await fetch(`/api/medicine`);
         const allProducts = await request.json();
         const trendingItem = allProducts.data.filter((item) => item.trending);
         setTrending(trendingItem);
         setActive("2");
     };
     const newArrivalProduct = async () => {
-        const request = await fetch(`${server}/api/medicine`);
+        const request = await fetch(`/api/medicine`);
         const allProducts = await request.json();
         const newArrivalItem = allProducts.data.sort(function (a, b) {
             return a.created > b.created ? -1 : 1;

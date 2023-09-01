@@ -24,6 +24,6 @@ if (!firebase.apps.length) {
 
 export default firebase;
 
-export const auth = firebase.auth();
-export const provider = new GoogleAuthProvider();
-export const FBprovider = new FacebookAuthProvider();
+// export const auth = firebase.auth();
+// export const provider = new GoogleAuthProvider();
+// export const FBprovider = new FacebookAuthProvider();

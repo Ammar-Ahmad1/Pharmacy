@@ -1,8 +1,57 @@
+"use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Layout from "../components/layout/Layout";
-
+import { signIn, getProviders,  useSession } from "next-auth/react";
+import { toast, ToastContainer } from "react-toastify";
+import {useRouter} from "next/navigation";
 
 function Login() {
+    const router = useRouter();
+    const { data: session } = useSession();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [providers, setProviders] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        const getProvidersData = async () => {
+            const providers = await getProviders();
+            setProviders(providers);
+        };
+        getProvidersData();
+    }, []);
+    useEffect(() => {
+        if (session) {
+            toast.success("You are already logged in");
+            router.push("/"); // Redirect to home page if logged in
+        }
+    }, [session]);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if(!email || !password){
+            toast.error("Please fill all the fields");
+            return;
+        }
+
+        
+        setLoading(true);
+        const result = await signIn("credentials", {
+            redirect: false,
+            email,
+            password,
+        });
+        if (result.error) {
+            setError(result.error);
+            toast.error(result.error);
+        } else {
+            toast.success("Logged in successfully");
+            router.push("/");
+        }
+        setLoading(false);
+    };
+
     return (
         <>
             <Layout parent="Home" sub="Pages" subChild="Login & Register">
@@ -23,12 +72,12 @@ function Login() {
                                             </div>
                                             <form method="post">
                                                 <div className="form-group">
-                                                    <input type="text" required="" name="email" placeholder="Username or Email *" />
+                                                    <input type="text" required="" name="email" placeholder="Email *" onChange={(e)=>setEmail(e.target.value)}/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <input required="" type="password" name="password" placeholder="Your password *" />
+                                                    <input required="" type="password" name="password" placeholder="Your password *" onChange={(e)=>setPassword(e.target.value)}/>
                                                 </div>
-                                                <div className="login_footer form-group">
+                                                {/* <div className="login_footer form-group">
                                                     <div className="chek-form">
                                                         <input type="text" required="" name="email" placeholder="Security code *" />
                                                     </div>
@@ -38,7 +87,7 @@ function Login() {
                                                         <b className="text-sale">7</b>
                                                         <b className="text-best">5</b>
                                                     </span>
-                                                </div>
+                                                </div> */}
                                                 <div className="login_footer form-group mb-50">
                                                     <div className="chek-form">
                                                         <div className="custome-checkbox">
@@ -49,7 +98,7 @@ function Login() {
                                                     <a className="text-muted" href="#">Forgot password?</a>
                                                 </div>
                                                 <div className="form-group">
-                                                    <button type="submit" className="btn btn-heading btn-block hover-up" name="login">Log in</button>
+                                                    <button type="submit" className="btn btn-heading btn-block hover-up" name="login" onClick={handleSubmit}>Log in</button>
                                                 </div>
                                             </form>
                                         </div>

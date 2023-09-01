@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import CategoryProduct2 from "../ecommerce/Filter/CategoryProduct2";
 import CategoryProduct3 from "../ecommerce/Filter/CategoryProduct3";
 import Search from "../ecommerce/Search";
-
+import {signOut, useSession} from "next-auth/react";
+import { useRouter } from "next/navigation";
+import {toast} from "react-toastify";
 const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistItems }) => {
     const [isToggled, setToggled] = useState(false);
     const [scroll, setScroll] = useState(0);
@@ -17,6 +19,14 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
             }
         });
     });
+    const {data:session} = useSession();
+    const router = useRouter();
+    const handleLogout = async () => {
+
+        await signOut();
+        toast.success("Logged out successfully");
+        router.push("/");
+    };
 
     const handleToggle = () => setToggled(!isToggled);
 
@@ -188,7 +198,8 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                                             </Link>
                                         </div>
 
-                                        <div className="header-action-icon-2">
+                                        {session?.user?.id &&
+                                            <div className="header-action-icon-2">
                                             <Link href="/page-account">
                                                 <img className="svgInject" alt="Nest" src="/assets/imgs/theme/icons/icon-user.svg" />
                                             </Link>
@@ -228,14 +239,15 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                                                         </Link>
                                                     </li>
                                                     <li>
-                                                        <Link href="/page-login">
-                                                            <i className="fi fi-rs-sign-out mr-10"></i>
+                                                       
+                                                            <Link href="#">
+                                                            <i className="fi fi-rs-sign-out mr-10" onClick={handleLogout}></i>
                                                             Sign out
-                                                        </Link>
+                                                            </Link>
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div>}
                                     </div>
                                 </div>
                             </div>
