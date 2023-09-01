@@ -33,6 +33,11 @@ const ThumbSlider = ({ product }) => {
                         /> */}
                     </SwiperSlide>
                 ))}
+                <SwiperSlide>
+                        <img src={product.image} />
+                        
+                    </SwiperSlide>
+
             </Swiper>
             <Swiper
                 onSwiper={setThumbsSwiper}
@@ -50,17 +55,19 @@ const ThumbSlider = ({ product }) => {
                         </SwiperSlide>
                     ))):(
                         <SwiperSlide>
-                            <img src="https://lh3.googleusercontent.com/a/AAcHTtci6RJekFINCdibq0iNLKa9rfOSIFl04lh86s2ITxUu=s96-c" />
+                            <img src={product.image} />
                         </SwiperSlide>
                     )
 
 
                 }
-                {/* {product.gallery?.map((item) => (
-                    <SwiperSlide>
-                        <img src={item.thumb} />
+                 <SwiperSlide>
+                        <img src={product.image} />
+                        
                     </SwiperSlide>
-                ))} */}
+                {/* {product.gallery?.map((item) => (
+                   
+                // ))} */}
             </Swiper>
         </div>
     );

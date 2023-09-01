@@ -319,7 +319,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                                                 <Link href="/products">Hot Deals</Link>
                                             </li>
                                             <li>
-                                                <Link href="/index">Home</Link>
+                                                <Link href="/">Home</Link>
                                                 {/* <Link href="/" className="active">
                                                     Home
                                                     <i className="fi-rs-angle-down"></i>
