@@ -35,7 +35,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-1.svg"
                             alt="nest"
                         />
-                        Milks & Dairies
+                        Anti-infective
                     </a>
 
                 </li>
@@ -45,7 +45,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-2.svg"
                             alt="nest"
                         />
-                        Clothing
+                        Anti epileptic
                     </a>
 
                 </li>
@@ -55,7 +55,8 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-3.svg"
                             alt="nest"
                         />
-                        Pet Foods{" "}
+                        A1imentary Tract &
+                        Metabolism
                     </a>
 
                 </li>
@@ -65,7 +66,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-4.svg"
                             alt="nest"
                         />
-                        Baking material
+                        Dermatologicals
                     </a>
 
                 </li>
@@ -75,7 +76,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-5.svg"
                             alt="nest"
                         />
-                        Fresh Fruit
+                        Sensory Organs
                     </a>
                 </li>
             </ul>
