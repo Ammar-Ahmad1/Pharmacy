@@ -102,6 +102,10 @@ const ProductDetails = ({
                         <span className="save-price mr-15">Medicine Brand:</span>
                         <span className="font-lg">{product.Company}</span>
                       </div>
+                      <div className="mb-4">
+                        <span className="save-price mr-15">Type:</span>
+                        <span className="font-lg">{product.Type}</span>
+                      </div>
 
                       <div className="short-desc mb-30">
                         <p className="font-lg">{product.Use}</p>

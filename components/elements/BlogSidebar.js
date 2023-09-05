@@ -18,19 +18,19 @@ const BlogSidebar = () => {
                     <h5 className="section-title style-1 mb-30">Category</h5>
                     <ul>
                         <li>
-                            <Link href="/products"> <img src="/assets/imgs/theme/icons/category-1.svg" alt="nest" />Milks & Dairies</Link><span className="count">30</span>
+                            <Link href="/products"> <img src="/assets/imgs/theme/icons/category-1.svg" alt="nest" />Anti-infective</Link><span className="count">30</span>
                         </li>
                         <li>
-                            <Link href="/products"> <img src="/assets/imgs/theme/icons/category-2.svg" alt="nest" />Clothing</Link><span className="count">35</span>
+                            <Link href="/products"> <img src="/assets/imgs/theme/icons/category-2.svg" alt="nest" />Anti epileptic</Link><span className="count">35</span>
                         </li>
                         <li>
-                            <Link href="/products"> <img src="/assets/imgs/theme/icons/category-3.svg" alt="nest" />Pet Foods</Link><span className="count">42</span>
+                            <Link href="/products"> <img src="/assets/imgs/theme/icons/category-5.svg" alt="nest" />Alimentary Tract & Metabolism</Link><span className="count">87</span>
                         </li>
                         <li>
-                            <Link href="/products"> <img src="/assets/imgs/theme/icons/category-4.svg" alt="nest" />Baking material</Link><span className="count">68</span>
+                            <Link href="/products"> <img src="/assets/imgs/theme/icons/category-3.svg" alt="nest" />Dermatologicals</Link><span className="count">42</span>
                         </li>
                         <li>
-                            <Link href="/products"> <img src="/assets/imgs/theme/icons/category-5.svg" alt="nest" />Fresh Fruit</Link><span className="count">87</span>
+                            <Link href="/products"> <img src="/assets/imgs/theme/icons/category-4.svg" alt="nest" />Sensory Organs</Link><span className="count">68</span>
                         </li>
                     </ul>
                 </div>

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Layout from "../components/layout/Layout";
 import React, { useState, useEffect } from "react";
-import { signIn, getProviders } from "next-auth/react";
+import { signIn, getProviders,useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import OtpInput from "react18-input-otp";
 import AuthCode from "react-auth-code-input";
@@ -20,6 +20,14 @@ function Privacy() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("customer");
   const [verificationId, setVerificationId] = useState("");
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      toast.success("You are already registered");
+      router.push("/"); // Redirect to home page if logged in
+    }
+  }, [session]);
 
   useEffect(() => {
     (async () => {
@@ -48,7 +56,7 @@ function Privacy() {
     }
 
     if (password === confirmPassword) {
-      console.log(name, email, password, role,phone);
+      console.log(name, email, password, role, phone);
       fetch("http://localhost:3000/api/users/register", {
         method: "POST",
         headers: {
@@ -88,7 +96,7 @@ function Privacy() {
   // this is coming from react-otp-input package
   const [otp, setOtp] = useState("");
 
-  const handleNextForm = async(e) => {
+  const handleNextForm = async (e) => {
     e.preventDefault();
     if (!codeOTP) {
       toast.error("Please Enter OTP");
@@ -109,9 +117,9 @@ function Privacy() {
           code: codeOTP,
         }),
       });
-  
+
       const data = await response.json();
-  
+
       if (data.success) {
         toast.success("Verification successful!");
         setRecievedOTP(true);
@@ -133,7 +141,7 @@ function Privacy() {
     handleSendCode();
   };
 
-  
+
   const handleSendCode = async () => {
     if (!isValid) {
       toast.error("Please enter a valid phone number");
@@ -165,7 +173,7 @@ function Privacy() {
     }
   };
 
-  
+
   const handlePhoneNumberChange = (e) => {
     const phoneNumber = e.target.value;
     const regex = /^[0-9\b]+$/;
@@ -256,11 +264,11 @@ function Privacy() {
                                   />
                                 </div>
                                 <div
-                                  
+
                                   className="form-group mb-30"
                                 >
                                   <button
-                                  id="recaptcha-container"
+                                    id="recaptcha-container"
                                     className="btn btn-fill-out btn-block hover-up font-weight-bold"
                                     onClick={(e) => handleNextForm(e)}
                                   >
@@ -272,7 +280,7 @@ function Privacy() {
                             )}
                           </form>
                         )}
-                       
+
                         {/* After OTP */}
                         {recievedOTP && (
                           <form method="post">
@@ -437,7 +445,7 @@ function Privacy() {
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
       </Layout>
