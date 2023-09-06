@@ -13,7 +13,7 @@ const ProductId = ({initialProduct}) => {
     useEffect(() => {
       // Fetch and update the product data whenever the route changes
       const fetchProductData = async () => {
-        const res = await fetch(`http://localhost:3000/api/medicine`);
+        const res = await fetch(`/api/medicine`);
         const newProduct = await res.json();
         const index = findProductIndex(newProduct.data, router.query.slug);
         setProduct(newProduct.data[index]);
@@ -38,7 +38,7 @@ const ProductId = ({initialProduct}) => {
 
 ProductId.getInitialProps = async (params) => {
     
-    const req= await fetch(`http://localhost:3000/api/medicine`, {
+    const req= await fetch(`/api/medicine`, {
         method: "GET",
     }
 
