@@ -1,6 +1,6 @@
 // Delete Product from List By Id
 export const deleteProduct = (list, id) => {
-    const filter = list.filter((item) => item.id !== id);
+    const filter = list.filter((item) => item._id !== id);
     return filter;
   };
   
@@ -10,7 +10,7 @@ export const deleteProduct = (list, id) => {
     return index;
   };
   export const findProductIndexById = (list, id) => {
-    const index = list.findIndex((item) => item.id === id);
+    const index = list.findIndex((item) => item._id === id);
     return index;
   };
   

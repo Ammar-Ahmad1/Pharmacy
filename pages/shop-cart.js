@@ -75,26 +75,26 @@ const Cart = ({ openCart, cartItems, activeCart, closeCart, increaseQuantity, de
                                                         </div>
                                                     </td>
                                                     <td className="price" data-title="Price">
-                                                        <h4 className="text-brand">${item.price}</h4>
+                                                        <h4 className="text-brand">Rs.{item.price}</h4>
                                                     </td>
                                                     <td className="text-center detail-info" data-title="Stock">
                                                         <div className="detail-extralink mr-15">
                                                             <div className="detail-qty border radius ">
-                                                                <a onClick={(e) => decreaseQuantity(item.id)} className="qty-down">
+                                                                <a onClick={(e) => decreaseQuantity(item._id)} className="qty-down">
                                                                     <i className="fi-rs-angle-small-down"></i>
                                                                 </a>
                                                                 <span className="qty-val">{item.quantity}</span>
-                                                                <a onClick={(e) => increaseQuantity(item.id)} className="qty-up">
+                                                                <a onClick={(e) => increaseQuantity(item._id)} className="qty-up">
                                                                     <i className="fi-rs-angle-small-up"></i>
                                                                 </a>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td className="text-right" data-title="Cart">
-                                                        <h4 className="text-body">${item.quantity * item.price}</h4>
+                                                        <h4 className="text-body">Rs.{item.quantity * item.price}</h4>
                                                     </td>
                                                     <td className="action" data-title="Remove">
-                                                        <a onClick={(e) => deleteFromCart(item.id)} className="text-muted">
+                                                        <a onClick={(e) => deleteFromCart(item._id)} className="text-muted">
                                                             <i className="fi-rs-trash"></i>
                                                         </a>
                                                     </td>
@@ -438,7 +438,7 @@ const Cart = ({ openCart, cartItems, activeCart, closeCart, increaseQuantity, de
                                                         <tr>
                                                             <td className="cart_total_label">Cart Subtotal</td>
                                                             <td className="cart_total_amount">
-                                                                <span className="font-lg fw-900 text-brand">$ {price()}</span>
+                                                                <span className="font-lg fw-900 text-brand">Rs. {price()}</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -452,7 +452,7 @@ const Cart = ({ openCart, cartItems, activeCart, closeCart, increaseQuantity, de
                                                             <td className="cart_total_label">Total</td>
                                                             <td className="cart_total_amount">
                                                                 <strong>
-                                                                    <span className="font-xl fw-900 text-brand">${price()}</span>
+                                                                    <span className="font-xl fw-900 text-brand">Rs. {price()}</span>
                                                                 </strong>
                                                             </td>
                                                         </tr>

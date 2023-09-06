@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
             };
 
         case Types.ADD_TO_COMPARE:
-            index = findProductIndexById(state.items, action.payload.product.id);
+            index = findProductIndexById(state.items, action.payload.product._id);
             if (index !== -1) return state;
 
             const items = [...state.items, action.payload.product];

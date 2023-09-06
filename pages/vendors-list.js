@@ -120,7 +120,7 @@ const Blank = () => {
                                         </div>
                                         <div className="vendor-img-action-wrap">
                                             <div className="vendor-img">
-                                                <Link href={`vendor/${item.id}`}>
+                                                <Link href={`vendor/${item._id}`}>
                                                     <img className="default-img" src={`assets/imgs/vendor/${item.img}`} alt="nest" />
                                                 </Link>
                                             </div>
@@ -135,7 +135,7 @@ const Blank = () => {
                                                     <span className="text-muted">Since 2012</span>
                                                 </div>
                                                 <h4 className="mb-5">
-                                                    <Link href={`vendor/${item.id}`}>{item.title}</Link>
+                                                    <Link href={`vendor/${item._id}`}>{item.title}</Link>
                                                 </h4>
 
                                                 <div className="product-rate-cover">
@@ -156,7 +156,7 @@ const Blank = () => {
                                                             <span>(+91) - 540-025-124553</span>
                                                         </li>
                                                     </ul>
-                                                    <Link href={`vendor/${item.id}`} className="btn btn-xs">
+                                                    <Link href={`vendor/${item._id}`} className="btn btn-xs">
                                                         Visit Store <i className="fi-rs-arrow-small-right"></i>
                                                     </Link>
                                                 </div>

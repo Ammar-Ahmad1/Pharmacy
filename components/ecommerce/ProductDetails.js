@@ -40,10 +40,9 @@ const ProductDetails = ({
     toast("Added to Wishlist !");
   };
 
-  const inCart = cartItems.find((cartItem) => cartItem.id === product.id);
+  const inCart = cartItems.find((cartItem) => cartItem._id === product._id);
 
-  console.log(inCart);
-
+  
   // Size Selection
   // const [selectedSize, setSelectedSize] = useState('');
 
@@ -85,7 +84,7 @@ const ProductDetails = ({
                       </div>
                       <div className="clearfix product-price-cover">
                         <div className="product-price primary-color float-left">
-                          <span className="current-price text-brand">${product.price}</span>
+                          <span className="current-price text-brand">Rs. {product.price}</span>
                           <span>
                             <span className="save-price font-md color3 ml-15">{product.discount?.percentage}% Off</span>
                             <span className="old-price font-md ml-15">{product.oldPrice ? `$ ${product.oldPrice}` : null}</span>
@@ -104,7 +103,7 @@ const ProductDetails = ({
                       </div>
                       <div className="mb-4">
                         <span className="save-price mr-15">Type:</span>
-                        <span className="font-lg">{product.Type}</span>
+                        <span className="font-lg">{product.type}</span>
                       </div>
 
                       <div className="short-desc mb-30">
@@ -164,11 +163,11 @@ const ProductDetails = ({
                       <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                       <div className="detail-extralink">
                         <div className="detail-qty border radius">
-                          <a onClick={(e) => (!inCart ? setQuantity(quantity > 1 ? quantity - 1 : 1) : decreaseQuantity(product?.id))} className="qty-down">
+                          <a onClick={(e) => (!inCart ? setQuantity(quantity > 1 ? quantity - 1 : 1) : decreaseQuantity(product._id))} className="qty-down">
                             <i className="fi-rs-angle-small-down"></i>
                           </a>
                           <span className="qty-val">{inCart?.quantity || quantity}</span>
-                          <a onClick={() => (!inCart ? setQuantity(quantity + 1) : increaseQuantity(product.id))} className="qty-up">
+                          <a onClick={() => (!inCart ? setQuantity(quantity + 1) : increaseQuantity(product._id))} className="qty-up">
                             <i className="fi-rs-angle-small-up"></i>
                           </a>
                         </div>
@@ -193,16 +192,16 @@ const ProductDetails = ({
                         </div>
                       </div>
                       <ul className="product-meta font-xs color-grey mt-50">
-                        <li className="mb-5">
-                          SKU:
-                          <a href="#">FWM15VKT</a>
-                        </li>
-                        <li className="mb-5">
-                          Tags:
-                          <a href="#" rel="tag" className="me-1">
-                            Cloth,
-                          </a>
-                        </li>
+                          {/* <li className="mb-5">
+                            SKU:
+                            <a href="#">FWM15VKT</a>
+                          </li>
+                          <li className="mb-5">
+                            Tags:
+                            <a href="#" rel="tag" className="me-1">
+                              Cloth,
+                            </a>
+                          </li> */}
                         <li>
                           Availability:
                           <span className="in-stock text-success ml-5">{product.stock} Items In Stock</span>
@@ -211,10 +210,25 @@ const ProductDetails = ({
                     </div>
                   </div>
                 </div>
+                            {
+                              product.stock === 0 ? (<div className="row mt-60">
+                              <div className="col-12">
+                                <h3 className="section-title style-1 mb-30">Similar products</h3>
+                              </div>
+                              <div className="col-12">
+                                <div className="row related-products position-relative">
+                                  <RelatedSlider />
+                                </div>
+                              </div>
+                            </div>
+                            ) : null
 
+                            }
                 {quickView ? null : (
                   <>
-                    <ProductTab />
+                    <ProductTab 
+                    product={product}
+                    />
                     <div className="row mt-60">
                       <div className="col-12">
                         <h3 className="section-title style-1 mb-30">Related products</h3>

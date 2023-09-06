@@ -29,7 +29,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
     return (
         <>
             <ul>
-                <li onClick={(e) => selectCategory(e, "jeans")}>
+                <li onClick={(e) => selectCategory(e, "Anti-infective")}>
                     <a>
                         <img
                             src="/assets/imgs/theme/icons/category-1.svg"
@@ -39,7 +39,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                     </a>
 
                 </li>
-                <li onClick={(e) => selectCategory(e, "shoe")}>
+                <li onClick={(e) => selectCategory(e, "Anti-epileptic")}>
                     <a>
                         <img
                             src="/assets/imgs/theme/icons/category-2.svg"
@@ -49,7 +49,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                     </a>
 
                 </li>
-                <li onClick={(e) => selectCategory(e, "jacket")}>
+                <li onClick={(e) => selectCategory(e, "A1imentary-Tract-&-Metabolism")}>
                     <a>
                         <img
                             src="/assets/imgs/theme/icons/category-3.svg"
@@ -60,7 +60,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                     </a>
 
                 </li>
-                <li onClick={(e) => selectCategory(e, "trousers")}>
+                <li onClick={(e) => selectCategory(e, "Dermatologicals")}>
                     <a>
                         <img
                             src="/assets/imgs/theme/icons/category-4.svg"
@@ -70,7 +70,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                     </a>
 
                 </li>
-                <li onClick={(e) => selectCategory(e, "accessories")}>
+                <li onClick={(e) => selectCategory(e, "Sensory Organs")}>
                     <a>
                         <img
                             src="/assets/imgs/theme/icons/category-5.svg"

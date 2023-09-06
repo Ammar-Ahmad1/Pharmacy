@@ -30,7 +30,7 @@ const SingleProductList = ({ product, addToCart, addToCompare, addToWishlist, op
                     <div className="product-img-action-wrap">
                         <div className="product-img product-img-zoom">
                             <div className="product-img-inner">
-                                <Link href="/[id]" as={`/${product.id}`}>
+                                <Link href="/[id]" as={`/${product._id}`}>
                                     <img className="default-img" src={product.images?product.images[0].img: product.image} alt="nest" />
                                     <img className="hover-img" src={product.images?product.images[1].img: product.image} alt="nest" />
                                 </Link>
@@ -67,7 +67,7 @@ const SingleProductList = ({ product, addToCart, addToCompare, addToWishlist, op
                             <Link href="/products">{product.brand||product.Company}</Link>
                         </div>
                         <h2>
-                            <Link href="/[id]" as={`/${product.id}`}>
+                            <Link href="/[id]" as={`/${product._id}`}>
                                 {product.title}
                             </Link>
                         </h2>

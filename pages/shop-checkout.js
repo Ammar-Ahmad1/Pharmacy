@@ -8,7 +8,8 @@ import {
     increaseQuantity,
     openCart
 } from "../redux/action/cart";
-
+import {toast} from "react-toastify";
+import {useSession} from "next-auth/react";
 const Cart = ({
     openCart,
     cartItems,
@@ -19,11 +20,22 @@ const Cart = ({
     deleteFromCart,
     clearCart,
 }) => {
+    const {data: session} = useSession();
     const price = () => {
         let price = 0;
         cartItems.forEach((item) => (price += item.price * item.quantity));
 
         return price;
+    };
+    const placeOrder = () => {
+        if(session){
+            console.log(cartItems);
+            console.log(session.user.email);
+            console.log(session.user.name);
+        }
+        else{
+            toast.error("Please login first");
+        }
     };
 
     return (
@@ -1913,7 +1925,7 @@ const Cart = ({
                                                             </td>
                                                             <td>
                                                                 <h4 className="text-brand">
-                                                                    $$
+                                                                    Rs.
                                                                     {item.quantity *
                                                                         item.price}
                                                                 </h4>
@@ -2030,6 +2042,7 @@ const Cart = ({
                                     <a
                                         href="#"
                                         className="btn btn-fill-out btn-block mt-30"
+                                        onClick={placeOrder}
                                     >
                                         Place Order
                                     </a>

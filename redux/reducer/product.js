@@ -35,10 +35,10 @@ export default (state = { items: [] }, action) => {
             };
 
         case Types.DELETE_PRODUCT:
-            return deleteProduct(state, action.payload.id);
+            return deleteProduct(state, action.payload._id);
 
         case Types.UPDATE_PRODUCT:
-            const index = findProductIndexById(state, action.payload.product.id);
+            const index = findProductIndexById(state, action.payload.product._id);
             state[index] = action.payload.product;
 
             return { ...state };

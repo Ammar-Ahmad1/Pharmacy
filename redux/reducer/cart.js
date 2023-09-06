@@ -10,7 +10,7 @@ export default (state = [], action) => {
             return [...action.payload.cart];
 
         case Types.ADD_TO_CART:
-            index = findProductIndexById(state, action.payload.product.id);
+            index = findProductIndexById(state, action.payload.product._id);
 
             if (index !== -1) {
                 state[index].quantity += 1;

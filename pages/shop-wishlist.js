@@ -147,7 +147,7 @@ const Wishlist = ({
                                                                         e
                                                                     ) =>
                                                                         deleteFromWishlist(
-                                                                            product.id
+                                                                            product._id
                                                                         )
                                                                     }
                                                                 >

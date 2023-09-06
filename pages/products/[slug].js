@@ -1,11 +1,28 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import ProductDetails from "../../components/ecommerce/ProductDetails";
 import Layout from '../../components/layout/Layout';
+import { toast } from "react-toastify";
 import { server } from "../../config/index";
+import { useRouter } from "next/router";
 import { findProductIndex } from "../../util/util";
 
-const ProductId = ({ product }) => {
-    console.log(product);
+const ProductId = ({initialProduct}) => {
+    const [product, setProduct] = useState(initialProduct);
+    const router = useRouter();
+  
+    useEffect(() => {
+      // Fetch and update the product data whenever the route changes
+      const fetchProductData = async () => {
+        const res = await fetch(`http://localhost:3000/api/medicine`);
+        const newProduct = await res.json();
+        const index = findProductIndex(newProduct.data, router.query.slug);
+        setProduct(newProduct.data[index]);
+        // setProduct(newProduct);
+      };
+  
+      fetchProductData();
+    }, [router.query.slug]);
+    
     return (
         <>
         <Layout parent="Home" sub="Shop" subChild={product.name}>
@@ -21,21 +38,16 @@ const ProductId = ({ product }) => {
 
 ProductId.getInitialProps = async (params) => {
     
-    const req= await fetch(`api/medicine`);
+    const req= await fetch(`http://localhost:3000/api/medicine`, {
+        method: "GET",
+    }
+
+        );
     const allProducts = await req.json();
-    console.log(allProducts)
     const all = allProducts.data;
-    all.filter((item) => item.Slug == params.query.slug);
-
-    return { product: all[0] }; 
-    
-    // const request = await fetch(`${server}/static/product.json`);
-    // const data = await request.json();
-    
-    // const index = findProductIndex(data, params.query.slug);
-    // // console.log(params);
-
-    // return { product: data[index] };
+    const index = findProductIndex(all, params.query.slug);
+    return { initialProduct: all[index] }; 
 };
+
 
 export default ProductId;

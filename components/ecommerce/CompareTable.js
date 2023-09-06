@@ -101,7 +101,7 @@ const CompareTable = ({ data, features, deleteFromCompare, addToCart }) => {
                                 <td className="row_remove">
                                     <a
                                         onClick={() =>
-                                            deleteFromCompare(product.id)
+                                            deleteFromCompare(product._id)
                                         }
                                     >
                                         <i className="fi-rs-trash mr-5"></i>

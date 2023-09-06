@@ -34,7 +34,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
 
     useEffect(() => {
         fetchProduct(searchTerm, "/api/medicine", productFilters);
-        setSingleStore(data.find((data) => data.id == id));
+        setSingleStore(data.find((data) => data._id == id));
         cratePagination();
     }, [productFilters, limit, pages, products.items.length, id]);
 

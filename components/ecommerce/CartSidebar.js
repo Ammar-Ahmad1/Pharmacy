@@ -76,7 +76,7 @@ const CartSidebar = ({
                                                 <span
                                                     onClick={(e) =>
                                                         decreaseQuantity(
-                                                            item.id
+                                                            item._id
                                                         )
                                                     }
                                                 >
@@ -86,7 +86,7 @@ const CartSidebar = ({
                                                 <span
                                                     onClick={(e) =>
                                                         increaseQuantity(
-                                                            item.id
+                                                            item._id
                                                         )
                                                     }
                                                 >
@@ -100,7 +100,7 @@ const CartSidebar = ({
                                         <span
                                             className="ml-2"
                                             onClick={(e) =>
-                                                deleteFromCart(item.id)
+                                                deleteFromCart(item._id)
                                             }
                                         >
                                             <button>Delete</button>
