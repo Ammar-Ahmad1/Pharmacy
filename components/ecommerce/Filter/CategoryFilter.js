@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { updateProductCategory } from "../../../redux/action/productFiltersAction";
+// import { updateProductCategory } from "../../../redux/action/productFiltersAction";
+import {updateProductCategory} from "@redux/action/productFiltersAction"
 
 const CategoryFilter = ({ updateProductCategory }) => {
     const [active, setActive] = useState(0);

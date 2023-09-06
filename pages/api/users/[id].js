@@ -43,8 +43,10 @@
 //             .json({ success: false, message: "Method not allowed" });
 //     }
 // }
-import User from "../../../models/user";
-import { connectToDB } from "../../../config/database";
+// import User from "../../../models/user";
+import User from "@models/user.js"
+import {connectToDB} from '@config/database.js'
+// import { connectToDB } from "../../../config/database";
 
 export default async function handler(req, res) {
     if (req.method === "GET") {

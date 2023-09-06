@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { updateProductRating } from "../../../redux/action/productFiltersAction";
-
+import {updateProductRating} from "@redux/action/productFiltersAction"
 const Rating = ({ updateProductRating }) => {
     const ratings = [
         { value: "" },

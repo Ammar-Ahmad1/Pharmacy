@@ -1,5 +1,5 @@
-import { connectToDB } from "../../../config/database.js";
-import User from "../../../models/user.js";
+import { connectToDB } from "@config/database.js";
+import User from "@models/user.js";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {

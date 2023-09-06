@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
-import { updateProductCategory } from "../../../redux/action/productFiltersAction";
+// import { updateProductCategory } from "../../../redux/action/productFiltersAction";
+import {updateProductCategory} from "@redux/action/productFiltersAction"
 
 const CategoryProduct3 = ({ updateProductCategory }) => {
 
