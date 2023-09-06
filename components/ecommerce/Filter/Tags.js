@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { updateProductFilters } from "../../../redux/action/productFiltersAction";
+// import { updateProductFilters } from "../../../redux/action/productFiltersAction";
+import {updateProductFilters} from "@redux/action/productFiltersAction"
 
 const Tags = ({ updateProductFilters }) => {
     const router = useRouter();

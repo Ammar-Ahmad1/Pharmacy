@@ -1,5 +1,7 @@
-import {connectToDB} from '../../../config/database.js'
-import User from '../../../../models/user.js'
+// import {connectToDB} from '../../../config/database.js'
+import {connectToDB} from '@config/database.js'
+// import User from '../../../../models/user.js'
+import User from '@models/user.js'
 
 export const POST = async (req, res) => {
     const {email,password} = await req.json();

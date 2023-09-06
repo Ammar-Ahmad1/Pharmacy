@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { updateProductFilters } from "../../../redux/action/productFiltersAction";
-
+import {updateProductFilters} from "@redux/action/productFiltersAction"
 const SizeFilter = ({ updateProductFilters }) => {
     // console.log(updateProductFilters);
 

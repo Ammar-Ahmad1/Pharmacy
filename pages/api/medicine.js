@@ -1,5 +1,6 @@
-import Medicine from "../../models/medicine"; // Adjust the path accordingly
-import { connectToDB } from "../../config/database";
+import {connectToDB} from '@config/database.js'
+import Medicine from '@models/medicine.js'
+
 
 const handler = async (req, res) => {
     const { method } = req;
