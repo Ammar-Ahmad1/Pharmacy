@@ -52,10 +52,8 @@ const Wishlist = ({
                                                         <tr className="pt-30" key={i}>
                                                             <td className="image product-thumbnail pt-40">
                                                                 <img
-                                                                    src={
-                                                                        product
-                                                                            .images[0]
-                                                                            .img
+                                                                    src={   
+                                                                        product.image
                                                                     }
                                                                     alt="nest"
                                                                     className="img-fluid"
@@ -66,7 +64,7 @@ const Wishlist = ({
                                                                 <h6 className="product-name  mb-10">
                                                                     <a>
                                                                         {
-                                                                            product.title
+                                                                            product.name
                                                                         }
                                                                     </a>
                                                                 </h6>
@@ -90,7 +88,7 @@ const Wishlist = ({
                                                                 data-title="Price"
                                                             >
                                                                 <h3 className="text-brand">
-                                                                    $
+                                                                    Rs.
                                                                     {
                                                                         product.price
                                                                     }
