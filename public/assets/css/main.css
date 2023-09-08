@@ -8935,6 +8935,12 @@ span.fi-rs-apps {
     font-size: 14px;
 }
 
+.button.active {
+    /* Define the styling for the active button here */
+    background-color: #007bff; /* Change to your desired color */
+    color: #fff; /* Change to your desired color */
+}
+
 .sidebar-widget .banner-img {
     float: none;
 }

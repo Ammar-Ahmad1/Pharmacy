@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import {
   addToCart,
   decreaseQuantity,
-  increaseQuantity
+  increaseQuantity,
 } from "../../redux/action/cart";
 import { addToCompare } from "../../redux/action/compareAction";
 import { addToWishlist } from "../../redux/action/wishlistAction";
@@ -24,7 +24,6 @@ const ProductDetails = ({
 }) => {
   const [quantity, setQuantity] = useState(1);
 
-
   const handleCart = (product) => {
     addToCart(product);
     toast("Product added to Cart !");
@@ -42,15 +41,18 @@ const ProductDetails = ({
 
   const inCart = cartItems.find((cartItem) => cartItem._id === product._id);
 
-  
   // Size Selection
   // const [selectedSize, setSelectedSize] = useState('');
 
   // const handleSizeChange = (event) => {
   //   setSelectedSize(event.target.value);
   // };
+  const [activeButton, setActiveButton] = useState('Packs'); // Initialize the active button
 
-
+  // Function to handle button click and update activeButton state
+  const handleButtonClick = (buttonType) => {
+    setActiveButton(buttonType);
+  };
   return (
     <>
       <section className="mt-50 mb-50">
@@ -77,28 +79,54 @@ const ProductDetails = ({
                       <div className="product-detail-rating">
                         <div className="product-rate-cover text-end">
                           <div className="product-rate d-inline-block">
-                            <div className="product-rating" style={{ width: "90%" }}></div>
+                            <div
+                              className="product-rating"
+                              style={{ width: "90%" }}
+                            ></div>
                           </div>
-                          <span className="font-small ml-5 text-muted"> (31 reviews)</span>
+                          <span className="font-small ml-5 text-muted">
+                            {" "}
+                            (31 reviews)
+                          </span>
                         </div>
                       </div>
                       <div className="clearfix product-price-cover">
                         <div className="product-price primary-color float-left">
-                          <span className="current-price text-brand">Rs. {product.price}</span>
+                          <span className="current-price text-brand">
+                            Rs.{
+                              product.type === "Tablet" && activeButton === "Strips"
+                                ? product.price/product.strips[0]?.stripCountInPack
+                                : product.type === "Tablet" && activeButton === "Packs"
+                                ? product.price
+                                : product.price
+
+                            } 
+                            {/* Rs. {product.price} */}
+                          </span>
                           <span>
-                            <span className="save-price font-md color3 ml-15">{product.discount?.percentage}% Off</span>
-                            <span className="old-price font-md ml-15">{product.oldPrice ? `$ ${product.oldPrice}` : null}</span>
+                            <span className="save-price font-md color3 ml-15">
+                              {product.discount?.percentage}% Off
+                            </span>
+                            <span className="old-price font-md ml-15">
+                              {product.oldPrice
+                                ? `$ ${product.oldPrice}`
+                                : null}
+                            </span>
                           </span>
                         </div>
                       </div>
 
                       <div className="mb-2">
-                        <span className="save-price font-lg mr-15">Formula/Salt:</span>
+                        <span className="save-price font-lg mr-15">
+                          Formula/Salt:
+                        </span>
                         <span className="font-md ml-4">{product.Salt}</span>
                       </div>
 
                       <div className="mb-4">
-                        <span className="save-price mr-15">Medicine Brand:</span>
+                        <span className="save-price mr-15">
+                          Medicine Brand:
+                        </span>
                         <span className="font-lg">{product.Company}</span>
                       </div>
                       <div className="mb-4">
@@ -110,64 +138,53 @@ const ProductDetails = ({
                         <p className="font-lg">{product.Use}</p>
                       </div>
 
-                      {/* <div className="attr-detail attr-color mb-15">
-                        <strong className="mr-10">Color</strong>
-                        <ul className="list-filter color-filter">
-                          {product.variations.map((clr, i) => (
-                            <li key={i}>
-                              <a href="#">
-                                <span className={`product-color-${clr}`}></span>
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div> */}
-                      {/* <div className="attr-detail attr-size">
-                        <strong className="mr-10">Size</strong>
-                        <ul className="list-filter size-filter font-small">
-                          <li className="active">
-                            <a>M</a>
-                          </li>
-                          <li>
-                            <a>L</a>
-                          </li>
-                          <li>
-                            <a>XL</a>
-                          </li>
-                          <li>
-                            <a>XXL</a>
-                          </li>
-                        </ul>
+                      {product.type === 'Tablet' ? (
+        <div className="mb-4">
+          <button
+            className={`button button-outline button-primary ${
+              activeButton === 'Strips' ? 'active' : ''
+            }`}
+            onClick={() => handleButtonClick('Strips')}
+          >
+            Strips
+          </button>
+          <button
+            className={`button button-outline button-primary ${
+              activeButton === 'Packs' ? 'active' : ''
+            }`}
+            onClick={() => handleButtonClick('Packs')}
+            style={{ marginLeft: '10px', marginRight: '10px' }}
+          >
+            Packs
+          </button>
+        </div>
+      ) : null}
 
-                        <div>
-                          <h2>Select Size:</h2>
-                          <div className="btn-group btn-group-toggle list-filter size-filter font-small" data-toggle="buttons">
-                            <label className={`${selectedSize === 'S' ? 'active' : ''}`}>
-                              <input type="radio" value="S" onChange={handleSizeChange} /> S
-                            </label>
-                            <label className={`${selectedSize === 'M' ? 'active' : ''}`}>
-                              <input type="radio" value="M" onChange={handleSizeChange} /> M
-                            </label>
-                            <label className={`${selectedSize === 'L' ? 'active' : ''}`}>
-                              <input type="radio" value="L" onChange={handleSizeChange} /> L
-                            </label>
-                            <label className={`${selectedSize === 'XL' ? 'active' : ''}`}>
-                              <input type="radio" value="XL" onChange={handleSizeChange} /> XL
-                            </label>
-                          </div>
-                          <p>Selected Size: {selectedSize}</p>
-                        </div>
-
-                      </div> */}
 
                       <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                       <div className="detail-extralink">
                         <div className="detail-qty border radius">
-                          <a onClick={(e) => (!inCart ? setQuantity(quantity > 1 ? quantity - 1 : 1) : decreaseQuantity(product._id))} className="qty-down">
+                          <a
+                            onClick={(e) =>
+                              !inCart
+                                ? setQuantity(quantity > 1 ? quantity - 1 : 1)
+                                : decreaseQuantity(product._id)
+                            }
+                            className="qty-down"
+                          >
                             <i className="fi-rs-angle-small-down"></i>
                           </a>
-                          <span className="qty-val">{inCart?.quantity || quantity}</span>
-                          <a onClick={() => (!inCart ? setQuantity(quantity + 1) : increaseQuantity(product._id))} className="qty-up">
+                          <span className="qty-val">
+                            {inCart?.quantity || quantity}
+                          </span>
+                          <a
+                            onClick={() =>
+                              !inCart
+                                ? setQuantity(quantity + 1)
+                                : increaseQuantity(product._id)
+                            }
+                            className="qty-up"
+                          >
                             <i className="fi-rs-angle-small-up"></i>
                           </a>
                         </div>
@@ -176,23 +193,31 @@ const ProductDetails = ({
                             onClick={(e) =>
                               handleCart({
                                 ...product,
-                                quantity: quantity || 1
+                                quantity: quantity || 1,
                               })
                             }
                             className="button button-add-to-cart"
                           >
                             Add to cart
                           </button>
-                          <a aria-label="Add To Wishlist" className="action-btn hover-up" onClick={(e) => handleWishlist(product)}>
+                          <a
+                            aria-label="Add To Wishlist"
+                            className="action-btn hover-up"
+                            onClick={(e) => handleWishlist(product)}
+                          >
                             <i className="fi-rs-heart"></i>
                           </a>
-                          <a aria-label="Compare" className="action-btn hover-up" onClick={(e) => handleCompare(product)}>
+                          <a
+                            aria-label="Compare"
+                            className="action-btn hover-up"
+                            onClick={(e) => handleCompare(product)}
+                          >
                             <i className="fi-rs-shuffle"></i>
                           </a>
                         </div>
                       </div>
                       <ul className="product-meta font-xs color-grey mt-50">
-                          {/* <li className="mb-5">
+                        {/* <li className="mb-5">
                             SKU:
                             <a href="#">FWM15VKT</a>
                           </li>
@@ -204,34 +229,36 @@ const ProductDetails = ({
                           </li> */}
                         <li>
                           Availability:
-                          <span className="in-stock text-success ml-5">{product.stock} Items In Stock</span>
+                          <span className="in-stock text-success ml-5">
+                            {product.stock} Items In Stock
+                          </span>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
-                            {
-                              product.stock === 0 ? (<div className="row mt-60">
-                              <div className="col-12">
-                                <h3 className="section-title style-1 mb-30">Similar products</h3>
-                              </div>
-                              <div className="col-12">
-                                <div className="row related-products position-relative">
-                                  <RelatedSlider />
-                                </div>
-                              </div>
-                            </div>
-                            ) : null
-
-                            }
+                {product.stock === 0 ? (
+                  <div className="row mt-60">
+                    <div className="col-12">
+                      <h3 className="section-title style-1 mb-30">
+                        Similar products
+                      </h3>
+                    </div>
+                    <div className="col-12">
+                      <div className="row related-products position-relative">
+                        <RelatedSlider />
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
                 {quickView ? null : (
                   <>
-                    <ProductTab 
-                    product={product}
-                    />
+                    <ProductTab product={product} />
                     <div className="row mt-60">
                       <div className="col-12">
-                        <h3 className="section-title style-1 mb-30">Related products</h3>
+                        <h3 className="section-title style-1 mb-30">
+                          Related products
+                        </h3>
                       </div>
                       <div className="col-12">
                         <div className="row related-products position-relative">

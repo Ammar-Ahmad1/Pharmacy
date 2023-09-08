@@ -24,8 +24,12 @@ function Login() {
     }, []);
     useEffect(() => {
         if (session) {
+            console.log(session.user.role)
             toast.success("You are already logged in");
+            if(session.user.role === "customer")
             router.push("/"); // Redirect to home page if logged in
+            else if(session.user.role === "vendor")
+            router.push("/vendor-dashboard");
         }
     }, [session]);
     const handleSubmit = async (e) => {
@@ -47,7 +51,14 @@ function Login() {
             toast.error(result.error);
         } else {
             toast.success("Logged in successfully");
-            router.push("/");
+            console.log(result)
+            if(session){
+            if(session.user.role === "customer")
+            router.push("/"); // Redirect to home page if logged in
+            else if(session.user.role === "vendor")
+            router.push("/vendor-dashboard");
+            // router.push("/");
+            }
         }
         setLoading(false);
     };
