@@ -109,7 +109,7 @@ const ProductDetails = ({
                             </span>
                             <span className="old-price font-md ml-15">
                               {product.oldPrice
-                                ? `$ ${product.oldPrice}`
+                                ? `Rs. ${product.oldPrice}`
                                 : null}
                             </span>
                           </span>

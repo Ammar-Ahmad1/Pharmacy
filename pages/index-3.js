@@ -94,7 +94,7 @@ function Test() {
                                         <h5>
                                             <a>Chen Cardigan</a>
                                         </h5>
-                                        <p className="price mb-0 mt-5">$99.50</p>
+                                        <p className="price mb-0 mt-5">Rs.99.50</p>
                                         <div className="product-rate">
                                             <div className="product-rating" style={{ width: "90%" }}></div>
                                         </div>
@@ -108,7 +108,7 @@ function Test() {
                                         <h6>
                                             <a>Chen Sweater</a>
                                         </h6>
-                                        <p className="price mb-0 mt-5">$89.50</p>
+                                        <p className="price mb-0 mt-5">Rs.89.50</p>
                                         <div className="product-rate">
                                             <div className="product-rating" style={{ width: "80%" }}></div>
                                         </div>
@@ -122,7 +122,7 @@ function Test() {
                                         <h6>
                                             <a>Colorful Jacket</a>
                                         </h6>
-                                        <p className="price mb-0 mt-5">$25</p>
+                                        <p className="price mb-0 mt-5">Rs.25</p>
                                         <div className="product-rate">
                                             <div className="product-rating" style={{ width: "60%" }}></div>
                                         </div>

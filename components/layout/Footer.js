@@ -58,7 +58,7 @@ const Footer = () => {
                                         <h3 className="icon-box-title">
                                             Best prices & offers
                                         </h3>
-                                        <p>Orders $50 or more</p>
+                                        <p>Orders Rs.50 or more</p>
                                     </div>
                                 </div>
                             </div>

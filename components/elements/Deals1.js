@@ -46,8 +46,8 @@ const Deals1 = ({ product, addToCart }) => {
                         </div>
                         <div className="product-card-bottom">
                             <div className="product-price">
-                                <span>${product.price}</span>
-                                <span className="old-price">{product.oldPrice && `$ ${product.oldPrice}`}</span>
+                                <span>Rs.{product.price}</span>
+                                <span className="old-price">{product.oldPrice && `Rs. ${product.oldPrice}`}</span>
                             </div>
                             <div className="add-cart">
                                 <a className="add" onClick={(e) => handleCart(product)}>

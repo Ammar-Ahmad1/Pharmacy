@@ -69,7 +69,7 @@ const CartSidebar = ({
                                                 {item.name}
                                             </h6>
                                             <p className="mb-0">
-                                                <span>${item.price} </span> x
+                                                <span>Rs.{item.price} </span> x
                                                 <span>{item.quantity}</span>
                                             </p>
                                             <div className="quantity-switch">

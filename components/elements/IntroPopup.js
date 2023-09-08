@@ -34,10 +34,10 @@ const IntroPopup = () => {
                                     </h6>
                                     <div className="clearfix product-price-cover">
                                         <div className="product-price primary-color float-left">
-                                            <span className="current-price text-brand">$38</span>
+                                            <span className="current-price text-brand">Rs.38</span>
                                             <span>
                                                 <span className="save-price font-md color3 ml-15">26% Off</span>
-                                                <span className="old-price font-md ml-15">$52</span>
+                                                <span className="old-price font-md ml-15">Rs.52</span>
                                             </span>
                                         </div>
                                     </div>

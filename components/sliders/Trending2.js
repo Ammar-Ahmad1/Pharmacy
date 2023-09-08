@@ -40,8 +40,8 @@ const TrendingSlider = () => {
                             <span className="font-small ml-5 text-muted"> (4.0)</span>
                         </div>
                         <div className="product-price">
-                            <span>${product.price} </span>
-                            <span className="old-price">{product.oldPrice && `$ ${product.oldPrice}`}</span>
+                            <span>Rs.{product.price} </span>
+                            <span className="old-price">{product.oldPrice && `Rs. ${product.oldPrice}`}</span>
                         </div>
                     </div>
                 </article>

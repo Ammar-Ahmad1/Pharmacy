@@ -81,8 +81,8 @@ const SingleProductList = ({ product, addToCart, addToCompare, addToWishlist, op
                         <p className="mt-15 mb-15">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam beatae consectetur, atque inventore aliquam adipisci perspiciatis nostrum qui consequatur praesentium?</p>
 
                         <div className="product-price">
-                            <span>${product.price} </span>
-                            <span className="old-price">{product.oldPrice && `$ ${product.oldPrice}`}</span>
+                            <span>Rs.{product.price} </span>
+                            <span className="old-price">{product.oldPrice && `Rs. ${product.oldPrice}`}</span>
                         </div>
 
                         <p className="mt-15">{product.desc||product.Use}</p>
