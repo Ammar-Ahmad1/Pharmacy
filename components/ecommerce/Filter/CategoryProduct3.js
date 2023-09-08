@@ -36,7 +36,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-1.svg"
                             alt="nest"
                         />
-                        Milks & Dairies
+                        Dermatologicals
                     </a>
 
                 </li>
@@ -46,7 +46,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-2.svg"
                             alt="nest"
                         />
-                        Clothing
+                        Eyes , Nose , Ear
                     </a>
 
                 </li>
@@ -56,7 +56,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-3.svg"
                             alt="nest"
                         />
-                        Pet Foods{" "}
+                        Prescription Drugs
                     </a>
 
                 </li>
@@ -66,7 +66,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-4.svg"
                             alt="nest"
                         />
-                        Baking material
+                        Sensory Organs
                     </a>
 
                 </li>
@@ -76,7 +76,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-5.svg"
                             alt="nest"
                         />
-                        Fresh Fruit
+                        Others
                     </a>
                 </li>
             </ul>

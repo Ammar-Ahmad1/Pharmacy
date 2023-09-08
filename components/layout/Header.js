@@ -555,6 +555,9 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                             <Link href="/page-about">About Us</Link>
                           </li>
                           <li>
+                            <Link href="/add-item">Add Item</Link>
+                          </li>
+                          <li>
                             <Link href="/page-contact">Contact</Link>
                           </li>
                           <li>

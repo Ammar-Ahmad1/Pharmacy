@@ -68,55 +68,62 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                         <li>
                                             <Link href="/shop-grid-right">
                                                 <i className="evara-font-dress"></i>
-                                                Women's Clothing
+                                                Anti Infective
                                             </Link>
                                         </li>
                                         <li>
                                             <Link href="/shop-grid-right">
                                                 <i className="evara-font-tshirt"></i>
-                                                Men's Clothing
+                                                Anti Epileptic
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/shop-grid-right">
+                                                <i className="evara-font-anti-depressant"></i>
+                                                Anti Depressant
                                             </Link>
                                         </li>
                                         <li>
                                             {" "}
                                             <Link href="/shop-grid-right">
-                                                <i className="evara-font-smartphone"></i> Cellphones
+                                                <i className="evara-font-metabolism"></i> Alimentary Tract &
+                                                Metabolism
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            {" "}
+                                            <Link href="/shop-grid-right">
+                                                <i className="evara-font-cardio-vascular-system"></i>                                                Cardio Vascular System
                                             </Link>
                                         </li>
                                         <li>
                                             <Link href="/shop-grid-right">
-                                                <i className="evara-font-desktop"></i>
-                                                Computer & Office
+                                                <i className="evara-font-dermatologicals"></i>
+                                                Dermatologicals
                                             </Link>
                                         </li>
                                         <li>
                                             <Link href="/shop-grid-right">
-                                                <i className="evara-font-cpu"></i>
-                                                Consumer Electronics
+                                                <i className="evara-font-eyes-notes-ear"></i>
+                                                Eyes , Nose , Ear
                                             </Link>
                                         </li>
                                         <li>
                                             <Link href="/shop-grid-right">
-                                                <i className="evara-font-home"></i>
-                                                Home & Garden
+                                                <i className="evara-font-prescription-drugs"></i>
+                                                Prescription Drugs
                                             </Link>
                                         </li>
                                         <li>
                                             <Link href="/shop-grid-right">
-                                                <i className="evara-font-high-heels"></i>
-                                                Shoes
+                                                <i className="evara-font-sensory-organs"></i>
+                                                Sensory Organs
                                             </Link>
                                         </li>
                                         <li>
                                             <Link href="/shop-grid-right">
-                                                <i className="evara-font-teddy-bear"></i>
-                                                Mother & Kids
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/shop-grid-right">
-                                                <i className="evara-font-kite"></i>
-                                                Outdoor fun
+                                                <i className="evara-font-sensory-organs"></i>
+                                                Others
                                             </Link>
                                         </li>
                                     </ul>

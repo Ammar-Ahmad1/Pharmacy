@@ -36,7 +36,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-1.svg"
                             alt="nest"
                         />
-                        Anti-infective
+                        Anti Infective
                     </a>
 
                 </li>
@@ -46,7 +46,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-2.svg"
                             alt="nest"
                         />
-                        Anti epileptic
+                        Anti Epileptic
                     </a>
 
                 </li>
@@ -56,18 +56,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-3.svg"
                             alt="nest"
                         />
-                        A1imentary Tract &
-                        Metabolism
-                    </a>
-
-                </li>
-                <li onClick={(e) => selectCategory(e, "Dermatologicals")}>
-                    <a>
-                        <img
-                            src="/assets/imgs/theme/icons/category-4.svg"
-                            alt="nest"
-                        />
-                        Dermatologicals
+                        Anti Depressant
                     </a>
 
                 </li>
@@ -77,8 +66,18 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/theme/icons/category-5.svg"
                             alt="nest"
                         />
-                        Sensory Organs
+                        Alimentary Tract & Metabolism
                     </a>
+                </li>
+                <li onClick={(e) => selectCategory(e, "Dermatologicals")}>
+                    <a>
+                        <img
+                            src="/assets/imgs/theme/icons/category-4.svg"
+                            alt="nest"
+                        />
+                        Cardio Vascular System
+                    </a>
+
                 </li>
             </ul>
         </>
