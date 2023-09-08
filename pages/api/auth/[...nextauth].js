@@ -19,12 +19,15 @@ const handler = NextAuth({
             email: credentials.email,
             password: credentials.password,
           });
+          console.log(user)
           if (user) {
             return {
-              id: user._id.toString(),
+              id: user._id,
               email: user.email,
               name: user.name,
+              phone: user.phone,
               image: user.image,
+              role: user.role,
             };
           } else {
             throw new Error("Invalid email/password combination");
@@ -45,6 +48,7 @@ const handler = NextAuth({
       // store the user id from MongoDB to session
       const sessionUser = await User.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
+      session.user.role = sessionUser.role;
 
       return session;
     },

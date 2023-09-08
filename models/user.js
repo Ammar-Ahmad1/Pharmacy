@@ -19,7 +19,6 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-
   },
   phone: {
     //type is mobile number ie 11 digits

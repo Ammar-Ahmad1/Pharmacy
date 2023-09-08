@@ -10,9 +10,12 @@ import SortSelect from "../components/ecommerce/Filter/SortSelect";
 import WishlistModal from "../components/ecommerce/WishlistModal";
 import Layout from "../components/layout/Layout";
 import { fetchProduct } from "../redux/action/product";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 const ProductsFullWidth = ({ products, productFilters, fetchProduct }) => {
+    const { data: session } = useSession();
+    const [orders, setOrders] = useState([]);
     console.log(products);
 
     let Router = useRouter(),
@@ -29,6 +32,24 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct }) => {
         fetchProduct(searchTerm, "/api/medicine", productFilters);
         cratePagination();
     }, [productFilters, limit, pages, products.items.length]);
+    useEffect(() => {
+    if(!session){
+        Router.push("/page-login")
+    }
+    else if(session.user.role === "customer"){
+        Router.push("/")
+    }
+    else if(session.user.role === "vendor"){
+        getOrders();
+    }
+    }, [session]);
+
+    const getOrders = async () => {
+        const res =await fetch(`/api/order`);
+        const data = await res.json();
+        console.log(data)
+        setOrders(data.data);
+    }
 
     const cratePagination = () => {
         // set pagination
@@ -89,94 +110,27 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct }) => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>#1357</td>
-                                                        <td>March 45, 2020</td>
-                                                        <td>Processing</td>
-                                                        <td>$125.00 for 2 item</td>
-                                                        <td>
-                                                            <a href="#" className="btn-small d-block">
-                                                                View
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#2468</td>
-                                                        <td>June 29, 2020</td>
-                                                        <td>Completed</td>
-                                                        <td>$364.00 for 5 item</td>
-                                                        <td>
-                                                            <a href="#" className="btn-small d-block">
-                                                                View
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#2366</td>
-                                                        <td>August 02, 2020</td>
-                                                        <td>Completed</td>
-                                                        <td>$280.00 for 3 item</td>
-                                                        <td>
-                                                            <a href="#" className="btn-small d-block">
-                                                                View
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#1357</td>
-                                                        <td>March 45, 2020</td>
-                                                        <td>Processing</td>
-                                                        <td>$125.00 for 2 item</td>
-                                                        <td>
-                                                            <a href="#" className="btn-small d-block">
-                                                                View
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#2468</td>
-                                                        <td>June 29, 2020</td>
-                                                        <td>Completed</td>
-                                                        <td>$364.00 for 5 item</td>
-                                                        <td>
-                                                            <a href="#" className="btn-small d-block">
-                                                                View
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#2366</td>
-                                                        <td>August 02, 2020</td>
-                                                        <td>Completed</td>
-                                                        <td>$280.00 for 3 item</td>
-                                                        <td>
-                                                            <a href="#" className="btn-small d-block">
-                                                                View
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#1357</td>
-                                                        <td>March 45, 2020</td>
-                                                        <td>Processing</td>
-                                                        <td>$125.00 for 2 item</td>
-                                                        <td>
-                                                            <a href="#" className="btn-small d-block">
-                                                                View
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#2468</td>
-                                                        <td>June 29, 2020</td>
-                                                        <td>Completed</td>
-                                                        <td>$364.00 for 5 item</td>
-                                                        <td>
-                                                            <a href="#" className="btn-small d-block">
-                                                                View
-                                                            </a>
-                                                        </td>
-                                                    </tr>
+                                                    {
+                                                        orders?.map((order, i) => (
+                                                            <tr key={i}>
+                                                                <td>{order._id}</td>
+                                                                <td>{
+                                                                    order.date.split("T")[0]
+                                                                    }</td>
+                                                                <td>{order.status ? "Completed" : "Processing"}</td>
+                                                                <td>Rs.{order.totalAmount}</td>
+                                                                <td>
+                                                                    {/* <Link href={`/order/${order._id}`}> */}
+                                                                        <a className="btn-small d-block">
+                                                                            View
+                                                                        </a>
+                                                                    {/* </Link> */}
+                                                                </td>
+                                                            </tr>
+                                                        ))
+
+                                                    }
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
