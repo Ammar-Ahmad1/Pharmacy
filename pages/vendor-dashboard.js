@@ -47,7 +47,7 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct }) => {
     const getOrders = async () => {
         const res =await fetch(`/api/order`);
         const data = await res.json();
-        console.log(data)
+        console.log(data.data)
         setOrders(data.data);
     }
 

@@ -24,11 +24,11 @@ export default function ImageUpload() {
         <img
           src={URL.createObjectURL(selectedFile)}
           alt="Selected"
-          style={{ maxWidth: '300px', marginTop: '10px' }}
+          style={{ maxWidth: '200px', marginTop: '10px' }}
         />
       )}
-      <br />
-      <button onClick={handleUpload} className="btn btn-fill-out submit font-weight-bold">Upload</button>
+      {/* <br />
+      <button onClick={handleUpload} className="btn btn-fill-out submit font-weight-bold">Upload</button> */}
     </div>
   );
 }

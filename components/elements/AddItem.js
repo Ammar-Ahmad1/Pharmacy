@@ -14,7 +14,7 @@ function Account() {
 
   // selecting category
   const [selectedCategory, setSelectedCategory] = useState("");
-  const categories = ["Category 1", "Category 2", "Category 3"];
+  const categories = ["Anti Infective", "Anti Epileptic", "Anti Depressant", "Alimentary Tract & Metabolism", "Cardio vascular System", "Dermatologicals", "Eyes , Nose , Ear", "Prescription Drugs", "Sensory Organs", "Others"];
 
 
   const handleCategorySelect = (category) => {
@@ -25,16 +25,16 @@ function Account() {
     setSelectedCategory(e.target.value);
   }
 
-  // selecting size
-  const [size, setSize] = useState("");
-  const sizes = ["small", "medium", "large"];
+  // selecting type
+  const [type, setType] = useState("");
+  const types = ["Tablets", "Capsules", "Syrups", "Suspensions", "Injections", "Creams/Ointments/Gels", "Patches", "Suppositories", "Eye Drops", "Ear Drops/Nasal Sprays/Inhalers", "Oral", "Nebulizers"];
 
-  const handleSizeSelect = (size) => {
-    setSize(size);
+  const handleTypeSelect = (type) => {
+    setType(type);
   };
 
-  const handleInputSize = (e) => {
-    setSize(e.target.value)
+  const handleInputType = (e) => {
+    setType(e.target.value)
   }
 
 
@@ -60,6 +60,56 @@ function Account() {
     updatedItems.splice(index, 1);
     setItems(updatedItems);
   };
+
+  // discount
+
+  const [price, setPrice] = useState('');
+  const [discount, setDiscount] = useState('');
+
+  const handlePrice = (e) => {
+    setPrice(e.target.value);
+  };
+
+  const handleDiscount = (e) => {
+    setDiscount(e.target.value);
+  }
+
+  const calculateDiscountedPrice = () => {
+    if (!price || !discount) {
+      return 'Enter both price and discount';
+    }
+
+    const discounted = (price * discount) / 100;
+    const discountedPrice = price - discounted;
+
+    return `Discounted Price PKR: ${discountedPrice.toFixed(2)}`;
+  }
+
+
+  // strip (include tablets in a single strip & strips in a pack)
+
+  const [medicineStrips, setMedicineStrips] = useState([]);
+  // State variables for input fields
+  const [tabletsOnStrip, setTabletsOnStrip] = useState('');
+  const [stripsInBox, setStripsInBox] = useState('');
+
+  // Function to handle adding a new medicine strip
+  const handleAddMedicineStrip = (e) => {
+    e.preventDefault()
+    if (tabletsOnStrip && stripsInBox) {
+      const newMedicineStrip = {
+        tabletsOnStrip: parseInt(tabletsOnStrip, 10),
+        stripsInBox: parseInt(stripsInBox, 10),
+      };
+
+      setMedicineStrips([...medicineStrips, newMedicineStrip]);
+
+      // Clear input fields
+      setTabletsOnStrip('');
+      setStripsInBox('');
+    }
+  };
+
 
   return (
     <>
@@ -98,29 +148,24 @@ function Account() {
 
                                 <div className="form-group flex col-md-12">
                                   <label>Category <span className="required">*</span></label>
-                                  <div className="d-flex">
-                                    <div className="col-md-6 form-group">
-                                      <input className="form-control" value={selectedCategory} onChange={handleInputChange} />
-                                    </div>
-                                    <div className="dropdown col-md-2 ms-2">
-                                      <button
-                                        className="btn dropdown-toggle submit font-weight-bold"
-                                        type="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                      >
-                                        {selectedCategory || "Select Category"}
-                                      </button>
-                                      <ul className="dropdown-menu">
-                                        {categories.map((category) => (
-                                          <li key={category}>
-                                            <p className="dropdown-item" onClick={() => handleCategorySelect(category)}>
-                                              {category}
-                                            </p>
-                                          </li>
-                                        ))}
-                                      </ul>
-                                    </div>
+                                  <div className="dropdown col-md-2 ms-2">
+                                    <button
+                                      className="btn dropdown-toggle submit font-weight-bold"
+                                      type="button"
+                                      data-bs-toggle="dropdown"
+                                      aria-expanded="false"
+                                    >
+                                      {selectedCategory || "Select Category"}
+                                    </button>
+                                    <ul className="dropdown-menu">
+                                      {categories.map((category) => (
+                                        <li key={category}>
+                                          <p className="dropdown-item" onClick={() => handleCategorySelect(category)}>
+                                            {category}
+                                          </p>
+                                        </li>
+                                      ))}
+                                    </ul>
                                   </div>
                                 </div>
 
@@ -162,34 +207,35 @@ function Account() {
 
                                 <div className="form-group col-md-12">
                                   <label>Price <span className="required">*</span></label>
-                                  <span> (in PKR) <input type="number" required="" className="form-control price" name="price" /></span>
+                                  <span> (in PKR) <input type="number" required="" onChange={handlePrice} className="form-control price" name="price" /></span>
+                                </div>
+
+                                <div className="form-group col-md-12">
+                                  <label>Discount (in %) <span className="required">*</span></label>
+                                  <input type="number" required="" className="form-control" name="discount" onChange={handleDiscount} />
+                                  <p>discounted price: <span className="fw-bold">{calculateDiscountedPrice()}</span></p>
                                 </div>
 
                                 <div className="form-group flex col-md-12">
-                                  <label>Size <span className="required">*</span></label>
-                                  <div className="d-flex">
-                                    <div className="col-md-6 form-group">
-                                      <input className="form-control" value={size} onChange={handleInputSize} />
-                                    </div>
-                                    <div className="dropdown col-md-2 ms-2">
-                                      <button
-                                        className="btn dropdown-toggle submit font-weight-bold"
-                                        type="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                      >
-                                        {size || "Select Size"}
-                                      </button>
-                                      <ul className="dropdown-menu">
-                                        {sizes.map((size) => (
-                                          <li key={size}>
-                                            <p className="dropdown-item" onClick={() => handleSizeSelect(size)}>
-                                              {size}
-                                            </p>
-                                          </li>
-                                        ))}
-                                      </ul>
-                                    </div>
+                                  <label>type <span className="required">*</span></label>
+                                  <div className="dropdown col-md-2 ms-2">
+                                    <button
+                                      className="btn dropdown-toggle submit font-weight-bold"
+                                      type="button"
+                                      data-bs-toggle="dropdown"
+                                      aria-expanded="false"
+                                    >
+                                      {type || "Select type"}
+                                    </button>
+                                    <ul className="dropdown-menu">
+                                      {types.map((type) => (
+                                        <li key={type}>
+                                          <p className="dropdown-item" onClick={() => handleTypeSelect(type)}>
+                                            {type}
+                                          </p>
+                                        </li>
+                                      ))}
+                                    </ul>
                                   </div>
                                 </div>
 
@@ -198,24 +244,55 @@ function Account() {
                                   <input type="number" required="" className="form-control" name="stock" />
                                 </div>
 
-                                <div>
-                                  <p>Gender <span>*</span></p>
-                                  <div className="form-check custom-control custom-radio d-flex col-lg-6 col-md-8 col-sm-12 justify-content-around">
-                                    <div className="custome-radio">
-                                      <input className="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios1" defaultChecked="" />
-                                      <label className="form-check-label" htmlFor="exampleRadios1" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Male</label>
+
+                                <div className="form-group col-md-5">
+                                  <label className="form-check-label">Featured (make item featured on front page banner) <span className="required">*</span></label>
+                                  <input type="checkbox" required="" className="w-25" name="featured" />
+                                </div>
+
+                                <div className="container mt-4">
+                                  <label className="form-check-label">Medicine Strips <span className="required">*</span></label>
+                                  <div className="d-flex align-items-center gap-2">
+                                    <div className="col-md-4">
+                                      <div className="form-group">
+                                        <label>Tablets on Strip:</label>
+                                        <input
+                                          type="number"
+                                          className="form-control"
+                                          value={tabletsOnStrip}
+                                          onChange={(e) => setTabletsOnStrip(e.target.value)}
+                                        />
+                                      </div>
                                     </div>
-                                    <div className="custome-radio">
-                                      <input className="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios2" defaultChecked="" />
-                                      <label className="form-check-label" htmlFor="exampleRadios2" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">Female</label>
+                                    <div className="col-md-4">
+                                      <div className="form-group">
+                                        <label>Strips in Box:</label>
+                                        <input
+                                          type="number"
+                                          className="form-control"
+                                          value={stripsInBox}
+                                          onChange={(e) => setStripsInBox(e.target.value)}
+                                        />
+                                      </div>
                                     </div>
-                                    <div className="custome-radio">
-                                      <input className="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios3" defaultChecked="" />
-                                      <label className="form-check-label" htmlFor="exampleRadios3" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">Other</label>
+                                    <div className="mt-2">
+                                      <button className="btn btn-fill-out submit font-weight-bold" onClick={handleAddMedicineStrip}>
+                                        Add
+                                      </button>
                                     </div>
                                   </div>
-                                  <br />
+
+                                  <div className="mb-3">
+                                    <ul>
+                                      {medicineStrips.map((strip, index) => (
+                                        <li key={index}>
+                                          Tablets on Strip: {strip.tabletsOnStrip}, Strips in Box: {strip.stripsInBox}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
                                 </div>
+
                                 <div className="col-md-12">
                                   <button type="submit" className="btn btn-fill-out submit font-weight-bold" name="submit" value="Submit">Save Change</button>
                                 </div>
