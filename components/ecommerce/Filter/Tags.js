@@ -8,12 +8,12 @@ const Tags = ({ updateProductFilters }) => {
     const router = useRouter();
     const tags = [
         { value: "" },
-        { value: "snack" },
-        { value: "milk" },
-        { value: "fruit" },
-        { value: "broccoli" },
-        { value: "salad" },
-        { value: "appetizer" },
+        { value: "Anti-infective" },
+        { value: "Anti-epileptic" },
+        { value: "Anti-Depressant" },
+        { value: "Dermatologicals" },
+        { value: "Prescription-Drugs" },
+        { value: "Cardio Vascular-System" },
     ];
     const [selectedTags, setTags] = useState([]);
     const [active, setActive] = useState(0);

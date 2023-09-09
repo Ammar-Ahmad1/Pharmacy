@@ -2,9 +2,9 @@ import Layout from "../components/layout/Layout";
 import Link from "next/link"
 import React, { useState , useEffect} from "react";
 import ImageUpload from "../components/elements/ImageUpload";
-import {useSession} from "next-auth/react";
+import {useSession,signOut} from "next-auth/react";
 import { useRouter } from "next/router";
-
+import {toast} from "react-toastify";
 function Account() {
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(1);
@@ -20,6 +20,12 @@ function Account() {
     const data = await res.json();
     setUser(data.data);
   };
+  };
+  const handleLogout = async () => {
+
+    await signOut();
+    toast.success("Logged out successfully");
+    router.push("/");
   };
   const getOrders = async () => {
     if (session) {
@@ -69,7 +75,9 @@ function Account() {
                           <a className={activeIndex === 5 ? "nav-link active" : "nav-link"} onClick={() => handleOnClick(5)}><i className="fi-rs-user mr-10"></i>Account details</a>
                         </li>
                         <li className="nav-item">
-                          <Link href="/page-login" className="nav-link"><i className="fi-rs-sign-out mr-10"></i>Logout</Link>
+                          <Link href="#" className="nav-link"
+                            onClick={handleLogout}
+                          ><i className="fi-rs-sign-out mr-10"></i>Logout</Link>
                         </li>
                       </ul>
                     </div>

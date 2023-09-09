@@ -1,35 +1,37 @@
 import {Schema, model, models} from 'mongoose';
 
 const MedicineSchema = new Schema({
-    name: {
-        type: String,
-        required: [true, 'name is required!'],
+    id: String,
+    name: String,
+    slug: String,
+    Company: String,
+    category: String,
+    Salt: String,
+    Use: String,
+    SideEffect: String,
+    price: String,
+    tags: [String],
+    stock: Number,
+    review: Number,
+    rating: Number,
+    ratingScore: Number,
+    created: Date,
+    image: String,
+    featured: Boolean,
+    trending: Boolean,
+    totalSell: Number,
+    discount: {
+      banner: String,
+      percentage: Number,
+      expireDate: Date,
+      isActive: Boolean,
     },
-    image: {
-        type: String,
-        default: 'https://lh3.googleusercontent.com/a/AAcHTtci6RJekFINCdibq0iNLKa9rfOSIFl04lh86s2ITxUu=s96-c'
-    },
-    use: {
-        type: String,
-    },
-    SideEffect: {
-        type: String,
-    },
-    price: {
-        type: Number,
-    },
-    Company: {
-        type: String,
-    },
-    salt: {
-        type: String,
-    },
-    Categories: {
-        type: [String],
-    },
-
-
-});
+    type: String,
+    strips: {
+      tabletCount: Number,
+      stripCountInPack: Number
+    }
+  });
 
 
 const Medicine = models.Medicine || model("Medicine", MedicineSchema);

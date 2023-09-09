@@ -5,7 +5,7 @@ import Tags from "../ecommerce/Filter/Tags";
 
 const Breadcrumb2 = ({parent, sub, subChild, noBreadcrumb}) => {
     const router = useRouter()
-
+    console.log(router.query.cat)
     const titlex = router.query.cat
     return (
         <>
