@@ -19,7 +19,7 @@ const TopRatedSlider = () => {
         const allProducts = await fetchByCatagory("/api/medicine");
 
         // Discount
-        const discountProduct = allProducts.filter((item) => item.discount.isActive);
+        const discountProduct = allProducts.filter((item) => item.discount?.isActive);
 
         setDiscount(discountProduct);
     };
