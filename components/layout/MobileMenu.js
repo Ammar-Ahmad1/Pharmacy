@@ -133,11 +133,11 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                             <nav>
                                 <ul className="mobile-menu" ref={domNode}>
                                     <li className={isActive.key == 1 ? "menu-item-has-children active" : "menu-item-has-children"}>
-                                        <span className="menu-expand" onClick={() => handleToggle(1)}>
+                                        {/* <span className="menu-expand" onClick={() => handleToggle(1)}>
                                             <i className="fi-rs-angle-small-down"></i>
-                                        </span>
-                                        <Link href="/index">Home</Link>
-                                        <ul className={isActive.key == 1 ? "dropdown" : "d-none"}>
+                                        </span> */}
+                                        <Link href="/">Home</Link>
+                                        {/* <ul className={isActive.key == 1 ? "dropdown" : "d-none"}>
                                             <li>
                                                 <Link href="/index">Home 1</Link>
                                             </li>
@@ -150,14 +150,14 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                             <li>
                                                 <Link href="/index-4">Home 4</Link>
                                             </li>
-                                        </ul>
+                                        </ul> */}
                                     </li>
                                     <li className={isActive.key == 2 ? "menu-item-has-children active" : "menu-item-has-children"}>
-                                        <span className="menu-expand" onClick={() => handleToggle(2)}>
+                                        {/* <span className="menu-expand" onClick={() => handleToggle(2)}>
                                             <i className="fi-rs-angle-small-down"></i>
-                                        </span>
-                                        <Link href="/shop-grid-right">shop</Link>
-                                        <ul className={isActive.key == 2 ? "dropdown" : "d-none"}>
+                                        </span> */}
+                                        <Link href="/shop-grid-left">shop</Link>
+                                        {/* <ul className={isActive.key == 2 ? "dropdown" : "d-none"}>
                                             <li>
                                                 <Link href="/shop-grid-right">Shop Grid – Right Sidebar</Link>
                                             </li>
@@ -188,9 +188,10 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                             <li>
                                                 <Link href="/shop-compare">Shop – Compare</Link>
                                             </li>
-                                        </ul>
+                                        </ul> */}
                                     </li>
-                                    <li className={isActive.key == 3 ? "menu-item-has-children active" : "menu-item-has-children"}>
+
+                                    {/* <li className={isActive.key == 3 ? "menu-item-has-children active" : "menu-item-has-children"}>
                                         <span className="menu-expand" onClick={() => handleToggle(3)}>
                                             <i className="fi-rs-angle-small-down"></i>
                                         </span>
@@ -251,13 +252,14 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                                 </ul>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li> */}
+                                    
                                     <li className={isActive.key == 4 ? "menu-item-has-children active" : "menu-item-has-children"}>
-                                        <span className="menu-expand" onClick={() => handleToggle(4)}>
+                                        {/* <span className="menu-expand" onClick={() => handleToggle(4)}>
                                             <i className="fi-rs-angle-small-down"></i>
-                                        </span>
-                                        <Link href="/blog-category-fullwidth">Blog</Link>
-                                        <ul className={isActive.key == 4 ? "dropdown" : "d-none"}>
+                                        </span> */}
+                                        <Link href="/blog-category-grid">Blog</Link>
+                                        {/* <ul className={isActive.key == 4 ? "dropdown" : "d-none"}>
                                             <li>
                                                 <Link href="/blog-category-grid">Blog Category Grid</Link>
                                             </li>
@@ -285,7 +287,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                                     </li>
                                                 </ul>
                                             </li>
-                                        </ul>
+                                        </ul> */}
                                     </li>
                                     <li className={isActive.key == 5 ? "menu-item-has-children active" : "menu-item-has-children"}>
                                         <span className="menu-expand" onClick={() => handleToggle(5)}>
