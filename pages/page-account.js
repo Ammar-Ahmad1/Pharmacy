@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 function Account() {
   const [currentOrder, setCurrentOrder] = useState(null);
-  const [view, setView] = useState(false);
+  // const [view, setView] = useState(false);
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(1);
   const { data: session } = useSession();
@@ -43,16 +43,17 @@ function Account() {
       }
     }
   };
-  const handleToggleOrderDetails = (order) => {
+  const handleToggleOrderDetails = (e, order) => {
+    e.preventDefault();
     if (currentOrder === order) {
       setCurrentOrder(null); // Deselect the order if it's already selected
     } else {
       setCurrentOrder(order); // Select the order if it's not selected
     }
   };
-  const handleViewOrderDetails = (order) => {
-    setCurrentOrder(order);
-  };
+  // const handleViewOrderDetails = (order) => {
+  //   setCurrentOrder(order);
+  // };
   useEffect(() => {
     if (!session) {
       router.push("/page-login");
@@ -64,7 +65,7 @@ function Account() {
   return (
     <>
       <Layout parent="Home" sub="Pages" subChild="Account">
-        <div className="page-content pt-150 pb-150">
+        <div className="page-content pt-100 pb-120">
           <div className="container">
             <div className="row">
               <div className="col-lg-10 m-auto">
@@ -191,74 +192,74 @@ function Account() {
                                 <tbody>
                                   {orders?.map((order) => (
                                     <React.Fragment key={order._id}>
-                                    <tr key={order._id}>
-                                      <td>{order.orderNumber}</td>
-                                      <td>
-                                        {
-                                          //only show sate and time
-                                          order.date.split("T")[0]
-                                        }
-                                      </td>
-                                      <td>
-                                        {order.status ? "Delivered" : "Pending"}
-                                      </td>
-                                      <td>Rs.{order.totalAmount}</td>
-                                      <td>
-                                      <a
-                                      href="#"
-                                      className="btn-small d-block"
-                                      onClick={() => {
-                                        handleToggleOrderDetails(order); // Call the function to toggle order details
-                                      }}
-                                    >
-                                          View
-                                        </a>
-                                      </td>
-                                    </tr>
-                                    {/* Conditionally render order details */}
-                                  {currentOrder === order && (
-                                    <tr>
-                                      <td colSpan="5">
-                                        <div className="order-details">
-                                          {/* Display order details here */}
-                                          <h3> Items in Order</h3>
-                                          <table className="table">
-                                            <thead>
-                                              <tr>
-                                                <th>Medicine</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
-                                                <th>Total</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              {order.items.map((item) => (
-                                                <tr key={item._id}>
-                                                  <td>
-                                                  <Link href="/products/[slug]" as={`/products/${item.medicine.slug}`}>
-                            {item.medicine.name}
-                        </Link>
-                                                  </td>
-                                                  <td>{item.quantity}</td>
-                                                  <td>
-                                                    Rs.{item.medicine.price}
-                                                  </td>
-                                                  <td>
-                                                    Rs.
-                                                    {item.medicine.price *
-                                                      item.quantity}
-                                                  </td>
-                                                </tr>
-                                              ))}
-                                            </tbody>
-                                          </table>
-                                          
-                                          {/* Add more order details as needed */}
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  )}
-                                </React.Fragment>
+                                      <tr key={order._id}>
+                                        <td>{order.orderNumber}</td>
+                                        <td>
+                                          {
+                                            //only show sate and time
+                                            order.date.split("T")[0]
+                                          }
+                                        </td>
+                                        <td>
+                                          {order.status ? "Delivered" : "Pending"}
+                                        </td>
+                                        <td>Rs.{order.totalAmount}</td>
+                                        <td>
+                                          <a
+                                            href="#"
+                                            className="btn-small d-block"
+                                            onClick={(e) => {
+                                              handleToggleOrderDetails(e, order); // Call the function to toggle order details
+                                            }}
+                                          >
+                                            View
+                                          </a>
+                                        </td>
+                                      </tr>
+                                      {/* Conditionally render order details */}
+                                      {currentOrder === order && (
+                                        <tr>
+                                          <td colSpan="5">
+                                            <div className="order-details">
+                                              {/* Display order details here */}
+                                              <h3> Items in Order</h3>
+                                              <table className="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th>Medicine</th>
+                                                    <th>Quantity</th>
+                                                    <th>Price</th>
+                                                    <th>Total</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  {order.items.map((item) => (
+                                                    <tr key={item._id}>
+                                                      <td>
+                                                        <Link href="/products/[slug]" as={`/products/${item.medicine.slug}`}>
+                                                          {item.medicine.name}
+                                                        </Link>
+                                                      </td>
+                                                      <td>{item.quantity}</td>
+                                                      <td>
+                                                        Rs.{item.medicine.price}
+                                                      </td>
+                                                      <td>
+                                                        Rs.
+                                                        {item.medicine.price *
+                                                          item.quantity}
+                                                      </td>
+                                                    </tr>
+                                                  ))}
+                                                </tbody>
+                                              </table>
+
+                                              {/* Add more order details as needed */}
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      )}
+                                    </React.Fragment>
                                   ))}
                                 </tbody>
                               </table>
@@ -266,7 +267,7 @@ function Account() {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div
                         className={
                           activeIndex === 3

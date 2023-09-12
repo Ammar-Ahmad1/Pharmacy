@@ -19,11 +19,13 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }) => {
+
+    const [currentOrder, setCurrentOrder] = useState(null);
+    // const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState(null);
     const { data: session } = useSession();
-    const [orders, setOrders] = useState([]);
     const [sortDate, setSortDate] = useState(true);
     const [sortStatus, setSortStatus] = useState(true);
-    const [collapsedRows, setCollapsedRows] = useState({});
 
     console.log(products);
 
@@ -52,13 +54,14 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
             getOrders();
         }
     }, [session]);
+    
 
-    const getOrders = async () => {
-        const res = await fetch(`/api/order`);
-        const data = await res.json();
-        console.log(data.data)
-        setOrders(data.data);
-    }
+    // const getOrders = async () => {
+    //     const res = await fetch(`/api/order`);
+    //     const data = await res.json();
+    //     console.log(data.data)
+    //     setOrders(data.data);
+    // }
 
     const cratePagination = () => {
         // set pagination
@@ -117,20 +120,32 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
     }
 
     // collapsing table
-    const toggleCollapse = (rowId) => {
-        setCollapsedRows((prevState) => ({
-            ...prevState,
-            [rowId]: !prevState[rowId],
-        }));
+    const getOrders = async () => {
+        if (session) {
+            try {
+                const res = await fetch(`/api/order?userId=${session.user.id}`);
+                const data = await res.json();
+                console.log(data.data);
+                setOrders(data.data);
+                // setUser(data.data);
+            } catch (error) {
+                console.error("Error fetching orders:", error);
+            }
+        }
     };
 
-
-    const price = () => {
-        let price = 0;
-        cartItems.forEach((item) => (price += item.price * item.quantity));
-
-        return price;
+    const handleToggleOrderDetails = (e, order) => {
+        e.preventDefault();
+        if (currentOrder === order) {
+            setCurrentOrder(null); // Deselect the order if it's already selected
+        } else {
+            setCurrentOrder(order); // Select the order if it's not selected
+        }
     };
+
+    useEffect(() => {
+        getOrders();
+    }, [session]);
 
     return (
         <>
@@ -173,105 +188,80 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {
-                                                        orders?.map((order, i) => (
-                                                            <tr key={i}>
+                                                    {orders?.map((order) => (
+                                                        <React.Fragment key={order._id}>
+                                                            <tr key={order._id}>
                                                                 <td>{order.orderNumber}</td>
-                                                                <td>{
-                                                                    order.date.split("T")[0]
-                                                                }</td>
-                                                                <td>{order.status ? "Completed" : "Processing"}</td>
+                                                                <td>
+                                                                    {
+                                                                        //only show sate and time
+                                                                        order.date.split("T")[0]
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {order.status ? "Delivered" : "Pending"}
+                                                                </td>
                                                                 <td>Rs.{order.totalAmount}</td>
-                                                                <td className="d-flex justify-content-between">
-                                                                    <Link className="btn-small d-block" href={`/order/${order._id}`}>
+                                                                <td>
+                                                                    <Link
+                                                                        href="#"
+                                                                        className="btn-small d-block"
+                                                                        onClick={(e) => {
+                                                                            handleToggleOrderDetails(e, order); // Call the function to toggle order details
+                                                                        }}
+                                                                    >
                                                                         View
                                                                     </Link>
-                                                                    <Link href={`/order/${order._id}`}>
+                                                                    <Link href="#">
                                                                         <BsFillTrashFill />
                                                                     </Link>
                                                                 </td>
                                                             </tr>
-                                                        ))
-
-                                                    }
-                                                    {/* {
-                                                        orders?.map((order, i) => (
-                                                            <React.Fragment key={i}>
+                                                            {/* Conditionally render order details */}
+                                                            {currentOrder === order && (
                                                                 <tr>
-                                                                    <td>{order.orderNumber}</td>
-                                                                    <td>{
-                                                                        order.date.split("T")[0]
-                                                                    }</td>
-                                                                    <td>{order.status ? "Completed" : "Processing"}</td>
-                                                                    <td>Rs.{order.totalAmount}</td>
-                                                                    <td className="d-flex justify-content-between">
-                                                                        <Link className="btn-small d-block" href={`/order/${order._id}`}>
-                                                                            View
-                                                                        </Link>
-                                                                        <span
-                                                                            className="p-1 bg-primary"
-                                                                            onClick={() => toggleCollapse(1)}
-                                                                        >
-                                                                            {collapsedRows[1] ? '-' : '+'}
-                                                                        </span>
-                                                                        <Link href={`/order/${order._id}`}>
-                                                                            <BsFillTrashFill />
-                                                                        </Link>
+                                                                    <td colSpan="5">
+                                                                        <div className="order-details">
+                                                                            {/* Display order details here */}
+                                                                            <h3> Items in Order</h3>
+                                                                            <table className="table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Medicine</th>
+                                                                                        <th>Quantity</th>
+                                                                                        <th>Price</th>
+                                                                                        <th>Total</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {order.items.map((item) => (
+                                                                                        <tr key={item._id}>
+                                                                                            <td>
+                                                                                                <Link href="/products/[slug]" as={`/products/${item.medicine.slug}`}>
+                                                                                                    {item.medicine.name}
+                                                                                                </Link>
+                                                                                            </td>
+                                                                                            <td>{item.quantity}</td>
+                                                                                            <td>
+                                                                                                Rs.{item.medicine.price}
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                Rs.
+                                                                                                {item.medicine.price *
+                                                                                                    item.quantity}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    ))}
+                                                                                </tbody>
+                                                                            </table>
+
+                                                                            {/* Add more order details as needed */}
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
-                                                                {collapsedRows[1] && (
-                                                                        cartItems.map((item, i) => (
-                                                                            <tr key={i}>
-                                                                                <td className="image product-thumbnail">
-                                                                                    <img src={item.images ? item.images[0]?.img : item.image} />
-                                                                                </td>
-
-                                                                                <td className="product-des product-name">
-                                                                                    <h6 className="product-name">
-                                                                                        <Link href="/products">{item.title || item.name}</Link>
-                                                                                    </h6>
-                                                                                    <div className="product-rate-cover">
-                                                                                        <div className="product-rate d-inline-block">
-                                                                                            <div
-                                                                                                className="product-rating"
-                                                                                                style={{
-                                                                                                    width: "90%"
-                                                                                                }}
-                                                                                            ></div>
-                                                                                        </div>
-                                                                                        <span className="font-small ml-5 text-muted"> (4.0)</span>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td className="price" data-title="Price">
-                                                                                    <h4 className="text-brand">Rs.{item.price}</h4>
-                                                                                </td>
-                                                                                <td className="text-center detail-info" data-title="Stock">
-                                                                                    <div className="detail-extralink mr-15">
-                                                                                        <div className="detail-qty border radius ">
-                                                                                            <a onClick={(e) => decreaseQuantity(item._id)} className="qty-down">
-                                                                                                <i className="fi-rs-angle-small-down"></i>
-                                                                                            </a>
-                                                                                            <span className="qty-val">{item.quantity}</span>
-                                                                                            <a onClick={(e) => increaseQuantity(item._id)} className="qty-up">
-                                                                                                <i className="fi-rs-angle-small-up"></i>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td className="text-right" data-title="Cart">
-                                                                                    <h4 className="text-body">Rs.{item.quantity * item.price}</h4>
-                                                                                </td>
-                                                                                <td className="action" data-title="Remove">
-                                                                                    <a onClick={(e) => deleteFromCart(item._id)} className="text-muted">
-                                                                                        <i className="fi-rs-trash"></i>
-                                                                                    </a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        ))
-                                                                )}
-                                                            </React.Fragment>
-                                                        ))
-                                                    } */}
+                                                            )}
+                                                        </React.Fragment>
+                                                    ))}
 
 
 
