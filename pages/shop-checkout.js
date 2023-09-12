@@ -31,7 +31,8 @@ const Cart = ({
   const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
-
+  console.log(cartItems,
+    "cartItems")
   const price = () => {
     let price = 0;
     cartItems.forEach((item) => (price += item.price * item.quantity));
@@ -48,55 +49,60 @@ const Cart = ({
   }
   const placeOrder = () => {
     if (session) {
-        if(!name || !email || !phone || !address || !city){
+        if (!name || !email || !phone || !address || !city) {
             toast.error('Please fill all the fields');
             return;
         }
-        const ids= cartItems.map((item) => item._id);
-      // Assuming you have cartItems, name, email, and phone available
-      
-      const order = {
-        items: ids, // An array of items in the order (assuming each item has necessary details)
-        user: session.user.id, // The user ID of the logged in user
-        date: new Date(), // Current date and time
-        address: address,
-        city: city,
-        totalAmount: price(), // Total amount of the order
-      };
-  
-      // Send a POST request to your API route
-      fetch('/api/order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(order),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle the response from the server
-          if (data.success) {
-            // Order was successfully created
-            console.log('Order placed:', data.data);
-            toast.success('Order placed successfully');
-            clearCart();
-            router.push('/');
-            // You can perform any additional actions here, such as clearing the cart or showing a success message.
-          } else {
-            // Handle the case where the order creation failed
-            console.error('Order creation failed:', data.error);
-            // You can display an error message or take appropriate action.
-          }
+
+        // Create an array of order items with item ID and quantity
+        const orderItems = cartItems.map((item) => ({
+            medicine: item._id, // Assuming each item has an _id property
+            quantity: item.quantity, // Use the quantity associated with each item
+        }));
+
+        const order = {
+            items: orderItems, // An array of items in the order with their quantities
+            user: session.user.id, // The user ID of the logged-in user
+            date: new Date(), // Current date and time
+            address: address,
+            city: city,
+            totalAmount: price(), // Total amount of the order
+            orderNumber: '', // Will be generated in the backend
+        };
+        console.log(order, 'order')
+        // Send a POST request to your API route
+        fetch('/api/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(order),
         })
-        .catch((error) => {
-          console.error('Error placing order:', error);
-          // Handle any network or request-related errors here.
-        });
+            .then((response) => response.json())
+            .then((data) => {
+                // Handle the response from the server
+                if (data.success) {
+                    // Order was successfully created
+                    console.log('Order placed:', data.data);
+                    toast.success('Order placed successfully');
+                    clearCart();
+                    router.push('/');
+                    // You can perform any additional actions here, such as clearing the cart or showing a success message.
+                } else {
+                    // Handle the case where the order creation failed
+                    console.error('Order creation failed:', data.error);
+                    // You can display an error message or take appropriate action.
+                }
+            })
+            .catch((error) => {
+                console.error('Error placing order:', error);
+                // Handle any network or request-related errors here.
+            });
     } else {
-      toast.error('Please login first');
+        toast.error('Please login first');
     }
-  };
-  
+};
+
 useEffect(() => {
     if(session){
         getUser()
