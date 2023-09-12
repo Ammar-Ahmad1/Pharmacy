@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import Layout from "../components/layout/Layout";
+import { useRouter } from "next/router";
 
 import Link from "next/link";
 import { clearCart, closeCart, decreaseQuantity, deleteFromCart, increaseQuantity, openCart } from "../redux/action/cart";
@@ -11,6 +12,13 @@ const Cart = ({ openCart, cartItems, activeCart, closeCart, increaseQuantity, de
 
         return price;
     };
+
+    
+    const router = useRouter();
+
+    const handleRoute = () => {
+        router.push("/shop-checkout");
+    }
 
     return (
         <>
@@ -459,7 +467,7 @@ const Cart = ({ openCart, cartItems, activeCart, closeCart, increaseQuantity, de
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <a href="/shop-checkout" className="btn ">
+                                            <a href="#" onClick={handleRoute} className="btn ">
                                                 <i className="fi-rs-box-alt mr-10"></i>
                                                 Proceed To CheckOut
                                             </a>
