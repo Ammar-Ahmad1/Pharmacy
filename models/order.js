@@ -1,32 +1,43 @@
 import { Schema, model, models } from 'mongoose';
 
+const orderItemSchema = new Schema({
+    medicine: {
+        type: Schema.Types.ObjectId,
+        ref: 'Medicine', // Reference to the Medicine model
+    },
+    quantity: {
+        type: Number,
+        default: 1, // Default quantity is 1, but you can change it as needed
+    },
+});
+
 const orderSchema = new Schema({
-    items: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Medicine', // Reference to the Medicine model
-        }
-    ],
+    items: [orderItemSchema], // Embed order items as an array of objects
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User', // Reference to the User model
     },
+    orderNumber: {
+        type: String,
+        unique: true,
+    },
+
     address: {
-        type: String
+        type: String,
     },
     city: {
-        type: String
+        type: String,
     },
     date: {
-        type: Date
+        type: Date,
     },
     status: {
         type: Boolean,
-        default: false
+        default: false,
     },
     totalAmount: {
-        type: String
-    }
+        type: String,
+    },
 });
 
 const Order = models.Order || model('Order', orderSchema);
