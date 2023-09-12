@@ -154,8 +154,27 @@ function Account() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (
+      !name ||
+      !slug ||
+      !company ||
+      !type ||
+      !selectedCategory ||
+      !inputValue ||
+      !use ||
+      !sideEffect ||
+      !price ||
+      !fileBase64 ||
+      !stock ||
+      !discount
+    ) {
+      toast.error("Please fill in all mandatory fields.");
+      return; // Exit the function if any field is empty
+    }
+    
     console.log("submitting");
-    try{
+    try {
       fetch("/api/medicine", {
         method: "POST",
         headers: {
@@ -165,7 +184,7 @@ function Account() {
           name,
           slug,
           Company: company,
-          type : type,
+          type: type,
           category: selectedCategory,
           Salt: inputValue,
           Use: use,
@@ -199,15 +218,14 @@ function Account() {
           if (data.success) {
             toast.success("Medicine added successfully");
           }
-          else 
-          {
+          else {
             toast.error("Medicine not added");
           }
         });
 
-    }catch(err){
+    } catch (err) {
       console.log(err);
-    
+
     }
 
   };
@@ -257,7 +275,7 @@ function Account() {
                                     required=""
                                     className="form-control"
                                     name="Company"
-                                    onChange={(e)=>setCompany(e.target.value)}
+                                    onChange={(e) => setCompany(e.target.value)}
                                   />
                                 </div>
 
@@ -297,7 +315,7 @@ function Account() {
                                       type="text"
                                       // value={inputValue}
                                       placeholder={"Add tags"}
-                                      onChange = {(e)=>setTagValue(e.target.value)}
+                                      onChange={(e) => setTagValue(e.target.value)}
                                     />
                                     <button
                                       onClick={handleAddTag}
@@ -364,7 +382,7 @@ function Account() {
                                     required=""
                                     className="form-control"
                                     name="use"
-                                    onChange={(e)=>setUse(e.target.value)}
+                                    onChange={(e) => setUse(e.target.value)}
                                   />
                                 </div>
 
@@ -377,7 +395,7 @@ function Account() {
                                     required=""
                                     className="form-control"
                                     name="SideEffect"
-                                    onChange={(e)=>setSideEffect(e.target.value)}
+                                    onChange={(e) => setSideEffect(e.target.value)}
                                   />
                                 </div>
 
@@ -457,7 +475,7 @@ function Account() {
                                     required=""
                                     className="form-control"
                                     name="stock"
-                                    onChange={(e)=>setStock(e.target.value)}
+                                    onChange={(e) => setStock(e.target.value)}
                                   />
                                 </div>
 
@@ -471,67 +489,67 @@ function Account() {
                                     required=""
                                     className="w-25"
                                     name="featured"
-                                    onChange={(e)=>setFeatured(!featured)}
+                                    onChange={(e) => setFeatured(!featured)}
                                   />
                                 </div>
-                                      {
-                                        type==="Tablet" && 
-                                        <div className="container mt-4">
-                                  <label className="form-check-label">
-                                    Medicine Strips{" "}
-                                    <span className="required">*</span>
-                                  </label>
-                                  <div className="d-flex align-items-center gap-2">
-                                    <div className="col-md-4">
-                                      <div className="form-group">
-                                        <label>Tablets on Strip:</label>
-                                        <input
-                                          type="number"
-                                          className="form-control"
-                                          value={tabletsOnStrip}
-                                          onChange={(e) =>
-                                            setTabletsOnStrip(e.target.value)
-                                          }
-                                        />
+                                {
+                                  type === "Tablet" &&
+                                  <div className="container mt-4">
+                                    <label className="form-check-label">
+                                      Medicine Strips{" "}
+                                      <span className="required">*</span>
+                                    </label>
+                                    <div className="d-flex align-items-center gap-2">
+                                      <div className="col-md-4">
+                                        <div className="form-group">
+                                          <label>Tablets on Strip:</label>
+                                          <input
+                                            type="number"
+                                            className="form-control"
+                                            value={tabletsOnStrip}
+                                            onChange={(e) =>
+                                              setTabletsOnStrip(e.target.value)
+                                            }
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="col-md-4">
+                                        <div className="form-group">
+                                          <label>Strips in Box:</label>
+                                          <input
+                                            type="number"
+                                            className="form-control"
+                                            value={stripsInBox}
+                                            onChange={(e) =>
+                                              setStripsInBox(e.target.value)
+                                            }
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="mt-2">
+                                        <button
+                                          className="btn btn-fill-out submit font-weight-bold"
+                                          onClick={handleAddMedicineStrip}
+                                        >
+                                          Add
+                                        </button>
                                       </div>
                                     </div>
-                                    <div className="col-md-4">
-                                      <div className="form-group">
-                                        <label>Strips in Box:</label>
-                                        <input
-                                          type="number"
-                                          className="form-control"
-                                          value={stripsInBox}
-                                          onChange={(e) =>
-                                            setStripsInBox(e.target.value)
-                                          }
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="mt-2">
-                                      <button
-                                        className="btn btn-fill-out submit font-weight-bold"
-                                        onClick={handleAddMedicineStrip}
-                                      >
-                                        Add
-                                      </button>
-                                    </div>
-                                  </div>
 
-                                  <div className="mb-3">
-                                    <ul>
-                                      {medicineStrips.map((strip, index) => (
-                                        <li key={index}>
-                                          Tablets on Strip:{" "}
-                                          {strip.tabletsOnStrip}, Strips in Box:{" "}
-                                          {strip.stripsInBox}
-                                        </li>
-                                      ))}
-                                    </ul>
+                                    <div className="mb-3">
+                                      <ul>
+                                        {medicineStrips.map((strip, index) => (
+                                          <li key={index}>
+                                            Tablets on Strip:{" "}
+                                            {strip.tabletsOnStrip}, Strips in Box:{" "}
+                                            {strip.stripsInBox}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
                                   </div>
-                                </div>
-                                      }
-                                
+                                }
+
 
                                 <div className="col-md-12">
                                   <button

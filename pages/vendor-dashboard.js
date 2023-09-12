@@ -1,3 +1,4 @@
+import React from "react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -13,9 +14,17 @@ import { fetchProduct } from "../redux/action/product";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-const ProductsFullWidth = ({ products, productFilters, fetchProduct }) => {
+// icons
+import { BsFillTrashFill } from "react-icons/bs";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+
+const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }) => {
     const { data: session } = useSession();
     const [orders, setOrders] = useState([]);
+    const [sortDate, setSortDate] = useState(true);
+    const [sortStatus, setSortStatus] = useState(true);
+    const [collapsedRows, setCollapsedRows] = useState({});
+
     console.log(products);
 
     let Router = useRouter(),
@@ -33,19 +42,19 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct }) => {
         cratePagination();
     }, [productFilters, limit, pages, products.items.length]);
     useEffect(() => {
-    if(!session){
-        Router.push("/page-login")
-    }
-    else if(session.user.role === "customer"){
-        Router.push("/")
-    }
-    else if(session.user.role === "vendor"){
-        getOrders();
-    }
+        if (!session) {
+            Router.push("/page-login")
+        }
+        else if (session.user.role === "customer") {
+            Router.push("/")
+        }
+        else if (session.user.role === "vendor") {
+            getOrders();
+        }
     }, [session]);
 
     const getOrders = async () => {
-        const res =await fetch(`/api/order`);
+        const res = await fetch(`/api/order`);
         const data = await res.json();
         console.log(data.data)
         setOrders(data.data);
@@ -86,6 +95,43 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct }) => {
         setCurrentPage(1);
         setPages(Math.ceil(products.items.length / Number(e.target.value)));
     };
+
+    // sorting
+    const handleSortDate = () => {
+        if (sortDate) {
+            setSortDate(false);
+            setSortStatus(false);
+        } else {
+            setSortDate(true);
+            setSortStatus(true);
+        }
+    }
+    const handleSortStatus = () => {
+        if (!sortStatus) {
+            setSortStatus(true);
+            setSortDate(true);
+        } else {
+            setSortStatus(false);
+            setSortDate(false);
+        }
+    }
+
+    // collapsing table
+    const toggleCollapse = (rowId) => {
+        setCollapsedRows((prevState) => ({
+            ...prevState,
+            [rowId]: !prevState[rowId],
+        }));
+    };
+
+
+    const price = () => {
+        let price = 0;
+        cartItems.forEach((item) => (price += item.price * item.quantity));
+
+        return price;
+    };
+
     return (
         <>
             <Layout parent="Home" sub="Vendor  " subChild="Dashboard">
@@ -97,40 +143,138 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct }) => {
                                 <hr className="mb-80" />
                                 <div className="row">
                                     <div className="col-lg-9">
-                                        <h3 className="mb-30">Recent Orders</h3>
+                                        <div className="d-flex justify-content-between align-items-center mb-2">
+                                            <h3 className="mb-30">Recent Orders</h3>
+                                            <Link className="btn btn-fill-out hover: font-weight-bold" href={"/add-item"}>Add Item</Link>
+                                        </div>
                                         <div className="table-responsive">
                                             <table className="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Order</th>
-                                                        <th>Date</th>
-                                                        <th>Status</th>
-                                                        <th>Total</th>
-                                                        <th>Actions</th>
+                                                        <th>
+                                                            Order
+                                                        </th>
+                                                        <th onClick={handleSortDate}>
+                                                            Date
+                                                            {!sortDate && <IoIosArrowUp />}
+                                                            {sortDate && <IoIosArrowDown />}
+                                                        </th>
+                                                        <th onClick={handleSortStatus}>
+                                                            Status
+                                                            {sortStatus && <IoIosArrowUp />}
+                                                            {!sortStatus && <IoIosArrowDown />}
+                                                        </th>
+                                                        <th>
+                                                            Total
+                                                        </th>
+                                                        <th>
+                                                            Actions
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     {
                                                         orders?.map((order, i) => (
                                                             <tr key={i}>
-                                                                <td>{order._id}</td>
+                                                                <td>{order.orderNumber}</td>
                                                                 <td>{
                                                                     order.date.split("T")[0]
-                                                                    }</td>
+                                                                }</td>
                                                                 <td>{order.status ? "Completed" : "Processing"}</td>
                                                                 <td>Rs.{order.totalAmount}</td>
-                                                                <td>
-                                                                    {/* <Link href={`/order/${order._id}`}> */}
-                                                                        <a className="btn-small d-block">
-                                                                            View
-                                                                        </a>
-                                                                    {/* </Link> */}
+                                                                <td className="d-flex justify-content-between">
+                                                                    <Link className="btn-small d-block" href={`/order/${order._id}`}>
+                                                                        View
+                                                                    </Link>
+                                                                    <Link href={`/order/${order._id}`}>
+                                                                        <BsFillTrashFill />
+                                                                    </Link>
                                                                 </td>
                                                             </tr>
                                                         ))
 
                                                     }
-                                                    
+                                                    {/* {
+                                                        orders?.map((order, i) => (
+                                                            <React.Fragment key={i}>
+                                                                <tr>
+                                                                    <td>{order.orderNumber}</td>
+                                                                    <td>{
+                                                                        order.date.split("T")[0]
+                                                                    }</td>
+                                                                    <td>{order.status ? "Completed" : "Processing"}</td>
+                                                                    <td>Rs.{order.totalAmount}</td>
+                                                                    <td className="d-flex justify-content-between">
+                                                                        <Link className="btn-small d-block" href={`/order/${order._id}`}>
+                                                                            View
+                                                                        </Link>
+                                                                        <span
+                                                                            className="p-1 bg-primary"
+                                                                            onClick={() => toggleCollapse(1)}
+                                                                        >
+                                                                            {collapsedRows[1] ? '-' : '+'}
+                                                                        </span>
+                                                                        <Link href={`/order/${order._id}`}>
+                                                                            <BsFillTrashFill />
+                                                                        </Link>
+                                                                    </td>
+                                                                </tr>
+                                                                {collapsedRows[1] && (
+                                                                        cartItems.map((item, i) => (
+                                                                            <tr key={i}>
+                                                                                <td className="image product-thumbnail">
+                                                                                    <img src={item.images ? item.images[0]?.img : item.image} />
+                                                                                </td>
+
+                                                                                <td className="product-des product-name">
+                                                                                    <h6 className="product-name">
+                                                                                        <Link href="/products">{item.title || item.name}</Link>
+                                                                                    </h6>
+                                                                                    <div className="product-rate-cover">
+                                                                                        <div className="product-rate d-inline-block">
+                                                                                            <div
+                                                                                                className="product-rating"
+                                                                                                style={{
+                                                                                                    width: "90%"
+                                                                                                }}
+                                                                                            ></div>
+                                                                                        </div>
+                                                                                        <span className="font-small ml-5 text-muted"> (4.0)</span>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td className="price" data-title="Price">
+                                                                                    <h4 className="text-brand">Rs.{item.price}</h4>
+                                                                                </td>
+                                                                                <td className="text-center detail-info" data-title="Stock">
+                                                                                    <div className="detail-extralink mr-15">
+                                                                                        <div className="detail-qty border radius ">
+                                                                                            <a onClick={(e) => decreaseQuantity(item._id)} className="qty-down">
+                                                                                                <i className="fi-rs-angle-small-down"></i>
+                                                                                            </a>
+                                                                                            <span className="qty-val">{item.quantity}</span>
+                                                                                            <a onClick={(e) => increaseQuantity(item._id)} className="qty-up">
+                                                                                                <i className="fi-rs-angle-small-up"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td className="text-right" data-title="Cart">
+                                                                                    <h4 className="text-body">Rs.{item.quantity * item.price}</h4>
+                                                                                </td>
+                                                                                <td className="action" data-title="Remove">
+                                                                                    <a onClick={(e) => deleteFromCart(item._id)} className="text-muted">
+                                                                                        <i className="fi-rs-trash"></i>
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        ))
+                                                                )}
+                                                            </React.Fragment>
+                                                        ))
+                                                    } */}
+
+
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -191,7 +335,7 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct }) => {
                 </section>
                 <WishlistModal />
                 <QuickView />
-            </Layout>
+            </Layout >
         </>
     );
 };
