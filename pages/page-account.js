@@ -5,6 +5,7 @@ import ImageUpload from "../components/elements/ImageUpload";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+
 function Account() {
   const [currentOrder, setCurrentOrder] = useState(null);
   const [view, setView] = useState(false);
@@ -220,10 +221,38 @@ function Account() {
                                       <td colSpan="5">
                                         <div className="order-details">
                                           {/* Display order details here */}
-                                          <p>Order Number: {order.orderNumber}</p>
-                                          <p>Date: {order.date.split("T")[0]}</p>
-                                          <p>Status: {order.status ? "Delivered" : "Pending"}</p>
-                                          <p>Total Amount: Rs.{order.totalAmount}</p>
+                                          <h3> Items in Order</h3>
+                                          <table className="table">
+                                            <thead>
+                                              <tr>
+                                                <th>Medicine</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Total</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              {order.items.map((item) => (
+                                                <tr key={item._id}>
+                                                  <td>
+                                                  <Link href="/products/[slug]" as={`/products/${item.medicine.slug}`}>
+                            {item.medicine.name}
+                        </Link>
+                                                  </td>
+                                                  <td>{item.quantity}</td>
+                                                  <td>
+                                                    Rs.{item.medicine.price}
+                                                  </td>
+                                                  <td>
+                                                    Rs.
+                                                    {item.medicine.price *
+                                                      item.quantity}
+                                                  </td>
+                                                </tr>
+                                              ))}
+                                            </tbody>
+                                          </table>
+                                          
                                           {/* Add more order details as needed */}
                                         </div>
                                       </td>
