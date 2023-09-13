@@ -14,7 +14,7 @@ function CategoryTab() {
 
   const catPAll = async () => {
     try {
-      const request = await fetch(`api/medicine`);
+      const request = await fetch(`/api/medicine`);
       const allProducts = await request.json();
       console.log(allProducts);
       // const catAllItem = allProducts.filter((item) => item.Categories);

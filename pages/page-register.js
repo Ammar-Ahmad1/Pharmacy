@@ -57,7 +57,7 @@ function Privacy() {
 
     if (password === confirmPassword) {
       console.log(name, email, password, role, phone);
-      fetch("http://localhost:3000/api/users/register", {
+      fetch("/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
