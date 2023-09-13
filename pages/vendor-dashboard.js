@@ -297,12 +297,11 @@ const ProductsFullWidth = ({
                               </tr>
                               {/* Conditionally render order details */}
                               {currentOrder === order && (
-                                <>
-                                  <tr>
+                                  <tr className="bg-light">
                                     <td colSpan="5">
-                                      <div className="order-details">
+                                      <div className="order-details mt-1">
                                         {/* Display order details here */}
-                                        <h4> Items in Order</h4>
+                                        <h5> Items in Order</h5>
                                         <table className="table">
                                           <thead>
                                             <tr>
@@ -337,8 +336,7 @@ const ProductsFullWidth = ({
                                           </tbody>
                                         </table>
                                         <div>
-                                          <h4>Delivery Details</h4>
-                                          <br />
+                                          <h5>Delivery Details</h5>
                                           <p>
                                             Deliver to: {order.address}-{" "}
                                             {order.city} - {order.user.phone}
@@ -348,7 +346,6 @@ const ProductsFullWidth = ({
                                       </div>
                                     </td>
                                   </tr>
-                                </>
                               )}
                             </React.Fragment>
                           ))}
