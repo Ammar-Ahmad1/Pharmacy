@@ -160,12 +160,12 @@ function Privacy() {
       });
 
       const data = await response.json();
-
+      console.log(data);
       if (data.success) {
         toast.success("OTP sent successfully");
         setSendOTP(true);
-      } else {
-        toast.error("Failed to send OTP");
+      } else if (data.error) {
+        toast.error(data.error);
       }
     } catch (error) {
       console.error("Error sending OTP:", error);

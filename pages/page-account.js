@@ -391,35 +391,12 @@ function Account() {
                             <h5>Account Details</h5>
                           </div>
                           <div className="card-body">
-                            <p>
+                            {/* <p>
                               Already have an account?{" "}
                               <Link href="/page-login">Log in instead!</Link>
-                            </p>
+                            </p> */}
                             <form method="post" name="enq">
                               <div className="row">
-                                <div className="form-group col-md-6">
-                                  <label>
-                                    First Name{" "}
-                                    <span className="required">*</span>
-                                  </label>
-                                  <input
-                                    required=""
-                                    className="form-control"
-                                    name="name"
-                                    type="text"
-                                  />
-                                </div>
-                                <div className="form-group col-md-6">
-                                  <label>
-                                    Last Name{" "}
-                                    <span className="required">*</span>
-                                  </label>
-                                  <input
-                                    required=""
-                                    className="form-control"
-                                    name="phone"
-                                  />
-                                </div>
                                 <div className="form-group col-md-12">
                                   <label>
                                     Display Name{" "}

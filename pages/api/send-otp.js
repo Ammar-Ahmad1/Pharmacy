@@ -1,9 +1,17 @@
 // pages/api/send-otp.js
 import { Twilio } from "twilio";
+import { connectToDB } from "@config/database.js";
+import User from "@models/user.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
+    return;
+  }
+  await connectToDB();
+  const user = User.findOne({ phone: req.body.phone });
+  if (user) {
+    res.status(400).json({ error: "User already exists" });
     return;
   }
 
