@@ -74,31 +74,6 @@ const handler = async (req, res) => {
         res.status(400).json({ success: false });
       }
       break;
-
-    case "DELETE":
-      try {
-        const { id } = req.body; // Assuming you send the medicine ID in the request body
-
-        if (!id) {
-          return res
-            .status(400)
-            .json({ success: false, message: "Medicine ID is missing." });
-        }
-
-        // Use Mongoose to find and delete the medicine by ID
-        const deletedMedicine = await Medicine.findByIdAndDelete(id);
-
-        if (!deletedMedicine) {
-          return res
-            .status(404)
-            .json({ success: false, message: "Medicine not found." });
-        }
-
-        res.status(200).json({ success: true, data: deletedMedicine });
-      } catch (error) {
-        res.status(400).json({ success: false });
-      }
-      break;
     default:
       res.status(400).json({ success: false });
       break;

@@ -175,6 +175,30 @@ const ProductsFullWidth = ({
       toast.error("Error deleting order");
     }
   };
+  const handleMedicineDelete = async (id) => {
+
+    // Display a confirmation dialog
+    const confirmed = window.confirm("Are you sure you want to delete this medicine?");
+    
+    if (!confirmed) {
+      // If the user cancels the confirmation, do nothing
+      return;
+    }
+  
+    try {
+      const res = await fetch(`/api/medicine/delete?medicineId=${id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast.success("Medicine Deleted");
+      fetchProduct(searchTerm, "/api/medicine", productFilters);
+    cratePagination();
+      
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   const handleSearchChange = (e) => {
     const searchTerm = e.target.value;
     setSearchOrder(searchTerm);
@@ -291,7 +315,9 @@ const ProductsFullWidth = ({
                                       handleDelete(e, order._id);
                                     }}
                                   >
-                                    <BsFillTrashFill />
+                                    <BsFillTrashFill 
+
+                                    />
                                   </Link>
                                 </td>
                               </tr>
@@ -404,7 +430,9 @@ const ProductsFullWidth = ({
                       className="col-lg-1-5 col-md-4 col-12 col-sm-6"
                       key={i}
                     >
-                      <SingleProduct product={item} />
+                      <SingleProduct product={item} 
+                        handleMedicineDelete={handleMedicineDelete}
+                      />
                       {/* <SingleProductList product={item}/> */}
                     </div>
                   ))}
