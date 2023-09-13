@@ -9,7 +9,8 @@ export default async function handler(req, res) {
     return;
   }
   await connectToDB();
-  const user = User.findOne({ phone: req.body.phone });
+  const user = await  User.findOne({ phone: req.body.phone });
+  console.log(user)
   if (user) {
     res.status(400).json({ error: "User already exists" });
     return;
