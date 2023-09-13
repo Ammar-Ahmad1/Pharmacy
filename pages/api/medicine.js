@@ -3,7 +3,15 @@ import Medicine from "@models/medicine.js";
 import multer from "multer";
 import cloudinary from "@config/cloudinary.js";
 import { writeFile, unlink } from "fs/promises";
-const upload = multer({ dest: "uploads/" });
+
+const storage = multer.diskStorage({
+  destination: '/tmp/uploads',
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname)
+  }
+});
+
+const upload = multer({ storage: storage });
 const handler = async (req, res) => {
   const { method } = req;
 
