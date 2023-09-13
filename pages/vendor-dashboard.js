@@ -16,7 +16,7 @@ import Link from "next/link";
 
 // icons
 import { BsFillTrashFill } from "react-icons/bs";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp, IoIosArrowDown, IoIosArrowDropdown, IoIosArrowDropupCircle } from "react-icons/io";
 
 const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }) => {
 
@@ -26,6 +26,7 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
     const { data: session } = useSession();
     const [sortDate, setSortDate] = useState(true);
     const [sortStatus, setSortStatus] = useState(true);
+    const [expand, setExpand] = useState(false);
 
     console.log(products);
 
@@ -54,14 +55,14 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
             getOrders();
         }
     }, [session]);
-    
 
-    // const getOrders = async () => {
-    //     const res = await fetch(`/api/order`);
-    //     const data = await res.json();
-    //     console.log(data.data)
-    //     setOrders(data.data);
-    // }
+
+    const getOrders = async () => {
+        const res = await fetch(`/api/order`);
+        const data = await res.json();
+        console.log(data.data)
+        setOrders(data.data);
+    }
 
     const cratePagination = () => {
         // set pagination
@@ -119,21 +120,6 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
         }
     }
 
-    // collapsing table
-    const getOrders = async () => {
-        if (session) {
-            try {
-                const res = await fetch(`/api/order?userId=${session.user.id}`);
-                const data = await res.json();
-                console.log(data.data);
-                setOrders(data.data);
-                // setUser(data.data);
-            } catch (error) {
-                console.error("Error fetching orders:", error);
-            }
-        }
-    };
-
     const handleToggleOrderDetails = (e, order) => {
         e.preventDefault();
         if (currentOrder === order) {
@@ -141,11 +127,21 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
         } else {
             setCurrentOrder(order); // Select the order if it's not selected
         }
+        if(!expand) {
+            setExpand(true);
+        } else {
+            setExpand(false);
+        }
     };
 
     useEffect(() => {
         getOrders();
-    }, [session]);
+    }, []);
+
+    // Delete order
+    const handleDelete = (e) => {
+        e.preventDefault();
+    }
 
     return (
         <>
@@ -202,7 +198,7 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
                                                                     {order.status ? "Delivered" : "Pending"}
                                                                 </td>
                                                                 <td>Rs.{order.totalAmount}</td>
-                                                                <td>
+                                                                <td className="d-flex justify-content-between">
                                                                     <Link
                                                                         href="#"
                                                                         className="btn-small d-block"
@@ -210,9 +206,11 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
                                                                             handleToggleOrderDetails(e, order); // Call the function to toggle order details
                                                                         }}
                                                                     >
-                                                                        View
+                                                                        Details
+                                                                        {!expand && <IoIosArrowDropdown className="ms-1" />}
+                                                                        {expand && <IoIosArrowDropupCircle className="ms-1" />}
                                                                     </Link>
-                                                                    <Link href="#">
+                                                                    <Link href="#" onClick={handleDelete}>
                                                                         <BsFillTrashFill />
                                                                     </Link>
                                                                 </td>

@@ -6,6 +6,9 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
+// icons
+import { IoIosArrowDropdown, IoIosArrowDropupCircle } from "react-icons/io";
+
 function Account() {
   const [currentOrder, setCurrentOrder] = useState(null);
   // const [view, setView] = useState(false);
@@ -13,7 +16,10 @@ function Account() {
   const [activeIndex, setActiveIndex] = useState(1);
   const { data: session } = useSession();
   const [user, setUser] = useState(null);
+  const [sortStatus, setSortStatus] = useState(true);
   const [orders, setOrders] = useState(null);
+  const [expand, setExpand] = useState(false);
+
   const handleOnClick = (index) => {
     setActiveIndex(index); // remove the curly braces
   };
@@ -49,6 +55,11 @@ function Account() {
       setCurrentOrder(null); // Deselect the order if it's already selected
     } else {
       setCurrentOrder(order); // Select the order if it's not selected
+    }
+    if (!expand) {
+      setExpand(true);
+    } else {
+      setExpand(false);
     }
   };
   // const handleViewOrderDetails = (order) => {
@@ -205,15 +216,17 @@ function Account() {
                                         </td>
                                         <td>Rs.{order.totalAmount}</td>
                                         <td>
-                                          <a
+                                          <Link
                                             href="#"
                                             className="btn-small d-block"
                                             onClick={(e) => {
                                               handleToggleOrderDetails(e, order); // Call the function to toggle order details
                                             }}
                                           >
-                                            View
-                                          </a>
+                                            Details
+                                            {!expand && <IoIosArrowDropdown className="ms-1" />}
+                                            {expand && currentOrder === order && <IoIosArrowDropupCircle className="ms-1" />}
+                                          </Link>
                                         </td>
                                       </tr>
                                       {/* Conditionally render order details */}
