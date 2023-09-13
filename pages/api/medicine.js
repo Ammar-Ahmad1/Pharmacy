@@ -32,7 +32,7 @@ const handler = async (req, res) => {
         const file = req.body.image;
         const base64Data = file.replace(/^data:image\/\w+;base64,/, "");
         const buffer = Buffer.from(base64Data, "base64");
-        const tempFilePath = "/uploads"; // Update this path
+        const tempFilePath = "/tmp/uploads"; // Update this path
         await writeFile(tempFilePath, buffer);
 
         const cloudinaryResponse = await cloudinary.uploader.upload(
