@@ -26,7 +26,7 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
     const { data: session } = useSession();
     const [sortDate, setSortDate] = useState(true);
     const [sortStatus, setSortStatus] = useState(true);
-    const [expand, setExpand] = useState(false);
+
 
     console.log(products);
 
@@ -127,11 +127,6 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
         } else {
             setCurrentOrder(order); // Select the order if it's not selected
         }
-        if(!expand) {
-            setExpand(true);
-        } else {
-            setExpand(false);
-        }
     };
 
     useEffect(() => {
@@ -207,8 +202,8 @@ const ProductsFullWidth = ({ products, productFilters, fetchProduct, cartItems }
                                                                         }}
                                                                     >
                                                                         Details
-                                                                        {!expand && <IoIosArrowDropdown className="ms-1" />}
-                                                                        {expand && <IoIosArrowDropupCircle className="ms-1" />}
+                                                                        {!(currentOrder === order) && <IoIosArrowDropdown className="ms-1" />}
+                                                                        {currentOrder === order && <IoIosArrowDropupCircle className="ms-1" />}
                                                                     </Link>
                                                                     <Link href="#" onClick={handleDelete}>
                                                                         <BsFillTrashFill />

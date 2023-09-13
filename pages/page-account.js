@@ -18,7 +18,6 @@ function Account() {
   const [user, setUser] = useState(null);
   const [sortStatus, setSortStatus] = useState(true);
   const [orders, setOrders] = useState(null);
-  const [expand, setExpand] = useState(false);
 
   const handleOnClick = (index) => {
     setActiveIndex(index); // remove the curly braces
@@ -55,11 +54,6 @@ function Account() {
       setCurrentOrder(null); // Deselect the order if it's already selected
     } else {
       setCurrentOrder(order); // Select the order if it's not selected
-    }
-    if (!expand) {
-      setExpand(true);
-    } else {
-      setExpand(false);
     }
   };
   // const handleViewOrderDetails = (order) => {
@@ -224,8 +218,8 @@ function Account() {
                                             }}
                                           >
                                             Details
-                                            {!expand && <IoIosArrowDropdown className="ms-1" />}
-                                            {expand && currentOrder === order && <IoIosArrowDropupCircle className="ms-1" />}
+                                            {!(currentOrder === order) && <IoIosArrowDropdown className="ms-1" />}
+                                            {currentOrder === order && <IoIosArrowDropupCircle className="ms-1" />}
                                           </Link>
                                         </td>
                                       </tr>
