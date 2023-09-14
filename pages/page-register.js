@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Layout from "../components/layout/Layout";
 import React, { useState, useEffect } from "react";
-import { signIn, getProviders,useSession } from "next-auth/react";
+import { signIn, getProviders, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import OtpInput from "react18-input-otp";
 import AuthCode from "react-auth-code-input";
@@ -22,7 +22,7 @@ function Privacy() {
   const [verificationId, setVerificationId] = useState("");
   const { data: session } = useSession();
   const [isSendingOTP, setIsSendingOTP] = useState(false);
-const [isSigningUp, setIsSigningUp] = useState(false);
+  const [isSigningUp, setIsSigningUp] = useState(false);
 
 
   useEffect(() => {
@@ -176,7 +176,7 @@ const [isSigningUp, setIsSigningUp] = useState(false);
     } catch (error) {
       console.error("Error sending OTP:", error);
       toast.error("An error occurred while sending OTP");
-    }finally {
+    } finally {
       setIsSendingOTP(false); // Set loading state back to false when done
     }
   };
@@ -225,7 +225,7 @@ const [isSigningUp, setIsSigningUp] = useState(false);
                                 value={phone}
                                 name="phone-number"
                                 onChange={handlePhoneNumberChange}
-                                className={isValid ? "valid" : "invalid"}
+                              // className={isValid ? "valid" : "invalid"}
                               />
 
                               {!isValid && phone.trim() !== "" && (
@@ -243,7 +243,7 @@ const [isSigningUp, setIsSigningUp] = useState(false);
                               <div className="form-group mb-30">
                                 <button
                                   type="submit"
-                                  className="btn btn-fill-out btn-block hover-up font-weight-bold"
+                                  className="btn btn-fill-out btn-block font-weight-bold"
                                   onClick={(e) => handleSendOTP(e)}
                                   disabled={isSendingOTP} // Disable the button when loading
                                 >
@@ -278,7 +278,7 @@ const [isSigningUp, setIsSigningUp] = useState(false);
                                 >
                                   <button
                                     id="recaptcha-container"
-                                    className="btn btn-fill-out btn-block hover-up font-weight-bold"
+                                    className="btn btn-fill-out btn-block font-weight-bold"
                                     onClick={(e) => handleNextForm(e)}
                                   >
                                     NEXT
@@ -401,7 +401,7 @@ const [isSigningUp, setIsSigningUp] = useState(false);
                             <div className="form-group mb-30">
                               <button
                                 type="submit"
-                                className="btn btn-fill-out btn-block hover-up font-weight-bold"
+                                className="btn btn-fill-out btn-block  font-weight-bold"
                                 name="login"
                                 onClick={(e) => handleSignUp(e)}
                                 disabled={isSigningUp} // Disable the button when loading
