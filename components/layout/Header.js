@@ -268,7 +268,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                 <div className="main-categori-wrap d-none d-lg-block">
                   <a className="categories-button-active" onClick={handleToggle}>
                     <span className="fi-rs-apps"></span>
-                    <span className="et">Browse</span> All Categories
+                    All Categories
                     <i className="fi-rs-angle-down"></i>
                   </a>
 
@@ -398,7 +398,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                         </ul>
                       </li>
 
-                      <li className="position-static">
+                      {/* <li className="position-static">
                         <Link href="/#">
                           Mega menu
                           <i className="fi-rs-angle-down"></i>
@@ -507,7 +507,8 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                             </div>
                           </li>
                         </ul>
-                      </li>
+                      </li> */}
+
                       <li>
                         <Link href="/blog-category-grid">
                           Blog

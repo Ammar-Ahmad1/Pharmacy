@@ -1339,7 +1339,7 @@ option {
 textarea {
     border: 1px solid #ececec;
     border-radius: 10px;
-    height: 50px;
+    height: 160px;
     -webkit-box-shadow: none;
     box-shadow: none;
     padding: 10px 10px 10px 20px;
@@ -1752,7 +1752,7 @@ label {
 .form-control {
     border: 1px solid #f0e9ff;
     border-radius: 10px;
-    height: 48px;
+    /* height: 48px; */
     padding-left: 18px;
     font-size: 16px;
     background: transparent;
@@ -2736,6 +2736,9 @@ label {
     padding: 15px 30px;
     font-family: "Quicksand", sans-serif;
     font-weight: 700;
+}
+.dashboard-menu ul li a:hover {
+    color: #3bb77e;
 }
 
 .dashboard-menu ul li a i {

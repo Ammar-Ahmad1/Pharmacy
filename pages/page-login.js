@@ -67,7 +67,7 @@ function Login() {
     return (
         <>
             <Layout parent="Home" sub="Pages" subChild="Login & Register">
-                <div className="page-content pt-150 pb-150">
+                <div className="page-content pt-100 pb-100">
                     <div className="container">
                         <div className="row">
                             <div className="col-xl-8 col-lg-10 col-md-12 m-auto">
@@ -110,7 +110,7 @@ function Login() {
                                                         <a className="text-muted" href="#">Forgot password?</a>
                                                     </div>
                                                     <div className="form-group">
-                                                        <button type="submit" className="btn btn-heading btn-block hover-up" name="login" onClick={handleSubmit}
+                                                        <button type="submit" className="btn btn-heading btn-block" name="login" onClick={handleSubmit}
                                                             disabled={loading}
                                                         >
                                                             {loading ? "Loading..." : "Login"}

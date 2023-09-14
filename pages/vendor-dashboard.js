@@ -179,12 +179,12 @@ const ProductsFullWidth = ({
 
     // Display a confirmation dialog
     const confirmed = window.confirm("Are you sure you want to delete this medicine?");
-    
+
     if (!confirmed) {
       // If the user cancels the confirmation, do nothing
       return;
     }
-  
+
     try {
       const res = await fetch(`/api/medicine/delete?medicineId=${id}`, {
         method: "DELETE",
@@ -193,8 +193,8 @@ const ProductsFullWidth = ({
       if (!res.ok) throw new Error(data.error);
       toast.success("Medicine Deleted");
       fetchProduct(searchTerm, "/api/medicine", productFilters);
-    cratePagination();
-      
+      cratePagination();
+
     } catch (error) {
       toast.error(error.message);
     }
@@ -208,8 +208,8 @@ const ProductsFullWidth = ({
       setFilteredOrders(null);
     } else {
       // Filter the orders based on the search term
-        //ignore case
-        const filtered = orders.filter((order) =>
+      //ignore case
+      const filtered = orders.filter((order) =>
         order.orderNumber.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredOrders(filtered);
@@ -222,8 +222,8 @@ const ProductsFullWidth = ({
     } else {
       // Filter the orders based on the search term
       const filtered = orders.filter((order) =>
-      order.orderNumber.toLowerCase().includes(searchOrder.toLowerCase())
-    );
+        order.orderNumber.toLowerCase().includes(searchOrder.toLowerCase())
+      );
       setFilteredOrders(filtered);
     }
   }, [orders, searchOrder]);
@@ -241,17 +241,6 @@ const ProductsFullWidth = ({
                   <div className="col-lg-9">
                     <div className="d-flex justify-content-between align-items-center mb-2">
                       <h3 className="mb-30">Recent Orders</h3>
-                      <div className="input-group w-25">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Search Orders"
-                          aria-label="Search Orders"
-                          aria-describedby="basic-addon2"
-                          // value={searchOrder}
-                          onChange={handleSearchChange}
-                        />
-                      </div>
                       <Link
                         className="btn btn-fill-out hover: font-weight-bold"
                         href={"/add-item"}
@@ -260,6 +249,18 @@ const ProductsFullWidth = ({
                       </Link>
                     </div>
                     <div className="table-responsive">
+                      <div className="input-group w-25">
+                        <input
+                          type="search"
+                          className="form-control"
+                          placeholder="Search Orders"
+                          aria-label="Search Orders"
+                          aria-describedby="basic-addon2"
+                          // value={searchOrder}
+                          onChange={handleSearchChange}
+                        />
+                      </div>
+                      <br />
                       <table className="table">
                         <thead>
                           <tr>
@@ -315,63 +316,63 @@ const ProductsFullWidth = ({
                                       handleDelete(e, order._id);
                                     }}
                                   >
-                                    <BsFillTrashFill 
-                                      style ={{color:'red'}}
+                                    <BsFillTrashFill
+                                      style={{ color: 'red' }}
                                     />
                                   </Link>
                                 </td>
                               </tr>
                               {/* Conditionally render order details */}
                               {currentOrder === order && (
-                                  <tr className="bg-light">
-                                    <td colSpan="5">
-                                      <div className="order-details mt-1">
-                                        {/* Display order details here */}
-                                        <h5> Items in Order</h5>
-                                        <table className="table">
-                                          <thead>
-                                            <tr>
-                                              <th>Medicine</th>
-                                              <th>Quantity</th>
-                                              <th>Price</th>
-                                              <th>Total</th>
+                                <tr className="bg-light">
+                                  <td colSpan="5">
+                                    <div className="order-details mt-1">
+                                      {/* Display order details here */}
+                                      <h5> Items in Order</h5>
+                                      <table className="table">
+                                        <thead>
+                                          <tr>
+                                            <th>Medicine</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          {order.items.map((item) => (
+                                            <tr key={item._id}>
+                                              <td>
+                                                <Link
+                                                  href="/products/[slug]"
+                                                  as={`/products/${item.medicine.slug}`}
+                                                >
+                                                  {item.medicine.name}
+                                                </Link>
+                                              </td>
+                                              <td>{item.quantity}</td>
+                                              <td>
+                                                Rs.{item.medicine.price}
+                                              </td>
+                                              <td>
+                                                Rs.
+                                                {item.medicine.price *
+                                                  item.quantity}
+                                              </td>
                                             </tr>
-                                          </thead>
-                                          <tbody>
-                                            {order.items.map((item) => (
-                                              <tr key={item._id}>
-                                                <td>
-                                                  <Link
-                                                    href="/products/[slug]"
-                                                    as={`/products/${item.medicine.slug}`}
-                                                  >
-                                                    {item.medicine.name}
-                                                  </Link>
-                                                </td>
-                                                <td>{item.quantity}</td>
-                                                <td>
-                                                  Rs.{item.medicine.price}
-                                                </td>
-                                                <td>
-                                                  Rs.
-                                                  {item.medicine.price *
-                                                    item.quantity}
-                                                </td>
-                                              </tr>
-                                            ))}
-                                          </tbody>
-                                        </table>
-                                        <div>
-                                          <h5>Delivery Details</h5>
-                                          <p>
-                                            Deliver to: {order.address}-{" "}
-                                            {order.city} - {order.user.phone}
-                                          </p>
-                                        </div>
-                                        {/* Add more order details as needed */}
+                                          ))}
+                                        </tbody>
+                                      </table>
+                                      <div>
+                                        <h5>Delivery Details</h5>
+                                        <p>
+                                          Deliver to: {order.address}-{" "}
+                                          {order.city} - {order.user.phone}
+                                        </p>
                                       </div>
-                                    </td>
-                                  </tr>
+                                      {/* Add more order details as needed */}
+                                    </div>
+                                  </td>
+                                </tr>
                               )}
                             </React.Fragment>
                           ))}
@@ -383,10 +384,41 @@ const ProductsFullWidth = ({
                     <div className="primary-sidebar">
                       <div className="sidebar-widget product-sidebar mt-15 p-30 bg-grey border-radius-10">
                         <h5 className="section-title style-1 mb-30">
-                          Best sell
+                          Sales History
                         </h5>
-                        <div className="product-list-small">
-                          <BestSellerSlider />
+
+                        <div>
+                          <h5>Today's Sale</h5>
+                          <div className="d-flex align-items-center mt-1">
+                            <h6 className="me-1">Profit: </h6>
+                            <p>$60</p>
+                          </div>
+                          <div className="d-flex align-items-center">
+                            <h6 className="me-1">Orders: </h6>
+                            <p>10</p>
+                          </div>
+                        </div>
+                        <div className="mt-4">
+                          <h5>This Week Sales</h5>
+                          <div className="d-flex align-items-center mt-1">
+                            <h6 className="me-1">Profit: </h6>
+                            <p>$60</p>
+                          </div>
+                          <div className="d-flex align-items-center">
+                            <h6 className="me-1">Orders: </h6>
+                            <p>10</p>
+                          </div>
+                        </div>
+                        <div className="mt-4">
+                          <h5>This Month Sales</h5>
+                          <div className="d-flex align-items-center mt-1">
+                            <h6 className="me-1">Profit: </h6>
+                            <p>$60</p>
+                          </div>
+                          <div className="d-flex align-items-center">
+                            <h6 className="me-1">Orders: </h6>
+                            <p>10</p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -430,7 +462,7 @@ const ProductsFullWidth = ({
                       className="col-lg-1-5 col-md-4 col-12 col-sm-6"
                       key={i}
                     >
-                      <SingleProduct product={item} 
+                      <SingleProduct product={item}
                         handleMedicineDelete={handleMedicineDelete}
                       />
                       {/* <SingleProductList product={item}/> */}
