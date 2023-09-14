@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../components/layout/Layout";
 import {
   clearCart,
@@ -24,144 +24,184 @@ const Cart = ({
   deleteFromCart,
   clearCart,
 }) => {
+  // console.log(cities);
   const { data: session } = useSession();
-    const router = useRouter();
+  const router = useRouter();
   // Provide a default value for name if session?.user.name is undefined
-  const [name, setName] = useState( "");
-  const [email, setEmail] = useState( "");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [loginEmail, setLoginEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-    const [providers, setProviders] = useState(null);
-    const [showLoginForm, setShowLoginForm] = useState(false);
-    const [placingOrder,setPlacingOrder] = useState(false);
-    useEffect(() => {
-      const getProvidersData = async () => {
-          const providers = await getProviders();
-          setProviders(providers);
-      };
-      getProvidersData();
-  }, []);
-    const loginUser = async (e) => {
-      e.preventDefault();
-      if (!loginEmail || !password) {
-          toast.error("Please fill all the fields");
-          return;
-      }
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [providers, setProviders] = useState(null);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [placingOrder, setPlacingOrder] = useState(false);
+  const [Delivery, setDelivery] = useState(0);
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
+  const [gettingCity, setGettingCity] = useState(false);
 
-
-      setLoading(true);
-      const result = await signIn("credentials", {
-          redirect: false,
-          email: loginEmail,
-          password,
+  useEffect(() => {
+    try {
+      setGettingCity(true);
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
       });
-      if (result.error) {
-          setError(result.error);
-          toast.error(result.error);
-      } else {
-          
-        toast.success("Logged in successfully");
-        setShowLoginForm(false);
-          console.log(result)
-          if(session){
-          if(session.user.role === "customer")
-          {
-            
-          } // Redirect to home page if logged in
-          else if(session.user.role === "vendor")
-          router.push("/vendor-dashboard");
-          // router.push("/");
-          }
-      }
-      setLoading(false);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setGettingCity(false);
     }
-  console.log(cartItems,
-    "cartItems")
+  }, []);
+
+  const nominatimUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
+  useEffect(() => {
+    if (!gettingCity) {
+      setGettingCity(true);
+      fetch(nominatimUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          const city = data.address.city;
+          setCity(city);
+        })
+        .catch((error) => console.error("Error:", error))
+        .finally(() => {
+          setGettingCity(false);
+        });
+    }
+  }, [latitude, longitude, gettingCity]);
+  useEffect(() => {
+    const getProvidersData = async () => {
+      const providers = await getProviders();
+      setProviders(providers);
+    };
+    getProvidersData();
+  }, []);
+  const loginUser = async (e) => {
+    e.preventDefault();
+    if (!loginEmail || !password) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+
+    setLoading(true);
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: loginEmail,
+      password,
+    });
+    if (result.error) {
+      setError(result.error);
+      toast.error(result.error);
+    } else {
+      toast.success("Logged in successfully");
+      setShowLoginForm(false);
+      console.log(result);
+      if (session) {
+        if (session.user.role === "customer") {
+        } // Redirect to home page if logged in
+        else if (session.user.role === "vendor")
+          router.push("/vendor-dashboard");
+        // router.push("/");
+      }
+    }
+    setLoading(false);
+  };
+  console.log(cartItems, "cartItems");
   const price = () => {
     let price = 0;
     cartItems.forEach((item) => (price += item.price * item.quantity));
 
     return price;
   };
-  const getUser = async() =>{
-    const req= await fetch(`/api/users/${session.user.id}`)
-    const data= await req.json();
-    console.log(data.data)
+  useEffect(() => {
+    if (price() > 1000) {
+      setDelivery(200);
+    } else {
+      setDelivery(300);
+    }
+  }, [price()]);
+  const getUser = async () => {
+    const req = await fetch(`/api/users/${session.user.id}`);
+    const data = await req.json();
+    console.log(data.data);
     setEmail(data.data.email);
     setName(data.data.name);
-    setPhone(data.data.phone)
-  }
+    setPhone(data.data.phone);
+  };
   const placeOrder = () => {
     if (session) {
-        if (!name || !email || !phone || !address || !city) {
-            toast.error('Please fill all the fields');
-            return;
-        }
-        if(cartItems.length === 0){
-          toast.error('Please add items to cart');
-            return;
-        }
-        // Create an array of order items with item ID and quantity
-        const orderItems = cartItems.map((item) => ({
-            medicine: item._id, // Assuming each item has an _id property
-            quantity: item.quantity, // Use the quantity associated with each item
-        }));
+      if (!name || !email || !phone || !address || !city) {
+        toast.error("Please fill all the fields");
+        return;
+      }
+      if (cartItems.length === 0) {
+        toast.error("Please add items to cart");
+        return;
+      }
+      // Create an array of order items with item ID and quantity
+      const orderItems = cartItems.map((item) => ({
+        medicine: item._id, // Assuming each item has an _id property
+        quantity: item.quantity, // Use the quantity associated with each item
+      }));
 
-        const order = {
-            items: orderItems, // An array of items in the order with their quantities
-            user: session.user.id, // The user ID of the logged-in user
-            date: new Date(), // Current date and time
-            address: address,
-            city: city,
-            totalAmount: price(), // Total amount of the order
-            orderNumber: '', // Will be generated in the backend
-        };
-        setPlacingOrder(true);
-        // Send a POST request to your API route
-        fetch('/api/order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(order),
+      const order = {
+        items: orderItems, // An array of items in the order with their quantities
+        user: session.user.id, // The user ID of the logged-in user
+        date: new Date(), // Current date and time
+        address: address,
+        city: city,
+        totalAmount: price() + delivery, // Total amount of the order
+        orderNumber: "", // Will be generated in the backend
+      };
+      setPlacingOrder(true);
+      // Send a POST request to your API route
+      fetch("/api/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(order),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Handle the response from the server
+          if (data.success) {
+            // Order was successfully created
+            console.log("Order placed:", data.data);
+            toast.success("Order placed successfully");
+            clearCart();
+            router.push("/");
+            // You can perform any additional actions here, such as clearing the cart or showing a success message.
+          } else {
+            // Handle the case where the order creation failed
+            console.error("Order creation failed:", data.error);
+            // You can display an error message or take appropriate action.
+          }
         })
-            .then((response) => response.json())
-            .then((data) => {
-                // Handle the response from the server
-                if (data.success) {
-                    // Order was successfully created
-                    console.log('Order placed:', data.data);
-                    toast.success('Order placed successfully');
-                    clearCart();
-                    router.push('/');
-                    // You can perform any additional actions here, such as clearing the cart or showing a success message.
-                } else {
-                    // Handle the case where the order creation failed
-                    console.error('Order creation failed:', data.error);
-                    // You can display an error message or take appropriate action.
-                }
-            })
-            .catch((error) => {
-                console.error('Error placing order:', error);
-                // Handle any network or request-related errors here.
-            }).finally(()=>{
-              setPlacingOrder(false)
-            });
+        .catch((error) => {
+          console.error("Error placing order:", error);
+          // Handle any network or request-related errors here.
+        })
+        .finally(() => {
+          setPlacingOrder(false);
+        });
     } else {
-        toast.error('Please login first');
+      toast.error("Please login first");
     }
-};
+  };
 
-useEffect(() => {
-    if(session){
-        getUser()
+  useEffect(() => {
+    if (session) {
+      getUser();
     }
-}, [session])
+  }, [session]);
   return (
     <>
       <Layout parent="Home" sub="Shop" subChild="Checkout">
@@ -200,71 +240,79 @@ useEffect(() => {
                         </span>
                       </div>
                     )}
-                    {showLoginForm &&(
-                    <div
-                      className={`panel-collapse collapse login_form ${
-                        showLoginForm ? "show" : ""
-                      }`}
-                      id="loginform"
-                    >
-                      <div className="panel-body">
-                        <p className="mb-30 font-sm">
-                          If you have shopped with us before, please enter your
-                          details below. If you are a new customer, please
-                          proceed to the Billing &amp; Shipping section.
-                        </p>
-                        <form method="post">
-                          <div className="form-group">
-                            <input
-                              type="text"
-                              name="email"
-                              placeholder="Username Or Email"
-                              onChange={(e)=>{setLoginEmail(e.target.value)}} value={loginEmail}
-                            />
-                          </div>
-                          <div className="form-group">
-                            <input
-                              type="password"
-                              name="password"
-                              placeholder="Password"
-                              onChange={(e)=>{setPassword(e.target.value)}} value={password}
-
-                            />
-                          </div>
-                          <div className="login_footer form-group">
-                            <div className="chek-form">
-                              <div className="custome-checkbox">
-                                <input
-                                  className="form-check-input"
-                                  type="checkbox"
-                                  name="checkbox"
-                                  id="remember"
-                                  value=""
-                                />
-                                <label
-                                  className="form-check-label"
-                                  htmlFor="remember"
-                                >
-                                  <span>Remember me</span>
-                                </label>
-                              </div>
+                    {showLoginForm && (
+                      <div
+                        className={`panel-collapse collapse login_form ${
+                          showLoginForm ? "show" : ""
+                        }`}
+                        id="loginform"
+                      >
+                        <div className="panel-body">
+                          <p className="mb-30 font-sm">
+                            If you have shopped with us before, please enter
+                            your details below. If you are a new customer,
+                            please proceed to the Billing &amp; Shipping
+                            section.
+                          </p>
+                          <form method="post">
+                            <div className="form-group">
+                              <input
+                                type="text"
+                                name="email"
+                                placeholder="Username Or Email"
+                                onChange={(e) => {
+                                  setLoginEmail(e.target.value);
+                                }}
+                                value={loginEmail}
+                              />
                             </div>
-                            <a href="#">Forgot password?</a>
-                          </div>
-                          <div className="form-group">
-                            <button className="btn btn-md" name="login"
-                            onClick={loginUser}
-                            disabled={loading}
-                            >
-                            {loading ? "Loading..." : "Login"}
-                            </button>
-                          </div>
-                        </form>
+                            <div className="form-group">
+                              <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                onChange={(e) => {
+                                  setPassword(e.target.value);
+                                }}
+                                value={password}
+                              />
+                            </div>
+                            <div className="login_footer form-group">
+                              <div className="chek-form">
+                                <div className="custome-checkbox">
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    name="checkbox"
+                                    id="remember"
+                                    value=""
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="remember"
+                                  >
+                                    <span>Remember me</span>
+                                  </label>
+                                </div>
+                              </div>
+                              <a href="#">Forgot password?</a>
+                            </div>
+                            <div className="form-group">
+                              <button
+                                className="btn btn-md"
+                                name="login"
+                                onClick={loginUser}
+                                disabled={loading}
+                              >
+                                {loading ? "Loading..." : "Login"}
+                              </button>
+                            </div>
+                          </form>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                   </div>
-                    
+
                   <div className="col-lg-6">
                     <form method="post" className="apply-coupon">
                       <input type="text" placeholder="Enter Coupon Code..." />
@@ -284,41 +332,21 @@ useEffect(() => {
                       required=""
                       name="fname"
                       value={name}
-                      onChange={(e)=>{setName(e.target.value)}}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                      }}
                       placeholder="First name *"
                     />
                   </div>
                   <div className="form-group">
                     <input
                       type="text"
-                      required=""
-                      name="lname"
-                      value={name}
-                      onChange={(e)=>{setName(e.target.value)}}
-                      placeholder="Last name *"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      required=""
-                      type="text"
-                      name="cname"
-                      placeholder="Company Name"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <div className="custom_select">
-                      <select className="form-control select-active">
-                        <option value="">Select an option...</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
                       name="billing_address"
                       required=""
-                        onChange={(e)=>{setAddress(e.target.value)}} value={address}
+                      onChange={(e) => {
+                        setAddress(e.target.value);
+                      }}
+                      value={address}
                       placeholder="Address *"
                     />
                   </div>
@@ -335,17 +363,22 @@ useEffect(() => {
                       required=""
                       type="text"
                       name="city"
-                      onChange={(e)=>{setCity(e.target.value)}} value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      value={city}
                       placeholder="City / Town *"
+                      disabled={gettingCity}
                     />
                   </div>
+
                   <div className="form-group">
                     <input
                       required=""
                       type="text"
                       name="phone"
                       placeholder="Phone *"
-                      onChange={(e)=>{setPhone(e.target.value)}}
+                      onChange={(e) => {
+                        setPhone(e.target.value);
+                      }}
                       value={phone}
                     />
                   </div>
@@ -355,7 +388,9 @@ useEffect(() => {
                       type="text"
                       name="email"
                       placeholder="Email address *"
-                      onChange={(e)=>{setEmail(e.target.value)}}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                       value={email}
                     />
                   </div>
@@ -805,7 +840,7 @@ useEffect(() => {
                       <h5>Payment</h5>
                     </div>
                     <div className="payment_option">
-                       <div className="custome-radio">
+                      <div className="custome-radio">
                         <input
                           className="form-check-input"
                           required=""
@@ -832,7 +867,7 @@ useEffect(() => {
                             available, but the majority have suffered
                             alteration.{" "}
                           </p>
-                        </div> 
+                        </div>
                       </div>
                       {/* <div className="custome-radio">
                         <input
