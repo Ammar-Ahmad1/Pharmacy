@@ -90,6 +90,7 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
       const orderDate = new Date(order.date);
 
       if (orderDate.toDateString() === currentDate.toDateString()) {
+
         todayProfit += parseFloat(order.totalAmount);
         todayOrders++;
       }
@@ -326,7 +327,13 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
                           </tr>
                         </thead>
                         <tbody>
-                          {(filteredOrders || orders)?.map((order) => (
+                          {
+                          (filteredOrders || orders)?.length === 0 ? (
+                            <tr>
+                              <td colSpan="5">No orders found</td>
+                            </tr>
+                          ):(
+                          (filteredOrders || orders)?.map((order) => (
                             <React.Fragment key={order._id}>
                               <tr key={order._id}>
                                 <td>{order.orderNumber}</td>
@@ -421,7 +428,10 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
                                 </tr>
                               )}
                             </React.Fragment>
-                          ))}
+                          )
+                          
+                          ))
+                          }
                         </tbody>
                       </table>
                     </div>
@@ -436,7 +446,11 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
                         <div>
                           <h5>Today's Sale</h5>
                           <div className="d-flex align-items-center mt-1">
-                            <h6 className="me-1">Profit: </h6>
+                            <h6 className="me-1">Sales: </h6>
+                            <p>Rs. {todaySales.profit}</p>
+                          </div>
+                          <div className="d-flex align-items-center">
+                          <h6 className=" me-1">Profit: </h6>
                             <p>Rs. {todaySales.profit}</p>
                           </div>
                           <div className="d-flex align-items-center">
