@@ -108,6 +108,12 @@ const SingleProduct = ({
             <Link href="/products">{product.Company}</Link>
           </div>
           <h2>
+            <div  
+            style ={{
+              display:'flex',
+              justifyContent:'space-between'
+            }}
+            >
             <Link href="/products/[slug]" as={`/products/${product.slug}`}>
               {product.name}
             </Link>
@@ -123,6 +129,7 @@ const SingleProduct = ({
 
               />
             </Link>
+            </div>
           </h2>
 
           <div className="product-rate-cover">
@@ -148,8 +155,13 @@ const SingleProduct = ({
                 {product.oldPrice && `Rs.  ${product.oldPrice}`}
               </span>
             </div>
-            <div className="add-cart">
-              <a className="add" onClick={(e) => handleCart(product)}>
+            
+            <div className="add-cart"
+            style = {{display:!check ? 'block' : 'none'}}
+            >
+              <a className="add" onClick={(e) => handleCart(product)}
+              
+              >
                 <i className="fi-rs-shopping-cart mr-5"></i> Add
               </a>
             </div>

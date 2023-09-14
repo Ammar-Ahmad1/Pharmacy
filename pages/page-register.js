@@ -21,6 +21,9 @@ function Privacy() {
   const [role, setRole] = useState("customer");
   const [verificationId, setVerificationId] = useState("");
   const { data: session } = useSession();
+  const [isSendingOTP, setIsSendingOTP] = useState(false);
+const [isSigningUp, setIsSigningUp] = useState(false);
+
 
   useEffect(() => {
     if (session) {
@@ -57,6 +60,7 @@ function Privacy() {
 
     if (password === confirmPassword) {
       console.log(name, email, password, role, phone);
+      setIsSigningUp(true);
       fetch("/api/users/register", {
         method: "POST",
         headers: {
@@ -82,6 +86,8 @@ function Privacy() {
         })
         .catch((err) => {
           console.log(err);
+        }).finally(() => {
+          setIsSigningUp(false);
         });
     } else {
       toast.error("Password and Confirm Password does not match");
@@ -147,7 +153,7 @@ function Privacy() {
       toast.error("Please enter a valid phone number");
       return;
     }
-
+    setIsSendingOTP(true);
     try {
       const response = await fetch("/api/send-otp", {
         method: "POST",
@@ -170,6 +176,8 @@ function Privacy() {
     } catch (error) {
       console.error("Error sending OTP:", error);
       toast.error("An error occurred while sending OTP");
+    }finally {
+      setIsSendingOTP(false); // Set loading state back to false when done
     }
   };
 
@@ -237,8 +245,9 @@ function Privacy() {
                                   type="submit"
                                   className="btn btn-fill-out btn-block hover-up font-weight-bold"
                                   onClick={(e) => handleSendOTP(e)}
+                                  disabled={isSendingOTP} // Disable the button when loading
                                 >
-                                  SEND OTP
+                                  {isSendingOTP ? "Sending OTP..." : "SEND OTP"}
                                 </button>
                               </div>
                             ) : (
@@ -395,8 +404,10 @@ function Privacy() {
                                 className="btn btn-fill-out btn-block hover-up font-weight-bold"
                                 name="login"
                                 onClick={(e) => handleSignUp(e)}
+                                disabled={isSigningUp} // Disable the button when loading
                               >
-                                Submit &amp; Register
+                                {isSigningUp ? "Signing up..." : "Register"}
+                                {/* Submit &amp; Register */}
                               </button>
                             </div>
                           </form>

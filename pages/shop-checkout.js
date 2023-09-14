@@ -38,6 +38,7 @@ const Cart = ({
     const [error, setError] = useState("");
     const [providers, setProviders] = useState(null);
     const [showLoginForm, setShowLoginForm] = useState(false);
+    const [placingOrder,setPlacingOrder] = useState(false);
     useEffect(() => {
       const getProvidersData = async () => {
           const providers = await getProviders();
@@ -120,7 +121,7 @@ const Cart = ({
             totalAmount: price(), // Total amount of the order
             orderNumber: '', // Will be generated in the backend
         };
-        console.log(order, 'order')
+        setPlacingOrder(true);
         // Send a POST request to your API route
         fetch('/api/order', {
             method: 'POST',
@@ -148,6 +149,8 @@ const Cart = ({
             .catch((error) => {
                 console.error('Error placing order:', error);
                 // Handle any network or request-related errors here.
+            }).finally(()=>{
+              setPlacingOrder(false)
             });
     } else {
         toast.error('Please login first');
@@ -251,8 +254,9 @@ useEffect(() => {
                           <div className="form-group">
                             <button className="btn btn-md" name="login"
                             onClick={loginUser}
+                            disabled={loading}
                             >
-                              Log in
+                            {loading ? "Loading..." : "Login"}
                             </button>
                           </div>
                         </form>
@@ -889,8 +893,9 @@ useEffect(() => {
                     href="#"
                     className="btn btn-fill-out btn-block mt-30"
                     onClick={placeOrder}
+                    disabled={placingOrder}
                   >
-                    Place Order
+                    {placingOrder ? "Placing Order..." : "Place Order"}
                   </a>
                 </div>
               </div>

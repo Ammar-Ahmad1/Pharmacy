@@ -6,8 +6,25 @@ import { addToCart } from "../../redux/action/cart";
 import { addToCompare } from "../../redux/action/compareAction";
 import { openQuickView } from "../../redux/action/quickViewAction";
 import { addToWishlist } from "../../redux/action/wishlistAction";
-
+import {useEffect, useState} from "react";
+import {useSession} from "next-auth/react";
 const SingleProduct2 = ({ product, addToCart, addToCompare, addToWishlist, openQuickView }) => {
+    const { data: session } = useSession();
+    const [check,setCheck] = useState(false)
+
+    useEffect (()=>{
+        if(session){
+            if(session.user.role === 'vendor'){
+                setCheck(true)
+            }
+        }
+        else{
+            setCheck(false)
+        }
+    }
+    ,[session])
+
+
     const handleCart = (product) => {
         addToCart(product);
         toast("Product added to Cart !");
@@ -83,7 +100,9 @@ const SingleProduct2 = ({ product, addToCart, addToCompare, addToWishlist, openQ
                         <span className="font-xs text-heading"> Sold: 90/120</span>
                     </div>
 
-                    <a className="btn w-100 hover-up" onClick={(e) => handleCart(product)}>
+                    <a className="btn w-100 hover-up" style={{
+                        display: check ? 'none' : 'block'
+                    }} onClick={(e) => handleCart(product)}>
                         <i className="fi-rs-shopping-cart mr-5"></i> Add To Cart
                     </a>
                 </div>

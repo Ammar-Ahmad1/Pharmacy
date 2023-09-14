@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 function Login() {
     const router = useRouter();
+    // const [isLogged, setIsLogged] = useState(false);
     const { data: session } = useSession();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -109,7 +110,11 @@ function Login() {
                                                         <a className="text-muted" href="#">Forgot password?</a>
                                                     </div>
                                                     <div className="form-group">
-                                                        <button type="submit" className="btn btn-heading btn-block hover-up" name="login" onClick={handleSubmit}>Log in</button>
+                                                        <button type="submit" className="btn btn-heading btn-block hover-up" name="login" onClick={handleSubmit}
+                                                            disabled={loading}
+                                                        >
+                                                            {loading ? "Loading..." : "Login"}
+                                                        </button>
                                                     </div>
                                                 </form>
                                             </div>

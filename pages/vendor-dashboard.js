@@ -316,7 +316,7 @@ const ProductsFullWidth = ({
                                     }}
                                   >
                                     <BsFillTrashFill 
-
+                                      style ={{color:'red'}}
                                     />
                                   </Link>
                                 </td>

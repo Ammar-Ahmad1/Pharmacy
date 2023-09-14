@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import {
@@ -11,6 +11,7 @@ import { addToWishlist } from "../../redux/action/wishlistAction";
 import ProductTab from "../elements/ProductTab";
 import RelatedSlider from "../sliders/Related";
 import ThumbSlider from "../sliders/Thumb";
+import {useSession} from 'next-auth/react'
 
 const ProductDetails = ({
   product,
@@ -23,7 +24,7 @@ const ProductDetails = ({
   quickView,
 }) => {
   const [quantity, setQuantity] = useState(1);
-
+  const {data:session} = useSession();
   const handleCart = (product) => {
     addToCart(product);
     toast("Product added to Cart !");
@@ -38,7 +39,17 @@ const ProductDetails = ({
     addToWishlist(product);
     toast("Added to Wishlist !");
   };
-
+  const [check,setCheck] = useState(false)
+  useEffect (()=>{
+    if(session){
+        if(session.user.role === 'vendor'){
+            setCheck(true)
+        }
+    }
+    else{
+        setCheck(false)
+    }
+  },[session])
   const inCart = cartItems.find((cartItem) => cartItem._id === product._id);
 
   // Size Selection
@@ -162,7 +173,9 @@ const ProductDetails = ({
 
 
                       <div className="bt-1 border-color-1 mt-30 mb-30"></div>
-                      <div className="detail-extralink">
+                      <div className="detail-extralink"
+                      style = {{display:!check ? 'block' : 'none'}}
+                      >
                         <div className="detail-qty border radius">
                           <a
                             onClick={(e) =>
@@ -188,6 +201,7 @@ const ProductDetails = ({
                             <i className="fi-rs-angle-small-up"></i>
                           </a>
                         </div>
+
                         <div className="product-extra-link2">
                           <button
                             onClick={(e) =>
