@@ -40,7 +40,7 @@ const Cart = ({
   const [providers, setProviders] = useState(null);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [placingOrder, setPlacingOrder] = useState(false);
-  const [Delivery, setDelivery] = useState(0);
+  const [delivery, setDelivery] = useState(0);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [gettingCity, setGettingCity] = useState(false);
@@ -132,11 +132,6 @@ const Cart = ({
     setPhone(data.data.phone);
   };
   const placeOrder = () => {
-    if (price() > 1000) {
-      setDelivery(200);
-    } else {
-      setDelivery(300);
-    }
     if (session) {
       if (!name || !email || !phone || !address || !city) {
         toast.error("Please fill all the fields");
@@ -146,6 +141,7 @@ const Cart = ({
         toast.error("Please add items to cart");
         return;
       }
+      const deliveryCost = price() >= 1000 ? 200 : 300;
       // Create an array of order items with item ID and quantity
       const orderItems = cartItems.map((item) => ({
         medicine: item._id, // Assuming each item has an _id property
@@ -158,7 +154,7 @@ const Cart = ({
         date: new Date(), // Current date and time
         address: address,
         city: city,
-        totalAmount: price() + delivery, // Total amount of the order
+        totalAmount: price() + deliveryCost, // Total amount of the order
         orderNumber: "", // Will be generated in the backend
       };
       setPlacingOrder(true);
