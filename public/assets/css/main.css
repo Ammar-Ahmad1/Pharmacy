@@ -2737,6 +2737,9 @@ label {
     font-family: "Quicksand", sans-serif;
     font-weight: 700;
 }
+.dashboard-menu ul li a:hover {
+    color: #3bb77e;
+}
 
 .dashboard-menu ul li a i {
     color: #7e7e7e;

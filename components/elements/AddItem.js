@@ -282,14 +282,14 @@ function Account() {
                                     Category <span className="required">*</span>
                                   </label>
                                   <div className="dropdown col-md-2 ms-2">
-                                    <button
+                                    <span
                                       className="btn dropdown-toggle submit font-weight-bold"
                                       type="button"
                                       data-bs-toggle="dropdown"
                                       aria-expanded="false"
                                     >
                                       {selectedCategory || "Select Category"}
-                                    </button>
+                                    </span>
                                     <ul className="dropdown-menu">
                                       {categories.map((category) => (
                                         <li key={category}>
@@ -312,14 +312,14 @@ function Account() {
                                     Type <span className="required">*</span>
                                   </label>
                                   <div className="dropdown col-md-2 ms-2">
-                                    <button
+                                    <span
                                       className="btn dropdown-toggle submit font-weight-bold"
                                       type="button"
                                       data-bs-toggle="dropdown"
                                       aria-expanded="false"
                                     >
                                       {type || "Select type"}
-                                    </button>
+                                    </span>
                                     <ul className="dropdown-menu">
                                       {types.map((type) => (
                                         <li key={type}>
@@ -380,6 +380,7 @@ function Account() {
                                   <input
                                     type="file"
                                     // onChange={handleFileChange}
+                                    className="pt-3"
                                     onChange={(e) => handleFileChange(e.target.files[0])}
                                   />
                                   {selectedFile && (
