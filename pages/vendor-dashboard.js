@@ -13,6 +13,7 @@ import Layout from "../components/layout/Layout";
 import { fetchProduct } from "../redux/action/product";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
+
 import Link from "next/link";
 
 // icons
@@ -38,6 +39,10 @@ const ProductsFullWidth = ({
   const [sortStatus, setSortStatus] = useState(true);
   const [searchOrder, setSearchOrder] = useState("");
   const [filteredOrders, setFilteredOrders] = useState([]);
+  const [todaySales, setTodaySales] = useState({ profit: 0, orders: 0 });
+const [thisWeekSales, setThisWeekSales] = useState({ profit: 0, orders: 0 });
+const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
+
   console.log(products);
 
   let Router = useRouter(),
@@ -65,10 +70,48 @@ const ProductsFullWidth = ({
   }, [session]);
 
   const getOrders = async () => {
+    try{
     const res = await fetch(`/api/order`);
     const data = await res.json();
-    console.log(data.data);
     setOrders(data.data);
+    const currentDate = new Date();
+    const currentWeekStart = new Date(currentDate);
+    currentWeekStart.setDate(currentDate.getDate() - currentDate.getDay()); // Start of the current week
+    const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // Start of the current month
+
+    let todayProfit = 0;
+    let todayOrders = 0;
+    let thisWeekProfit = 0;
+    let thisWeekOrders = 0;
+    let thisMonthProfit = 0;
+    let thisMonthOrders = 0;
+
+    data.data.forEach((order) => {
+      const orderDate = new Date(order.date);
+
+      if (orderDate.toDateString() === currentDate.toDateString()) {
+        todayProfit += parseFloat(order.totalAmount);
+        todayOrders++;
+      }
+
+      if (orderDate >= currentWeekStart) {
+        thisWeekProfit += parseFloat(order.totalAmount);
+        thisWeekOrders++;
+      }
+
+      if (orderDate >= currentMonthStart) {
+        thisMonthProfit += parseFloat(order.totalAmount);
+        thisMonthOrders++;
+      }
+    });
+
+    setTodaySales({ profit: todayProfit.toFixed(2), orders: todayOrders });
+    setThisWeekSales({ profit: thisWeekProfit.toFixed(2), orders: thisWeekOrders });
+    setThisMonthSales({ profit: thisMonthProfit.toFixed(2), orders: thisMonthOrders });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    toast.error("Error fetching orders");
+  }
   };
 
   const cratePagination = () => {
@@ -109,13 +152,16 @@ const ProductsFullWidth = ({
 
   // sorting
   const handleSortDate = () => {
-    if (sortDate) {
-      setSortDate(false);
-      setSortStatus(false);
-    } else {
-      setSortDate(true);
-      setSortStatus(true);
+    orders.sort((a, b) => {
+      if (sortDate) {
+        return new Date(a.date) - new Date(b.date);
+      } else {
+        return new Date(b.date) - new Date(a.date);
+      }
     }
+    );
+    setSortDate(!sortDate);
+
   };
   const handleSortStatus = () => {
     if (!sortStatus) {
@@ -391,33 +437,33 @@ const ProductsFullWidth = ({
                           <h5>Today's Sale</h5>
                           <div className="d-flex align-items-center mt-1">
                             <h6 className="me-1">Profit: </h6>
-                            <p>$60</p>
+                            <p>Rs. {todaySales.profit}</p>
                           </div>
                           <div className="d-flex align-items-center">
                             <h6 className="me-1">Orders: </h6>
-                            <p>10</p>
+                            <p>{todaySales.orders}</p>
                           </div>
                         </div>
                         <div className="mt-4">
                           <h5>This Week Sales</h5>
                           <div className="d-flex align-items-center mt-1">
                             <h6 className="me-1">Profit: </h6>
-                            <p>$60</p>
+                            <p>Rs. {thisWeekSales.profit}</p>
                           </div>
                           <div className="d-flex align-items-center">
                             <h6 className="me-1">Orders: </h6>
-                            <p>10</p>
+                            <p>{thisWeekSales.orders}</p>
                           </div>
                         </div>
                         <div className="mt-4">
                           <h5>This Month Sales</h5>
                           <div className="d-flex align-items-center mt-1">
                             <h6 className="me-1">Profit: </h6>
-                            <p>$60</p>
+                            <p>Rs. {thisMonthSales.profit}</p>
                           </div>
                           <div className="d-flex align-items-center">
                             <h6 className="me-1">Orders: </h6>
-                            <p>10</p>
+                            <p>{thisMonthSales.orders}</p>
                           </div>
                         </div>
                       </div>
