@@ -241,17 +241,6 @@ const ProductsFullWidth = ({
                   <div className="col-lg-9">
                     <div className="d-flex justify-content-between align-items-center mb-2">
                       <h3 className="mb-30">Recent Orders</h3>
-                      <div className="input-group w-25">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Search Orders"
-                          aria-label="Search Orders"
-                          aria-describedby="basic-addon2"
-                          // value={searchOrder}
-                          onChange={handleSearchChange}
-                        />
-                      </div>
                       <Link
                         className="btn btn-fill-out hover: font-weight-bold"
                         href={"/add-item"}
@@ -260,6 +249,18 @@ const ProductsFullWidth = ({
                       </Link>
                     </div>
                     <div className="table-responsive">
+                      <div className="input-group w-25">
+                        <input
+                          type="search"
+                          className="form-control"
+                          placeholder="Search Orders"
+                          aria-label="Search Orders"
+                          aria-describedby="basic-addon2"
+                          // value={searchOrder}
+                          onChange={handleSearchChange}
+                        />
+                      </div>
+                      <br />
                       <table className="table">
                         <thead>
                           <tr>

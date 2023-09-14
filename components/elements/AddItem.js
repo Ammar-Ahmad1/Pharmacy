@@ -37,18 +37,16 @@ function Account() {
   // selecting type
   const [type, setType] = useState("");
   const types = [
-    "Tablet",
-    "Capsules",
+    "Tablet/Capsules",
     "Syrups",
     "Suspensions",
     "Injections",
     "Creams/Ointments/Gels",
-    "Patches",
+    "Bandages",
     "Suppositories",
-    "Eye Drops",
-    "Ear Drops/Nasal Sprays/Inhalers",
+    "Eye & Ear Drops/Nasal Sprays/Inhalers",
     "Oral",
-    "Nebulizers",
+    "Medical Devices/Equipment",
   ];
 
   const handleTypeSelect = (type) => {
@@ -172,7 +170,7 @@ function Account() {
       toast.error("Please fill in all mandatory fields.");
       return; // Exit the function if any field is empty
     }
-    
+
     console.log("submitting");
     try {
       fetch("/api/medicine", {
@@ -309,6 +307,36 @@ function Account() {
                                   </div>
                                 </div>
 
+                                <div className="form-group flex col-md-12">
+                                  <label>
+                                    Type <span className="required">*</span>
+                                  </label>
+                                  <div className="dropdown col-md-2 ms-2">
+                                    <button
+                                      className="btn dropdown-toggle submit font-weight-bold"
+                                      type="button"
+                                      data-bs-toggle="dropdown"
+                                      aria-expanded="false"
+                                    >
+                                      {type || "Select type"}
+                                    </button>
+                                    <ul className="dropdown-menu">
+                                      {types.map((type) => (
+                                        <li key={type}>
+                                          <p
+                                            className="dropdown-item"
+                                            onClick={() =>
+                                              handleTypeSelect(type)
+                                            }
+                                          >
+                                            {type}
+                                          </p>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                </div>
+
                                 <div className="form-group col-md-12">
                                   <div className="d-flex col-md-6">
                                     <input
@@ -346,6 +374,9 @@ function Account() {
 
                                 {/* <ImageUpload /> */}
                                 <div>
+                                  <label>
+                                    Upload Image <span className="required">*</span>
+                                  </label>
                                   <input
                                     type="file"
                                     // onChange={handleFileChange}
@@ -391,9 +422,15 @@ function Account() {
                                     Side Effect{" "}
                                     <span className="required">*</span>
                                   </label>
+                                  <style>{
+                                    `textarea {
+                                      height: 400;
+                                    }`}
+                                  </style>
                                   <textarea
                                     required=""
                                     className="form-control"
+                                    rows="4"
                                     name="SideEffect"
                                     onChange={(e) => setSideEffect(e.target.value)}
                                   />
@@ -418,7 +455,7 @@ function Account() {
 
                                 <div className="form-group col-md-12">
                                   <label>
-                                    Discount (in %){" "}
+                                    Discount for Customer (in %){" "}
                                     <span className="required">*</span>
                                   </label>
                                   <input
@@ -434,36 +471,6 @@ function Account() {
                                       {calculateDiscountedPrice()}
                                     </span>
                                   </p>
-                                </div>
-
-                                <div className="form-group flex col-md-12">
-                                  <label>
-                                    type <span className="required">*</span>
-                                  </label>
-                                  <div className="dropdown col-md-2 ms-2">
-                                    <button
-                                      className="btn dropdown-toggle submit font-weight-bold"
-                                      type="button"
-                                      data-bs-toggle="dropdown"
-                                      aria-expanded="false"
-                                    >
-                                      {type || "Select type"}
-                                    </button>
-                                    <ul className="dropdown-menu">
-                                      {types.map((type) => (
-                                        <li key={type}>
-                                          <p
-                                            className="dropdown-item"
-                                            onClick={() =>
-                                              handleTypeSelect(type)
-                                            }
-                                          >
-                                            {type}
-                                          </p>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
                                 </div>
 
                                 <div className="form-group col-md-12">
