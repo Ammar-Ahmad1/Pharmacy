@@ -121,11 +121,7 @@ const Cart = ({
     return price;
   };
   useEffect(() => {
-    if (price() > 1000) {
-      setDelivery(200);
-    } else {
-      setDelivery(300);
-    }
+    
   }, [price()]);
   const getUser = async () => {
     const req = await fetch(`/api/users/${session.user.id}`);
@@ -136,6 +132,11 @@ const Cart = ({
     setPhone(data.data.phone);
   };
   const placeOrder = () => {
+    if (price() > 1000) {
+      setDelivery(200);
+    } else {
+      setDelivery(300);
+    }
     if (session) {
       if (!name || !email || !phone || !address || !city) {
         toast.error("Please fill all the fields");
