@@ -41,6 +41,10 @@ const orderSchema = new Schema({
     profit: {
         type: Number, // Add a field to store the profit for the order
     },
+    cancelled: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const Order = models.Order || model('Order', orderSchema);
