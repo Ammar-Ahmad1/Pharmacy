@@ -121,7 +121,7 @@ const Cart = ({
     return price;
   };
   useEffect(() => {
-    
+
   }, [price()]);
   const getUser = async () => {
     const req = await fetch(`/api/users/${session.user.id}`);
@@ -239,9 +239,8 @@ const Cart = ({
                     )}
                     {showLoginForm && (
                       <div
-                        className={`panel-collapse collapse login_form ${
-                          showLoginForm ? "show" : ""
-                        }`}
+                        className={`panel-collapse collapse login_form ${showLoginForm ? "show" : ""
+                          }`}
                         id="loginform"
                       >
                         <div className="panel-body">
@@ -324,6 +323,7 @@ const Cart = ({
                 </div>
                 <form method="post">
                   <div className="form-group">
+                    <label>Full Name (example: Rolls Royce) *</label>
                     <input
                       type="text"
                       required=""
@@ -336,6 +336,7 @@ const Cart = ({
                     />
                   </div>
                   <div className="form-group">
+                    <label>Address 1 *</label>
                     <input
                       type="text"
                       name="billing_address"
@@ -348,14 +349,16 @@ const Cart = ({
                     />
                   </div>
                   <div className="form-group">
+                    <label>Address 2</label>
                     <input
                       type="text"
                       name="billing_address2"
                       required=""
-                      placeholder="Address line2"
+                      placeholder="Address line 2"
                     />
                   </div>
                   <div className="form-group">
+                    <label>City*</label>
                     <input
                       required=""
                       type="text"
@@ -368,6 +371,7 @@ const Cart = ({
                   </div>
 
                   <div className="form-group">
+                    <label>Phone Number*</label>
                     <input
                       required=""
                       type="text"
@@ -380,6 +384,7 @@ const Cart = ({
                     />
                   </div>
                   <div className="form-group">
+                    <label>Email*</label>
                     <input
                       required=""
                       type="text"
@@ -431,27 +436,16 @@ const Cart = ({
                       className="different_address collapse in"
                     >
                       <div className="form-group">
+                        <label>Full Name (example: Rolls Royce) *</label>
                         <input
                           type="text"
                           required=""
                           name="fname"
+                          value={name}
+                          onChange={(e) => {
+                            setName(e.target.value);
+                          }}
                           placeholder="First name *"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          required=""
-                          name="lname"
-                          placeholder="Last name *"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          required=""
-                          type="text"
-                          name="cname"
-                          placeholder="Company Name"
                         />
                       </div>
                       <div className="form-group">
@@ -766,6 +760,7 @@ const Cart = ({
                     </div>
                   </div>
                   <div className="form-group mb-30">
+                    <label>Other Notes</label>
                     <textarea rows="5" placeholder="Order notes"></textarea>
                   </div>
                 </form>

@@ -40,8 +40,9 @@ const ProductsFullWidth = ({
   const [searchOrder, setSearchOrder] = useState("");
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [todaySales, setTodaySales] = useState({ profit: 0, orders: 0 });
-const [thisWeekSales, setThisWeekSales] = useState({ profit: 0, orders: 0 });
-const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
+  const [thisWeekSales, setThisWeekSales] = useState({ profit: 0, orders: 0 });
+  const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
+  const [selectedStatus, setSelectedStatus] = useState('')
 
   console.log(products);
 
@@ -70,49 +71,49 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
   }, [session]);
 
   const getOrders = async () => {
-    try{
-    const res = await fetch(`/api/order`);
-    const data = await res.json();
-    setOrders(data.data);
-    const currentDate = new Date();
-    const currentWeekStart = new Date(currentDate);
-    currentWeekStart.setDate(currentDate.getDate() - currentDate.getDay()); // Start of the current week
-    const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // Start of the current month
+    try {
+      const res = await fetch(`/api/order`);
+      const data = await res.json();
+      setOrders(data.data);
+      const currentDate = new Date();
+      const currentWeekStart = new Date(currentDate);
+      currentWeekStart.setDate(currentDate.getDate() - currentDate.getDay()); // Start of the current week
+      const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // Start of the current month
 
-    let todayProfit = 0;
-    let todayOrders = 0;
-    let thisWeekProfit = 0;
-    let thisWeekOrders = 0;
-    let thisMonthProfit = 0;
-    let thisMonthOrders = 0;
+      let todayProfit = 0;
+      let todayOrders = 0;
+      let thisWeekProfit = 0;
+      let thisWeekOrders = 0;
+      let thisMonthProfit = 0;
+      let thisMonthOrders = 0;
 
-    data.data.forEach((order) => {
-      const orderDate = new Date(order.date);
+      data.data.forEach((order) => {
+        const orderDate = new Date(order.date);
 
-      if (orderDate.toDateString() === currentDate.toDateString()) {
+        if (orderDate.toDateString() === currentDate.toDateString()) {
 
-        todayProfit += parseFloat(order.totalAmount);
-        todayOrders++;
-      }
+          todayProfit += parseFloat(order.totalAmount);
+          todayOrders++;
+        }
 
-      if (orderDate >= currentWeekStart) {
-        thisWeekProfit += parseFloat(order.totalAmount);
-        thisWeekOrders++;
-      }
+        if (orderDate >= currentWeekStart) {
+          thisWeekProfit += parseFloat(order.totalAmount);
+          thisWeekOrders++;
+        }
 
-      if (orderDate >= currentMonthStart) {
-        thisMonthProfit += parseFloat(order.totalAmount);
-        thisMonthOrders++;
-      }
-    });
+        if (orderDate >= currentMonthStart) {
+          thisMonthProfit += parseFloat(order.totalAmount);
+          thisMonthOrders++;
+        }
+      });
 
-    setTodaySales({ profit: todayProfit.toFixed(2), orders: todayOrders });
-    setThisWeekSales({ profit: thisWeekProfit.toFixed(2), orders: thisWeekOrders });
-    setThisMonthSales({ profit: thisMonthProfit.toFixed(2), orders: thisMonthOrders });
-  } catch (error) {
-    console.error("Error fetching orders:", error);
-    toast.error("Error fetching orders");
-  }
+      setTodaySales({ profit: todayProfit.toFixed(2), orders: todayOrders });
+      setThisWeekSales({ profit: thisWeekProfit.toFixed(2), orders: thisWeekOrders });
+      setThisMonthSales({ profit: thisMonthProfit.toFixed(2), orders: thisMonthOrders });
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+      toast.error("Error fetching orders");
+    }
   };
 
   const cratePagination = () => {
@@ -328,109 +329,151 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
                         </thead>
                         <tbody>
                           {
-                          (filteredOrders || orders)?.length === 0 ? (
-                            <tr>
-                              <td colSpan="5">No orders found</td>
-                            </tr>
-                          ):(
-                          (filteredOrders || orders)?.map((order) => (
-                            <React.Fragment key={order._id}>
-                              <tr key={order._id}>
-                                <td>{order.orderNumber}</td>
-                                <td>
-                                  {
-                                    //only show sate and time
-                                    order.date.split("T")[0]
-                                  }
-                                </td>
-                                <td>
-                                  {order.status ? "Delivered" : "Pending"}
-                                </td>
-                                <td>Rs.{order.totalAmount}</td>
-                                <td className="d-flex justify-content-between">
-                                  <Link
-                                    href="#"
-                                    className="btn-small d-block"
-                                    onClick={(e) => {
-                                      handleToggleOrderDetails(e, order); // Call the function to toggle order details
-                                    }}
-                                  >
-                                    Details
-                                    {!(currentOrder === order) && (
-                                      <IoIosArrowDropdown className="ms-1" />
-                                    )}
-                                    {currentOrder === order && (
-                                      <IoIosArrowDropupCircle className="ms-1" />
-                                    )}
-                                  </Link>
-                                  <Link
-                                    href="#"
-                                    onClick={(e) => {
-                                      handleDelete(e, order._id);
-                                    }}
-                                  >
-                                    <BsFillTrashFill
-                                      style={{ color: 'red' }}
-                                    />
-                                  </Link>
-                                </td>
+                            (filteredOrders || orders)?.length === 0 ? (
+                              <tr>
+                                <td colSpan="5">No orders found</td>
                               </tr>
-                              {/* Conditionally render order details */}
-                              {currentOrder === order && (
-                                <tr className="bg-light">
-                                  <td colSpan="5">
-                                    <div className="order-details mt-1">
-                                      {/* Display order details here */}
-                                      <h5> Items in Order</h5>
-                                      <table className="table">
-                                        <thead>
-                                          <tr>
-                                            <th>Medicine</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Total</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          {order.items.map((item) => (
-                                            <tr key={item._id}>
-                                              <td>
-                                                <Link
-                                                  href="/products/[slug]"
-                                                  as={`/products/${item.medicine.slug}`}
-                                                >
-                                                  {item.medicine.name}
-                                                </Link>
-                                              </td>
-                                              <td>{item.quantity}</td>
-                                              <td>
-                                                Rs.{item.medicine.price}
-                                              </td>
-                                              <td>
-                                                Rs.
-                                                {item.medicine.price *
-                                                  item.quantity}
-                                              </td>
-                                            </tr>
-                                          ))}
-                                        </tbody>
-                                      </table>
-                                      <div>
-                                        <h5>Delivery Details</h5>
-                                        <p>
-                                          Deliver to: {order.address}-{" "}
-                                          {order.city} - {order.user.phone}
-                                        </p>
-                                      </div>
-                                      {/* Add more order details as needed */}
-                                    </div>
-                                  </td>
-                                </tr>
-                              )}
-                            </React.Fragment>
-                          )
-                          
-                          ))
+                            ) : (
+                              (filteredOrders || orders)?.map((order) => (
+                                <React.Fragment key={order._id}>
+                                  <tr key={order._id}>
+                                    <td>{order.orderNumber}</td>
+                                    <td>
+                                      {
+                                        //only show sate and time
+                                        order.date.split("T")[0]
+                                      }
+                                    </td>
+                                    <td>
+                                      {/* {order.status ? "Delivered" : "Pending"} */}
+                                      {order.status ? selectedStatus : selectedStatus}
+                                      {currentOrder === order &&
+                                        <div className="my-2">
+                                          <span>
+                                            <input
+                                              type="radio"
+                                              id="pending"
+                                              name="status"
+                                              value="pending"
+                                              checked={selectedStatus === "Pending"}
+                                              onChange={() => setSelectedStatus("Pending")}
+                                            />
+                                            <span class="checkmark"></span>
+                                            <label htmlFor="pending">Pending</label>
+                                          </span>
+                                          <span>
+                                            <input
+                                              type="radio"
+                                              id="cancelled"
+                                              name="status"
+                                              value="cancelled"
+                                              checked={selectedStatus === "Cancelled"}
+                                              onChange={() => setSelectedStatus("Cancelled")}
+                                            />
+                                            <span class="checkmark"></span>
+                                            <label htmlFor="cancelled">Cancelled</label>
+                                          </span>
+                                          <span>
+                                            <input
+                                              type="radio"
+                                              id="delivered"
+                                              name="status"
+                                              value="delivered"
+                                              checked={selectedStatus === "Delivered"}
+                                              onChange={() => setSelectedStatus("Delivered")}
+                                            />
+                                            <span class="checkmark"></span>
+                                            <label htmlFor="delivered">Delivered</label>
+                                          </span>
+                                          <button className="btn p-2 ms-3">apply</button>
+                                        </div>
+                                      }
+                                    </td>
+                                    <td>Rs.{order.totalAmount}</td>
+                                    <td className="d-flex justify-content-between">
+                                      <Link
+                                        href="#"
+                                        className="btn-small d-block"
+                                        onClick={(e) => {
+                                          handleToggleOrderDetails(e, order); // Call the function to toggle order details
+                                        }}
+                                      >
+                                        Details
+                                        {!(currentOrder === order) && (
+                                          <IoIosArrowDropdown className="ms-1" />
+                                        )}
+                                        {currentOrder === order && (
+                                          <IoIosArrowDropupCircle className="ms-1" />
+                                        )}
+                                      </Link>
+                                      <Link
+                                        href="#"
+                                        onClick={(e) => {
+                                          handleDelete(e, order._id);
+                                        }}
+                                      >
+                                        <BsFillTrashFill
+                                          style={{ color: 'red' }}
+                                        />
+                                      </Link>
+                                    </td>
+                                  </tr>
+                                  {/* Conditionally render order details */}
+                                  {currentOrder === order && (
+                                    <tr className="bg-light">
+                                      <td colSpan="5">
+                                        <div className="order-details mt-1">
+                                          {/* Display order details here */}
+                                          <h5> Items in Order</h5>
+                                          <table className="table">
+                                            <thead>
+                                              <tr>
+                                                <th>Medicine</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Total</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              {order.items.map((item) => (
+                                                <tr key={item._id}>
+                                                  <td>
+                                                    <Link
+                                                      href="/products/[slug]"
+                                                      as={`/products/${item.medicine.slug}`}
+                                                    >
+                                                      {item.medicine.name}
+                                                    </Link>
+                                                  </td>
+                                                  <td>{item.quantity}</td>
+                                                  <td>
+                                                    Rs.{item.medicine.price}
+                                                  </td>
+                                                  <td>
+                                                    Rs.
+                                                    {item.medicine.price *
+                                                      item.quantity}
+                                                  </td>
+                                                </tr>
+                                              ))}
+                                            </tbody>
+                                          </table>
+                                          <div>
+                                            <h5>Delivery Details</h5>
+                                            <p>
+                                              Deliver to: {order.address}-{" "}
+                                              {order.city} - {order.user.phone}
+                                            </p>
+                                          </div>
+                                          {/* Add more order details as needed */}
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  )}
+                                </React.Fragment>
+                              )
+
+                              ))
                           }
                         </tbody>
                       </table>
@@ -450,7 +493,7 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
                             <p>Rs. {todaySales.profit}</p>
                           </div>
                           <div className="d-flex align-items-center">
-                          <h6 className=" me-1">Profit: </h6>
+                            <h6 className=" me-1">Profit: </h6>
                             <p>Rs. {todaySales.profit}</p>
                           </div>
                           <div className="d-flex align-items-center">
