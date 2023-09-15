@@ -40,8 +40,9 @@ const ProductsFullWidth = ({
   const [searchOrder, setSearchOrder] = useState("");
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [todaySales, setTodaySales] = useState({ profit: 0, orders: 0 });
-const [thisWeekSales, setThisWeekSales] = useState({ profit: 0, orders: 0 });
-const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
+  const [thisWeekSales, setThisWeekSales] = useState({ profit: 0, orders: 0 });
+  const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
+  const [selectedStatus, setSelectedStatus] = useState('')
 
   console.log(products);
 
@@ -333,109 +334,151 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
                         </thead>
                         <tbody>
                           {
-                          (filteredOrders || orders)?.length === 0 ? (
-                            <tr>
-                              <td colSpan="5">No orders found</td>
-                            </tr>
-                          ):(
-                          (filteredOrders || orders)?.map((order) => (
-                            <React.Fragment key={order._id}>
-                              <tr key={order._id}>
-                                <td>{order.orderNumber}</td>
-                                <td>
-                                  {
-                                    //only show sate and time
-                                    order.date.split("T")[0]
-                                  }
-                                </td>
-                                <td>
-                                  {order.status ? "Delivered" : "Pending"}
-                                </td>
-                                <td>Rs.{order.totalAmount}</td>
-                                <td className="d-flex justify-content-between">
-                                  <Link
-                                    href="#"
-                                    className="btn-small d-block"
-                                    onClick={(e) => {
-                                      handleToggleOrderDetails(e, order); // Call the function to toggle order details
-                                    }}
-                                  >
-                                    Details
-                                    {!(currentOrder === order) && (
-                                      <IoIosArrowDropdown className="ms-1" />
-                                    )}
-                                    {currentOrder === order && (
-                                      <IoIosArrowDropupCircle className="ms-1" />
-                                    )}
-                                  </Link>
-                                  <Link
-                                    href="#"
-                                    onClick={(e) => {
-                                      handleDelete(e, order._id);
-                                    }}
-                                  >
-                                    <BsFillTrashFill
-                                      style={{ color: 'red' }}
-                                    />
-                                  </Link>
-                                </td>
+                            (filteredOrders || orders)?.length === 0 ? (
+                              <tr>
+                                <td colSpan="5">No orders found</td>
                               </tr>
-                              {/* Conditionally render order details */}
-                              {currentOrder === order && (
-                                <tr className="bg-light">
-                                  <td colSpan="5">
-                                    <div className="order-details mt-1">
-                                      {/* Display order details here */}
-                                      <h5> Items in Order</h5>
-                                      <table className="table">
-                                        <thead>
-                                          <tr>
-                                            <th>Medicine</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Total</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          {order.items.map((item) => (
-                                            <tr key={item._id}>
-                                              <td>
-                                                <Link
-                                                  href="/products/[slug]"
-                                                  as={`/products/${item.medicine.slug}`}
-                                                >
-                                                  {item.medicine.name}
-                                                </Link>
-                                              </td>
-                                              <td>{item.quantity}</td>
-                                              <td>
-                                                Rs.{item.medicine.price}
-                                              </td>
-                                              <td>
-                                                Rs.
-                                                {item.medicine.price *
-                                                  item.quantity}
-                                              </td>
-                                            </tr>
-                                          ))}
-                                        </tbody>
-                                      </table>
-                                      <div>
-                                        <h5>Delivery Details</h5>
-                                        <p>
-                                          Deliver to: {order.address}-{" "}
-                                          {order.city} - {order.user.phone}
-                                        </p>
-                                      </div>
-                                      {/* Add more order details as needed */}
-                                    </div>
-                                  </td>
-                                </tr>
-                              )}
-                            </React.Fragment>
-                          )
-                          
-                          ))
+                            ) : (
+                              (filteredOrders || orders)?.map((order) => (
+                                <React.Fragment key={order._id}>
+                                  <tr key={order._id}>
+                                    <td>{order.orderNumber}</td>
+                                    <td>
+                                      {
+                                        //only show sate and time
+                                        order.date.split("T")[0]
+                                      }
+                                    </td>
+                                    <td>
+                                      {/* {order.status ? "Delivered" : "Pending"} */}
+                                      {order.status ? selectedStatus : selectedStatus}
+                                      {currentOrder === order &&
+                                        <div className="my-2">
+                                          <span>
+                                            <input
+                                              type="radio"
+                                              id="pending"
+                                              name="status"
+                                              value="pending"
+                                              checked={selectedStatus === "Pending"}
+                                              onChange={() => setSelectedStatus("Pending")}
+                                            />
+                                            <span class="checkmark"></span>
+                                            <label htmlFor="pending">Pending</label>
+                                          </span>
+                                          <span>
+                                            <input
+                                              type="radio"
+                                              id="cancelled"
+                                              name="status"
+                                              value="cancelled"
+                                              checked={selectedStatus === "Cancelled"}
+                                              onChange={() => setSelectedStatus("Cancelled")}
+                                            />
+                                            <span class="checkmark"></span>
+                                            <label htmlFor="cancelled">Cancelled</label>
+                                          </span>
+                                          <span>
+                                            <input
+                                              type="radio"
+                                              id="delivered"
+                                              name="status"
+                                              value="delivered"
+                                              checked={selectedStatus === "Delivered"}
+                                              onChange={() => setSelectedStatus("Delivered")}
+                                            />
+                                            <span class="checkmark"></span>
+                                            <label htmlFor="delivered">Delivered</label>
+                                          </span>
+                                          <button className="btn p-2 ms-3">apply</button>
+                                        </div>
+                                      }
+                                    </td>
+                                    <td>Rs.{order.totalAmount}</td>
+                                    <td className="d-flex justify-content-between">
+                                      <Link
+                                        href="#"
+                                        className="btn-small d-block"
+                                        onClick={(e) => {
+                                          handleToggleOrderDetails(e, order); // Call the function to toggle order details
+                                        }}
+                                      >
+                                        Details
+                                        {!(currentOrder === order) && (
+                                          <IoIosArrowDropdown className="ms-1" />
+                                        )}
+                                        {currentOrder === order && (
+                                          <IoIosArrowDropupCircle className="ms-1" />
+                                        )}
+                                      </Link>
+                                      <Link
+                                        href="#"
+                                        onClick={(e) => {
+                                          handleDelete(e, order._id);
+                                        }}
+                                      >
+                                        <BsFillTrashFill
+                                          style={{ color: 'red' }}
+                                        />
+                                      </Link>
+                                    </td>
+                                  </tr>
+                                  {/* Conditionally render order details */}
+                                  {currentOrder === order && (
+                                    <tr className="bg-light">
+                                      <td colSpan="5">
+                                        <div className="order-details mt-1">
+                                          {/* Display order details here */}
+                                          <h5> Items in Order</h5>
+                                          <table className="table">
+                                            <thead>
+                                              <tr>
+                                                <th>Medicine</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Total</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              {order.items.map((item) => (
+                                                <tr key={item._id}>
+                                                  <td>
+                                                    <Link
+                                                      href="/products/[slug]"
+                                                      as={`/products/${item.medicine.slug}`}
+                                                    >
+                                                      {item.medicine.name}
+                                                    </Link>
+                                                  </td>
+                                                  <td>{item.quantity}</td>
+                                                  <td>
+                                                    Rs.{item.medicine.price}
+                                                  </td>
+                                                  <td>
+                                                    Rs.
+                                                    {item.medicine.price *
+                                                      item.quantity}
+                                                  </td>
+                                                </tr>
+                                              ))}
+                                            </tbody>
+                                          </table>
+                                          <div>
+                                            <h5>Delivery Details</h5>
+                                            <p>
+                                              Deliver to: {order.address}-{" "}
+                                              {order.city} - {order.user.phone}
+                                            </p>
+                                          </div>
+                                          {/* Add more order details as needed */}
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  )}
+                                </React.Fragment>
+                              )
+
+                              ))
                           }
                         </tbody>
                       </table>
@@ -455,7 +498,7 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
                             <p>Rs. {todaySales.sales}</p>
                           </div>
                           <div className="d-flex align-items-center">
-                          <h6 className=" me-1">Profit: </h6>
+                            <h6 className=" me-1">Profit: </h6>
                             <p>Rs. {todaySales.profit}</p>
                           </div>
                           <div className="d-flex align-items-center">
