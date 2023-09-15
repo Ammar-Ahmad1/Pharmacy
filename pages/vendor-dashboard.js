@@ -41,8 +41,11 @@ const ProductsFullWidth = ({
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [todaySales, setTodaySales] = useState({ profit: 0, orders: 0 });
   const [thisWeekSales, setThisWeekSales] = useState({ profit: 0, orders: 0 });
-  const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
-  const [selectedStatus, setSelectedStatus] = useState('')
+  const [thisMonthSales, setThisMonthSales] = useState({
+    profit: 0,
+    orders: 0,
+  });
+  const [selectedStatus, setSelectedStatus] = useState("Pending");
 
   console.log(products);
 
@@ -71,54 +74,70 @@ const ProductsFullWidth = ({
   }, [session]);
 
   const getOrders = async () => {
-    try{
-    const res = await fetch(`/api/order`);
-    const data = await res.json();
-    setOrders(data.data);
-    const currentDate = new Date();
-    const currentWeekStart = new Date(currentDate);
-    currentWeekStart.setDate(currentDate.getDate() - currentDate.getDay()); // Start of the current week
-    const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // Start of the current month
+    try {
+      const res = await fetch(`/api/order`);
+      const data = await res.json();
+      setOrders(data.data);
+      const currentDate = new Date();
+      const currentWeekStart = new Date(currentDate);
+      currentWeekStart.setDate(currentDate.getDate() - currentDate.getDay()); // Start of the current week
+      const currentMonthStart = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        1
+      ); // Start of the current month
       let todaySales = 0;
       let thisWeekSales = 0;
       let thisMonthSales = 0;
 
-    let todayProfit = 0;
-    let todayOrders = 0;
-    let thisWeekProfit = 0;
-    let thisWeekOrders = 0;
-    let thisMonthProfit = 0;
-    let thisMonthOrders = 0;
+      let todayProfit = 0;
+      let todayOrders = 0;
+      let thisWeekProfit = 0;
+      let thisWeekOrders = 0;
+      let thisMonthProfit = 0;
+      let thisMonthOrders = 0;
 
-    data.data.forEach((order) => {
-      const orderDate = new Date(order.date);
+      data.data.forEach((order) => {
+        const orderDate = new Date(order.date);
 
-      if (orderDate.toDateString() === currentDate.toDateString()) {
-        todayProfit += parseFloat(order.profit);
-        todaySales += parseFloat(order.totalAmount);
-        todayOrders++;
-      }
+        if (orderDate.toDateString() === currentDate.toDateString()) {
+          todayProfit += parseFloat(order.profit);
+          todaySales += parseFloat(order.totalAmount);
+          todayOrders++;
+        }
 
-      if (orderDate >= currentWeekStart) {
-        thisWeekSales += parseFloat(order.totalAmount);
-        thisWeekProfit += parseFloat(order.profit);
-        thisWeekOrders++;
-      }
+        if (orderDate >= currentWeekStart) {
+          thisWeekSales += parseFloat(order.totalAmount);
+          thisWeekProfit += parseFloat(order.profit);
+          thisWeekOrders++;
+        }
 
-      if (orderDate >= currentMonthStart) {
-        thisMonthSales += parseFloat(order.totalAmount);
-        thisMonthProfit += parseFloat(order.profit);
-        thisMonthOrders++;
-      }
-    });
+        if (orderDate >= currentMonthStart) {
+          thisMonthSales += parseFloat(order.totalAmount);
+          thisMonthProfit += parseFloat(order.profit);
+          thisMonthOrders++;
+        }
+      });
 
-    setTodaySales({ profit: todayProfit.toFixed(2), orders: todayOrders, sales: todaySales.toFixed(2) });
-    setThisWeekSales({ profit: thisWeekProfit.toFixed(2), orders: thisWeekOrders, sales: thisWeekSales.toFixed(2) });
-    setThisMonthSales({ profit: thisMonthProfit.toFixed(2), orders: thisMonthOrders , sales: thisMonthSales.toFixed(2)});
-  } catch (error) {
-    console.error("Error fetching orders:", error);
-    toast.error("Error fetching orders");
-  }
+      setTodaySales({
+        profit: todayProfit.toFixed(2),
+        orders: todayOrders,
+        sales: todaySales.toFixed(2),
+      });
+      setThisWeekSales({
+        profit: thisWeekProfit.toFixed(2),
+        orders: thisWeekOrders,
+        sales: thisWeekSales.toFixed(2),
+      });
+      setThisMonthSales({
+        profit: thisMonthProfit.toFixed(2),
+        orders: thisMonthOrders,
+        sales: thisMonthSales.toFixed(2),
+      });
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+      toast.error("Error fetching orders");
+    }
   };
 
   const cratePagination = () => {
@@ -165,10 +184,8 @@ const ProductsFullWidth = ({
       } else {
         return new Date(b.date) - new Date(a.date);
       }
-    }
-    );
+    });
     setSortDate(!sortDate);
-
   };
   const handleSortStatus = () => {
     if (!sortStatus) {
@@ -229,9 +246,10 @@ const ProductsFullWidth = ({
     }
   };
   const handleMedicineDelete = async (id) => {
-
     // Display a confirmation dialog
-    const confirmed = window.confirm("Are you sure you want to delete this medicine?");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this medicine?"
+    );
 
     if (!confirmed) {
       // If the user cancels the confirmation, do nothing
@@ -247,7 +265,6 @@ const ProductsFullWidth = ({
       toast.success("Medicine Deleted");
       fetchProduct(searchTerm, "/api/medicine", productFilters);
       cratePagination();
-
     } catch (error) {
       toast.error(error.message);
     }
@@ -280,6 +297,40 @@ const ProductsFullWidth = ({
       setFilteredOrders(filtered);
     }
   }, [orders, searchOrder]);
+  const handleCancelClick = async (e, orderId) => {
+    try {
+      // Show a confirmation dialog to confirm the cancellation
+      const confirmed = window.confirm(
+        "Are you sure you want to cancel this order?"
+      );
+
+      if (!confirmed) {
+        // User canceled the action, do nothing
+        return;
+      }
+
+      // Make a PUT request to the API endpoint to cancel the order
+      const response = await fetch(`/api/order/cancel/${orderId}`, {
+        method: "PUT",
+      });
+
+      if (response.ok) {
+        // Order was successfully canceled, you can update your UI or show a message here
+        toast.success("Order was canceled successfully");
+        console.log("Order was canceled successfully");
+        getOrders();
+      } else {
+        // Handle any error or display an error message
+        const data = await response.json();
+        toast.error(data.error);
+        console.error("Failed to cancel the order:", data.error);
+      }
+    } catch (error) {
+
+      toast.error("An error occurred while canceling the order");
+      console.error("An error occurred while canceling the order:", error);
+    }
+  };
 
   return (
     <>
@@ -333,153 +384,218 @@ const ProductsFullWidth = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {
-                            (filteredOrders || orders)?.length === 0 ? (
-                              <tr>
-                                <td colSpan="5">No orders found</td>
-                              </tr>
-                            ) : (
-                              (filteredOrders || orders)?.map((order) => (
-                                <React.Fragment key={order._id}>
-                                  <tr key={order._id}>
-                                    <td>{order.orderNumber}</td>
-                                    <td>
+                          {(filteredOrders || orders)?.length === 0 ? (
+                            <tr>
+                              <td colSpan="5">No orders found</td>
+                            </tr>
+                          ) : (
+                            (filteredOrders || orders)?.map((order) => (
+                              <React.Fragment key={order._id}>
+                                <tr key={order._id}>
+                                  <td>{order.orderNumber}</td>
+                                  <td>
+                                    {
+                                      //only show sate and time
+                                      order.date.split("T")[0]
+                                    }
+                                  </td>
+                                  <td>
                                       {
-                                        //only show sate and time
-                                        order.date.split("T")[0]
+                                        order.cancelled?(
+                                          "Cancelled"
+                                        ):(
+                                          order.status?(
+                                            "Delivered"
+                                          ):(
+                                            "Pending"
+                                          )
+                                        )
                                       }
-                                    </td>
-                                    <td>
-                                      {/* {order.status ? "Delivered" : "Pending"} */}
-                                      {order.status ? selectedStatus : selectedStatus}
-                                      {currentOrder === order &&
-                                        <div className="my-2">
-                                          <span>
-                                            <input
-                                              type="radio"
-                                              id="pending"
-                                              name="status"
-                                              value="pending"
-                                              checked={selectedStatus === "Pending"}
-                                              onChange={() => setSelectedStatus("Pending")}
-                                            />
-                                            <span class="checkmark"></span>
-                                            <label htmlFor="pending">Pending</label>
-                                          </span>
-                                          <span>
-                                            <input
-                                              type="radio"
-                                              id="cancelled"
-                                              name="status"
-                                              value="cancelled"
-                                              checked={selectedStatus === "Cancelled"}
-                                              onChange={() => setSelectedStatus("Cancelled")}
-                                            />
-                                            <span class="checkmark"></span>
-                                            <label htmlFor="cancelled">Cancelled</label>
-                                          </span>
-                                          <span>
-                                            <input
-                                              type="radio"
-                                              id="delivered"
-                                              name="status"
-                                              value="delivered"
-                                              checked={selectedStatus === "Delivered"}
-                                              onChange={() => setSelectedStatus("Delivered")}
-                                            />
-                                            <span class="checkmark"></span>
-                                            <label htmlFor="delivered">Delivered</label>
-                                          </span>
-                                          <button className="btn p-2 ms-3">apply</button>
+                                    {/* {currentOrder === order && (
+                                      <div className="my-2">
+                                        <span>
+                                          <input
+                                            type="radio"
+                                            id="pending"
+                                            name="status"
+                                            value="pending"
+                                            checked={
+                                              selectedStatus === "Pending"
+                                            }
+                                            onChange={() =>
+                                              setSelectedStatus("Pending")
+                                            }
+                                          />
+                                          <span class="checkmark"></span>
+                                          <label htmlFor="pending">
+                                            Pending
+                                          </label>
+                                        </span>
+                                        <span>
+                                          <input
+                                            type="radio"
+                                            id="cancelled"
+                                            name="status"
+                                            value="cancelled"
+                                            checked={
+                                              selectedStatus === "Cancelled"
+                                            }
+                                            onChange={() =>
+                                              setSelectedStatus("Cancelled")
+                                            }
+                                          />
+                                          <span class="checkmark"></span>
+                                          <label htmlFor="cancelled">
+                                            Cancelled
+                                          </label>
+                                        </span>
+                                        <span>
+                                          <input
+                                            type="radio"
+                                            id="delivered"
+                                            name="status"
+                                            value="delivered"
+                                            checked={
+                                              selectedStatus === "Delivered"
+                                            }
+                                            onChange={() =>
+                                              setSelectedStatus("Delivered")
+                                            }
+                                          />
+                                          <span class="checkmark"></span>
+                                          <label htmlFor="delivered">
+                                            Delivered
+                                          </label>
+                                        </span>
+                                        <button className="btn p-2 ms-3">
+                                          apply
+                                        </button>
+                                      </div>
+                                    )} */}
+                                  </td>
+                                  <td>Rs.{order.totalAmount}</td>
+                                  <td className="d-flex justify-content-between">
+                                    <Link
+                                      href="#"
+                                      className="btn-small d-block"
+                                      onClick={(e) => {
+                                        handleToggleOrderDetails(e, order); // Call the function to toggle order details
+                                      }}
+                                    >
+                                      Details
+                                      {!(currentOrder === order) && (
+                                        <IoIosArrowDropdown className="ms-1" />
+                                      )}
+                                      {currentOrder === order && (
+                                        <IoIosArrowDropupCircle className="ms-1" />
+                                      )}
+                                    </Link>
+                                    {
+                                      !order.cancelled&&!order.status?(
+                                    <div
+                                        style={{
+                                          width: "70px",
+                                          textAlign: "center",
+                                          border: "1px solid #000",
+                                          padding: "5px",
+                                          borderRadius: "5px",
+                                          backgroundColor: "red",
+                                          cursor: "pointer",
+
+                                        }}
+                                        onClick={(e) => {
+                                          handleCancelClick(e, order._id);
+                                        }}
+                                      >
+                                        <a
+                                        > Cancel </a>
+                                      </div>):order.cancelled?(
+                                        <div
+                                        style={{
+                                          width: "70px",
+                                          textAlign: "center",
+                                          border: "1px solid #000",
+                                          padding: "5px",
+                                          borderRadius: "5px",
+                                          backgroundColor: "grey",
+                                          cursor: "pointer",
+
+                                        }}
+                                        >
+                                          <a
+                                        > Cancelled </a>
                                         </div>
-                                      }
-                                    </td>
-                                    <td>Rs.{order.totalAmount}</td>
-                                    <td className="d-flex justify-content-between">
-                                      <Link
-                                        href="#"
-                                        className="btn-small d-block"
-                                        onClick={(e) => {
-                                          handleToggleOrderDetails(e, order); // Call the function to toggle order details
-                                        }}
-                                      >
-                                        Details
-                                        {!(currentOrder === order) && (
-                                          <IoIosArrowDropdown className="ms-1" />
-                                        )}
-                                        {currentOrder === order && (
-                                          <IoIosArrowDropupCircle className="ms-1" />
-                                        )}
-                                      </Link>
-                                      <Link
-                                        href="#"
-                                        onClick={(e) => {
-                                          handleDelete(e, order._id);
-                                        }}
-                                      >
-                                        <BsFillTrashFill
-                                          style={{ color: 'red' }}
-                                        />
-                                      </Link>
+                                      ):null
+
+
+                                    }
+                                    <Link
+                                      href="#"
+                                      onClick={(e) => {
+                                        handleDelete(e, order._id);
+                                      }}
+                                    >
+                                      <BsFillTrashFill
+                                        style={{ color: "red" }}
+                                      />
+                                    </Link>
+                                  </td>
+                                </tr>
+                                {/* Conditionally render order details */}
+                                {currentOrder === order && (
+                                  <tr className="bg-light">
+                                    <td colSpan="5">
+                                      <div className="order-details mt-1">
+                                        {/* Display order details here */}
+                                        <h5> Items in Order</h5>
+                                        <table className="table">
+                                          <thead>
+                                            <tr>
+                                              <th>Medicine</th>
+                                              <th>Quantity</th>
+                                              <th>Price</th>
+                                              <th>Total</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {order.items.map((item) => (
+                                              <tr key={item._id}>
+                                                <td>
+                                                  <Link
+                                                    href="/products/[slug]"
+                                                    as={`/products/${item.medicine.slug}`}
+                                                  >
+                                                    {item.medicine.name}
+                                                  </Link>
+                                                </td>
+                                                <td>{item.quantity}</td>
+                                                <td>
+                                                  Rs.{item.medicine.price}
+                                                </td>
+                                                <td>
+                                                  Rs.
+                                                  {item.medicine.price *
+                                                    item.quantity}
+                                                </td>
+                                              </tr>
+                                            ))}
+                                          </tbody>
+                                        </table>
+                                        <div>
+                                          <h5>Delivery Details</h5>
+                                          <p>
+                                            Deliver to: {order.address}-{" "}
+                                            {order.city} - {order.user.phone}
+                                          </p>
+                                        </div>
+                                        {/* Add more order details as needed */}
+                                      </div>
                                     </td>
                                   </tr>
-                                  {/* Conditionally render order details */}
-                                  {currentOrder === order && (
-                                    <tr className="bg-light">
-                                      <td colSpan="5">
-                                        <div className="order-details mt-1">
-                                          {/* Display order details here */}
-                                          <h5> Items in Order</h5>
-                                          <table className="table">
-                                            <thead>
-                                              <tr>
-                                                <th>Medicine</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
-                                                <th>Total</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              {order.items.map((item) => (
-                                                <tr key={item._id}>
-                                                  <td>
-                                                    <Link
-                                                      href="/products/[slug]"
-                                                      as={`/products/${item.medicine.slug}`}
-                                                    >
-                                                      {item.medicine.name}
-                                                    </Link>
-                                                  </td>
-                                                  <td>{item.quantity}</td>
-                                                  <td>
-                                                    Rs.{item.medicine.price}
-                                                  </td>
-                                                  <td>
-                                                    Rs.
-                                                    {item.medicine.price *
-                                                      item.quantity}
-                                                  </td>
-                                                </tr>
-                                              ))}
-                                            </tbody>
-                                          </table>
-                                          <div>
-                                            <h5>Delivery Details</h5>
-                                            <p>
-                                              Deliver to: {order.address}-{" "}
-                                              {order.city} - {order.user.phone}
-                                            </p>
-                                          </div>
-                                          {/* Add more order details as needed */}
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  )}
-                                </React.Fragment>
-                              )
-
-                              ))
-                          }
+                                )}
+                              </React.Fragment>
+                            ))
+                          )}
                         </tbody>
                       </table>
                     </div>
@@ -578,7 +694,8 @@ const ProductsFullWidth = ({
                       className="col-lg-1-5 col-md-4 col-12 col-sm-6"
                       key={i}
                     >
-                      <SingleProduct product={item}
+                      <SingleProduct
+                        product={item}
                         handleMedicineDelete={handleMedicineDelete}
                       />
                       {/* <SingleProductList product={item}/> */}
