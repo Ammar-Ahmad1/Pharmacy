@@ -38,6 +38,9 @@ const orderSchema = new Schema({
     totalAmount: {
         type: String,
     },
+    profit: {
+        type: Number, // Add a field to store the profit for the order
+    },
 });
 
 const Order = models.Order || model('Order', orderSchema);

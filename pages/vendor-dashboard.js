@@ -78,6 +78,9 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
     const currentWeekStart = new Date(currentDate);
     currentWeekStart.setDate(currentDate.getDate() - currentDate.getDay()); // Start of the current week
     const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // Start of the current month
+      let todaySales = 0;
+      let thisWeekSales = 0;
+      let thisMonthSales = 0;
 
     let todayProfit = 0;
     let todayOrders = 0;
@@ -90,25 +93,27 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
       const orderDate = new Date(order.date);
 
       if (orderDate.toDateString() === currentDate.toDateString()) {
-
-        todayProfit += parseFloat(order.totalAmount);
+        todayProfit += parseFloat(order.profit);
+        todaySales += parseFloat(order.totalAmount);
         todayOrders++;
       }
 
       if (orderDate >= currentWeekStart) {
-        thisWeekProfit += parseFloat(order.totalAmount);
+        thisWeekSales += parseFloat(order.totalAmount);
+        thisWeekProfit += parseFloat(order.profit);
         thisWeekOrders++;
       }
 
       if (orderDate >= currentMonthStart) {
-        thisMonthProfit += parseFloat(order.totalAmount);
+        thisMonthSales += parseFloat(order.totalAmount);
+        thisMonthProfit += parseFloat(order.profit);
         thisMonthOrders++;
       }
     });
 
-    setTodaySales({ profit: todayProfit.toFixed(2), orders: todayOrders });
-    setThisWeekSales({ profit: thisWeekProfit.toFixed(2), orders: thisWeekOrders });
-    setThisMonthSales({ profit: thisMonthProfit.toFixed(2), orders: thisMonthOrders });
+    setTodaySales({ profit: todayProfit.toFixed(2), orders: todayOrders, sales: todaySales.toFixed(2) });
+    setThisWeekSales({ profit: thisWeekProfit.toFixed(2), orders: thisWeekOrders, sales: thisWeekSales.toFixed(2) });
+    setThisMonthSales({ profit: thisMonthProfit.toFixed(2), orders: thisMonthOrders , sales: thisMonthSales.toFixed(2)});
   } catch (error) {
     console.error("Error fetching orders:", error);
     toast.error("Error fetching orders");
@@ -447,7 +452,7 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
                           <h5>Today's Sale</h5>
                           <div className="d-flex align-items-center mt-1">
                             <h6 className="me-1">Sales: </h6>
-                            <p>Rs. {todaySales.profit}</p>
+                            <p>Rs. {todaySales.sales}</p>
                           </div>
                           <div className="d-flex align-items-center">
                           <h6 className=" me-1">Profit: </h6>
@@ -461,6 +466,10 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
                         <div className="mt-4">
                           <h5>This Week Sales</h5>
                           <div className="d-flex align-items-center mt-1">
+                            <h6 className="me-1">Sales: </h6>
+                            <p>Rs. {thisWeekSales.sales}</p>
+                          </div>
+                          <div className="d-flex align-items-center mt-1">
                             <h6 className="me-1">Profit: </h6>
                             <p>Rs. {thisWeekSales.profit}</p>
                           </div>
@@ -471,6 +480,10 @@ const [thisMonthSales, setThisMonthSales] = useState({ profit: 0, orders: 0 });
                         </div>
                         <div className="mt-4">
                           <h5>This Month Sales</h5>
+                          <div className="d-flex align-items-center mt-1">
+                            <h6 className="me-1">Sales: </h6>
+                            <p>Rs. {thisMonthSales.sales}</p>
+                          </div>
                           <div className="d-flex align-items-center mt-1">
                             <h6 className="me-1">Profit: </h6>
                             <p>Rs. {thisMonthSales.profit}</p>

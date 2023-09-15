@@ -5,6 +5,7 @@ import ImageUpload from "../components/elements/ImageUpload";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import {use}
 
 // icons
 import { IoIosArrowDropdown, IoIosArrowDropupCircle } from "react-icons/io";
@@ -153,7 +154,7 @@ function Account() {
                       >
                         <div className="card">
                           <div className="card-header">
-                            <h3 className="mb-0">Hello Rosie!</h3>
+                            <h3 className="mb-0">Hello {session.user?.name}!</h3>
                           </div>
                           <div className="card-body">
                             <p>
