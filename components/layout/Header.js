@@ -170,7 +170,10 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                         </select>
                       </form>
                     </div>
-                    <div className="header-action-icon-2">
+
+                    <div className="header-action-icon-2"
+                      style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                    >
                       <Link href="/shop-compare">
                         <img className="svgInject" alt="Evara" src="/assets/imgs/theme/icons/icon-compare.svg" />
                         <span className="pro-count blue">{totalCompareItems}</span>
@@ -179,7 +182,9 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                         <span className="lable ml-0">Compare</span>
                       </Link>
                     </div>
-                    <div className="header-action-icon-2">
+                    <div className="header-action-icon-2"
+                    style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                    >
                       <Link href="/shop-wishlist">
                         <img className="svgInject" alt="Evara" src="/assets/imgs/theme/icons/icon-heart.svg" />
                         <span className="pro-count blue">{totalWishlistItems}</span>
@@ -188,7 +193,9 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                         <span className="lable">Wishlist</span>
                       </Link>
                     </div>
-                    <div className="header-action-icon-2">
+                    <div className="header-action-icon-2"
+                    style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                    >
                       <Link href="/shop-cart" className="mini-cart-icon">
                         <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg" />
                         <span className="pro-count blue">{totalCartItems}</span>
@@ -214,19 +221,25 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                                 My Account
                               </Link>
                             </li>
-                            <li>
+                            <li
+                            style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                            >
                               <Link href="/page-account">
                                 <i className="fi fi-rs-location-alt mr-10"></i>
                                 Order Tracking
                               </Link>
                             </li>
-                            <li>
+                            <li
+                            style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                            >
                               <Link href="/page-account">
                                 <i className="fi fi-rs-label mr-10"></i>
                                 My Voucher
                               </Link>
                             </li>
-                            <li>
+                            <li
+                            style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                            >
                               <Link href="/shop-wishlist">
                                 <i className="fi fi-rs-heart mr-10"></i>
                                 My Wishlist
