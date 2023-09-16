@@ -388,13 +388,47 @@ const ProductsFullWidth = ({
         } else if (filter === "cancelled") {
           return order.cancelled;
         }
-      }
-      );
+      });
 
       setFilteredOrders(filtered);
     }
-  }
+  };
+  const handleUpdateStatusClick = async (e, orderId) => {
+    try {
+      // Show a confirmation dialog to confirm the cancellation
+      const confirmed = window.confirm(
+        "Are you sure you want to mark this order as delivered?"
+      );
 
+      if (!confirmed) {
+        // User canceled the action, do nothing
+        return;
+      }
+
+      // Make a PUT request to the API endpoint to cancel the order
+      const response = await fetch(`/api/order/deliver/${orderId}`, {
+        method: "PUT",
+      });
+
+      if (response.ok) {
+        // Order was successfully canceled, you can update your UI or show a message here
+        toast.success("Order was marked as delivered successfully");
+
+        getOrders();
+      } else {
+        // Handle any error or display an error message
+        const data = await response.json();
+        toast.error(data.error);
+        console.error("Failed to mark the order as delivered:", data.error);
+      }
+    } catch (error) {
+      toast.error("An error occurred while marking the order as delivered");
+      console.error(
+        "An error occurred while marking the order as delivered:",
+        error
+      );
+    }
+  };
   return (
     <>
       <Layout parent="Home" sub="Vendor  " subChild="Dashboard">
@@ -416,18 +450,17 @@ const ProductsFullWidth = ({
                       </Link>
                     </div>
                     <div className="table-responsive">
-
                       <div className="input-group d-flex justify-content-between">
                         <div className="d-flex align-items-center">
-                        <input
-                          type="search"
-                          className="form-control"
-                          placeholder="Search Orders"
-                          aria-label="Search Orders"
-                          aria-describedby="basic-addon2"
-                          // value={searchOrder}
-                          onChange={handleSearchChange}
-                        />
+                          <input
+                            type="search"
+                            className="form-control"
+                            placeholder="Search Orders"
+                            aria-label="Search Orders"
+                            aria-describedby="basic-addon2"
+                            // value={searchOrder}
+                            onChange={handleSearchChange}
+                          />
                         </div>
                         {/* add filters for pending, delivered and cancelled orders */}
                         <div className="input-group-append">
@@ -624,6 +657,7 @@ const ProductsFullWidth = ({
                                             </p>
                                           </div>
                                           <div>
+{ !order.cancelled && !order.status && 
                                             <span
                                               style={{
                                                 width: "70px",
@@ -636,10 +670,18 @@ const ProductsFullWidth = ({
                                                   "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
                                                 cursor: "pointer",
                                                 marginRight: "12px",
+                                                // display: order.status ? "none" : "block"
+                                              }}
+                                              onClick={(e) => {
+                                                handleUpdateStatusClick(
+                                                  e,
+                                                  order._id
+                                                );
                                               }}
                                             >
                                               Delivered
                                             </span>
+                                          }
                                             {!order.cancelled &&
                                             !order.status ? (
                                               <span
