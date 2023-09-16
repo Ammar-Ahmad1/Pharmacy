@@ -49,7 +49,7 @@ function Login() {
         });
         if (result.error) {
             setError(result.error);
-            toast.error(result.error);
+            toast.error("Invalid credentials");
         } else {
             toast.success("Logged in successfully");
             console.log(result)

@@ -312,6 +312,10 @@ const ProductsFullWidth = ({
       // Make a PUT request to the API endpoint to cancel the order
       const response = await fetch(`/api/order/cancel/${orderId}`, {
         method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ action: "cancel" }),
       });
 
       if (response.ok) {
@@ -326,11 +330,70 @@ const ProductsFullWidth = ({
         console.error("Failed to cancel the order:", data.error);
       }
     } catch (error) {
-
       toast.error("An error occurred while canceling the order");
       console.error("An error occurred while canceling the order:", error);
     }
   };
+  const handleUndoClick = async (e, orderId) => {
+    try {
+      // Show a confirmation dialog to confirm the cancellation
+      const confirmed = window.confirm(
+        "Are you sure you want to restore this order?"
+      );
+
+      if (!confirmed) {
+        // User canceled the action, do nothing
+        return;
+      }
+
+      // Make a PUT request to the API endpoint to cancel the order
+      const response = await fetch(`/api/order/cancel/${orderId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ action: "undo" }),
+      });
+
+      if (response.ok) {
+        // Order was successfully canceled, you can update your UI or show a message here
+        toast.success("Order was restored successfully");
+
+        getOrders();
+      } else {
+        // Handle any error or display an error message
+        const data = await response.json();
+        toast.error(data.error);
+        console.error("Failed to undo the order:", data.error);
+      }
+    } catch (error) {
+      toast.error("An error occurred while canceling the order");
+      console.error("An error occurred while canceling the order:", error);
+    }
+  };
+  const handleFilterChange = (e) => {
+    const filter = e.target.value;
+    console.log(filter);
+    setSelectedStatus(filter);
+    if (filter === "") {
+      // If the filter is empty, reset the filtered orders to the original orders
+      setFilteredOrders(null);
+    } else {
+      // Filter the orders based on the filter
+      const filtered = orders.filter((order) => {
+        if (filter === "pending") {
+          return !order.cancelled && !order.status;
+        } else if (filter === "delivered") {
+          return order.status;
+        } else if (filter === "cancelled") {
+          return order.cancelled;
+        }
+      }
+      );
+
+      setFilteredOrders(filtered);
+    }
+  }
 
   return (
     <>
@@ -353,7 +416,9 @@ const ProductsFullWidth = ({
                       </Link>
                     </div>
                     <div className="table-responsive">
-                      <div className="input-group w-25">
+
+                      <div className="input-group d-flex justify-content-between">
+                        <div className="d-flex align-items-center">
                         <input
                           type="search"
                           className="form-control"
@@ -363,6 +428,19 @@ const ProductsFullWidth = ({
                           // value={searchOrder}
                           onChange={handleSearchChange}
                         />
+                        </div>
+                        {/* add filters for pending, delivered and cancelled orders */}
+                        <div className="input-group-append">
+                          <select
+                            className="form-select"
+                            onChange={handleFilterChange}
+                          >
+                            <option value="">All Orders</option>
+                            <option value="pending">Pending Orders</option>
+                            <option value="delivered">Delivered Orders</option>
+                            <option value="cancelled">Cancelled Orders</option>
+                          </select>
+                        </div>
                       </div>
                       <br />
                       <table className="table">
@@ -400,17 +478,11 @@ const ProductsFullWidth = ({
                                     }
                                   </td>
                                   <td>
-                                    {
-                                      order.cancelled ? (
-                                        "Cancelled"
-                                      ) : (
-                                        order.status ? (
-                                          "Delivered"
-                                        ) : (
-                                          "Pending"
-                                        )
-                                      )
-                                    }
+                                    {order.cancelled
+                                      ? "Cancelled"
+                                      : order.status
+                                      ? "Delivered"
+                                      : "Pending"}
                                     {/* {currentOrder === order && (
                                       <div className="my-2">
                                         <span>
@@ -560,51 +632,58 @@ const ProductsFullWidth = ({
                                                 padding: "5px 10px",
                                                 borderRadius: "5px",
                                                 backgroundColor: "#35927c",
-                                                boxShadow: "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
+                                                boxShadow:
+                                                  "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
                                                 cursor: "pointer",
-                                                marginRight: "12px"
-
+                                                marginRight: "12px",
                                               }}
                                             >
                                               Delivered
                                             </span>
-                                            {
-                                              !order.cancelled && !order.status ? (
-                                                <span
-                                                  style={{
-                                                    width: "70px",
-                                                    textAlign: "center",
-                                                    color: "#fff",
-                                                    padding: "5px 10px",
-                                                    borderRadius: "5px",
-                                                    backgroundColor: "#ff1a1a",
-                                                    boxShadow: "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
-                                                    cursor: "pointer",
-                                                    marginRight: "4px"
-
-                                                  }}
-                                                  onClick={(e) => {
-                                                    handleCancelClick(e, order._id);
-                                                  }}
-                                                >
-                                                  Cancel
-                                                </span>) : order.cancelled ? (
-                                                  <span
-                                                    style={{
-                                                      width: "70px",
-                                                      textAlign: "center",
-                                                      padding: "5px 10px",
-                                                      borderRadius: "5px",
-                                                      backgroundColor: "#ffec5f",
-                                                      boxShadow: "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
-                                                      marginRight: "4px",
-                                                      cursor: "pointer"
-                                                    }}
-                                                  >
-                                                    Undo
-                                                  </span>
-                                                ) : null
-                                            }
+                                            {!order.cancelled &&
+                                            !order.status ? (
+                                              <span
+                                                style={{
+                                                  width: "70px",
+                                                  textAlign: "center",
+                                                  color: "#fff",
+                                                  padding: "5px 10px",
+                                                  borderRadius: "5px",
+                                                  backgroundColor: "#ff1a1a",
+                                                  boxShadow:
+                                                    "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
+                                                  cursor: "pointer",
+                                                  marginRight: "4px",
+                                                }}
+                                                onClick={(e) => {
+                                                  handleCancelClick(
+                                                    e,
+                                                    order._id
+                                                  );
+                                                }}
+                                              >
+                                                Cancel
+                                              </span>
+                                            ) : order.cancelled ? (
+                                              <span
+                                                style={{
+                                                  width: "70px",
+                                                  textAlign: "center",
+                                                  padding: "5px 10px",
+                                                  borderRadius: "5px",
+                                                  backgroundColor: "#ffec5f",
+                                                  boxShadow:
+                                                    "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
+                                                  marginRight: "4px",
+                                                  cursor: "pointer",
+                                                }}
+                                                onClick={(e) => {
+                                                  handleUndoClick(e, order._id);
+                                                }}
+                                              >
+                                                Undo
+                                              </span>
+                                            ) : null}
                                           </div>
                                         </div>
                                         {/* Add more order details as needed */}
