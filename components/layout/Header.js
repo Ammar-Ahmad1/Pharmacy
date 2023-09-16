@@ -41,7 +41,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
 
         <div className="header-top header-top-ptb-1 d-none d-lg-block">
           <div className="container">
-            <div className="row align-items-center">
+            <div className="row align-items-center justify-content-between">
               <div className="col-xl-3 col-lg-4">
                 <div className="header-info">
                   <ul>
@@ -60,19 +60,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                   </ul>
                 </div>
               </div>
-              <div className="col-xl-6 col-lg-4">
-                <div className="text-center">
-                  <div id="news-flash" className="d-inline-block">
-                    <ul>
-                      <li>
-                        Get great devices up to 50% off
-                        <Link href="/shop-grid-right">View details</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="col-xl-3 col-lg-4">
+              <div className="col-xl-4 col-lg-4">
                 <div className="header-info header-info-right">
                   <ul>
                     <li>
@@ -129,6 +117,12 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                           </a>
                         </li>
                       </ul>
+                    </li>
+                    <li>
+                      <Link href="/page-register" className="text-brand">Sign Up</Link>
+                    </li>
+                    <li>
+                      <Link href="/page-login" className="text-brand">Log In</Link>
                     </li>
                   </ul>
                 </div>
@@ -351,7 +345,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                                                     </li>
                                                 </ul> */}
                       </li>
-                      
+
                       <li>
                         <Link href="/products">
                           Shop

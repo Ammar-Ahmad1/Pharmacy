@@ -400,17 +400,17 @@ const ProductsFullWidth = ({
                                     }
                                   </td>
                                   <td>
-                                      {
-                                        order.cancelled?(
-                                          "Cancelled"
-                                        ):(
-                                          order.status?(
-                                            "Delivered"
-                                          ):(
-                                            "Pending"
-                                          )
+                                    {
+                                      order.cancelled ? (
+                                        "Cancelled"
+                                      ) : (
+                                        order.status ? (
+                                          "Delivered"
+                                        ) : (
+                                          "Pending"
                                         )
-                                      }
+                                      )
+                                    }
                                     {/* {currentOrder === order && (
                                       <div className="my-2">
                                         <span>
@@ -490,45 +490,7 @@ const ProductsFullWidth = ({
                                         <IoIosArrowDropupCircle className="ms-1" />
                                       )}
                                     </Link>
-                                    {
-                                      !order.cancelled&&!order.status?(
-                                    <div
-                                        style={{
-                                          width: "70px",
-                                          textAlign: "center",
-                                          border: "1px solid #000",
-                                          padding: "5px",
-                                          borderRadius: "5px",
-                                          backgroundColor: "red",
-                                          cursor: "pointer",
 
-                                        }}
-                                        onClick={(e) => {
-                                          handleCancelClick(e, order._id);
-                                        }}
-                                      >
-                                        <a
-                                        > Cancel </a>
-                                      </div>):order.cancelled?(
-                                        <div
-                                        style={{
-                                          width: "70px",
-                                          textAlign: "center",
-                                          border: "1px solid #000",
-                                          padding: "5px",
-                                          borderRadius: "5px",
-                                          backgroundColor: "grey",
-                                          cursor: "pointer",
-
-                                        }}
-                                        >
-                                          <a
-                                        > Cancelled </a>
-                                        </div>
-                                      ):null
-
-
-                                    }
                                     <Link
                                       href="#"
                                       onClick={(e) => {
@@ -581,12 +543,69 @@ const ProductsFullWidth = ({
                                             ))}
                                           </tbody>
                                         </table>
-                                        <div>
-                                          <h5>Delivery Details</h5>
-                                          <p>
-                                            Deliver to: {order.address}-{" "}
-                                            {order.city} - {order.user.phone}
-                                          </p>
+                                        <div className="d-flex justify-content-between align-items-center">
+                                          <div>
+                                            <h5>Delivery Details</h5>
+                                            <p>
+                                              Deliver to: {order.address}-{" "}
+                                              {order.city} - {order.user.phone}
+                                            </p>
+                                          </div>
+                                          <div>
+                                            <span
+                                              style={{
+                                                width: "70px",
+                                                textAlign: "center",
+                                                color: "#fff",
+                                                padding: "5px 10px",
+                                                borderRadius: "5px",
+                                                backgroundColor: "#35927c",
+                                                boxShadow: "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
+                                                cursor: "pointer",
+                                                marginRight: "12px"
+
+                                              }}
+                                            >
+                                              Delivered
+                                            </span>
+                                            {
+                                              !order.cancelled && !order.status ? (
+                                                <span
+                                                  style={{
+                                                    width: "70px",
+                                                    textAlign: "center",
+                                                    color: "#fff",
+                                                    padding: "5px 10px",
+                                                    borderRadius: "5px",
+                                                    backgroundColor: "#ff1a1a",
+                                                    boxShadow: "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
+                                                    cursor: "pointer",
+                                                    marginRight: "4px"
+
+                                                  }}
+                                                  onClick={(e) => {
+                                                    handleCancelClick(e, order._id);
+                                                  }}
+                                                >
+                                                  Cancel
+                                                </span>) : order.cancelled ? (
+                                                  <span
+                                                    style={{
+                                                      width: "70px",
+                                                      textAlign: "center",
+                                                      padding: "5px 10px",
+                                                      borderRadius: "5px",
+                                                      backgroundColor: "#ffec5f",
+                                                      boxShadow: "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
+                                                      marginRight: "4px",
+                                                      cursor: "pointer"
+                                                    }}
+                                                  >
+                                                    Undo
+                                                  </span>
+                                                ) : null
+                                            }
+                                          </div>
                                         </div>
                                         {/* Add more order details as needed */}
                                       </div>
