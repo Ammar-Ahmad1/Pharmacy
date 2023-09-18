@@ -16,42 +16,44 @@ function ForgetPassword() {
     const [isConfirmed, setIsConfirmed] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [isDisabled, setIsDisabled] = useState(true);
+    const [countdown, setCountdown] = useState(120);
 
 
     const handleCredentials = (e) => {
         setCredentials(e.target.value);
     };
 
-    const handleSendOTP = async(e) => {
+    const handleSendOTP = async (e) => {
         e.preventDefault();
 
         if (credentials) {
             try {
-              // Make an API call to send OTP
-              const response = await axios.post("/api/forgot-password", { email: credentials });
+                // Make an API call to send OTP
+                const response = await axios.post("/api/forgot-password", { email: credentials });
                 console.log(response);
-              if (response.status === 200) {
-                toast.success(`OTP Sent to "${credentials}"`, { autoClose: 3000 });
-                setTimeout(() => {
-                  setSendOTP(true);
-                }, 2000);
-              }else if(response.status === 400){
-                toast.error("User not found", { autoClose: 3000 });
-              }
+                if (response.status === 200) {
+                    toast.success(`OTP Sent to "${credentials}"`, { autoClose: 3000 });
+                    setSendOTP(true);
+                    setCountdown(10);
+                    setIsDisabled(true);
+                } else if (response.status === 400) {
+                    toast.error("User not found", { autoClose: 3000 });
+                }
 
-              else {
-                toast.error("Failed to send OTP", { autoClose: 3000 });
-              }
+                else {
+                    toast.error("Failed to send OTP", { autoClose: 3000 });
+                }
             } catch (error) {
-                if(error.response.status === 400){
+                if (error.response.status === 400) {
                     toast.error("User not found", { autoClose: 3000 });
                 }
                 else
-                  toast.error("Failed to send OTP", { autoClose: 3000 });
+                    toast.error("Failed to send OTP", { autoClose: 3000 });
             }
-          } else {
+        } else {
             toast.error("Please Enter Email", { autoClose: 3000 });
-          }
+        }
     };
 
     const handlePasswordChange = (e) => {
@@ -65,32 +67,45 @@ function ForgetPassword() {
         setIsConfirmed(password === e.target.value);
     };
 
-    const handleVerifyOTP = async(e) => {
+    const handleVerifyOTP = async (e) => {
         e.preventDefault();
         console.log(credentials, codeOTP, password)
         try {
             // Make an API call to verify OTP and reset password
             const response = await axios.post("/api/reset-password", {
-              email: credentials,
-              otp: codeOTP,
-              newPassword: password,
+                email: credentials,
+                otp: codeOTP,
+                newPassword: password,
             });
-      
+
             if (response.status === 200) {
-              toast.success("Password Reset Successful", { autoClose: 3000 });
-              router.push("/page-login");
-              // Redirect the user to the login page or home page as needed
-            } else if(response.status === 400){
+                toast.success("Password Reset Successful", { autoClose: 3000 });
+                router.push("/page-login");
+                // Redirect the user to the login page or home page as needed
+            } else if (response.status === 400) {
                 toast.error(response.data.error, { autoClose: 3000 })
             }
-            else
-            {
-              toast.error("Failed to reset password", { autoClose: 3000 });
+            else {
+                toast.error("Failed to reset password", { autoClose: 3000 });
             }
-          } catch (error) {
+        } catch (error) {
             toast.error("Failed to reset password", { autoClose: 3000 });
-          }
-    }
+        }
+    };
+
+
+    useEffect(() => {
+        if (countdown > 0) {
+            const timer = setTimeout(() => {
+                setCountdown(countdown - 1);
+            }, 1000);
+
+            return () => clearTimeout(timer);
+        } else {
+            setIsDisabled(false);
+        }
+    }, [countdown]);
+
     return (
         <>
             <Layout parent="Home" sub="Pages" subChild="Login & Register">
@@ -136,6 +151,13 @@ function ForgetPassword() {
                                                     )}
                                                     isInputNum
                                                 />
+
+                                                <button onClick={handleSendOTP} className="btn btn-heading btn-block" disabled={isDisabled}>
+                                                    {isDisabled ? 'Send OTP' : 'Send OTP'}
+                                                </button>
+                                                {isDisabled && <p> {`Resend OTP in ${countdown} seconds`} </p>}
+                                                <br />
+                                                <br />
 
                                                 <label>New Password: *</label>
                                                 <input

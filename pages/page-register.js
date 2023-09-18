@@ -23,6 +23,8 @@ function Privacy() {
   const { data: session } = useSession();
   const [isSendingOTP, setIsSendingOTP] = useState(false);
   const [isSigningUp, setIsSigningUp] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [countdown, setCountdown] = useState(120);
 
 
   useEffect(() => {
@@ -170,6 +172,8 @@ function Privacy() {
       if (data.success) {
         toast.success("OTP sent successfully");
         setSendOTP(true);
+        setCountdown(10);
+        setIsDisabled(true);
       } else if (data.error) {
         toast.error(data.error);
       }
@@ -194,6 +198,18 @@ function Privacy() {
     }
   };
 
+  // OTP countdown
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setTimeout(() => {
+        setCountdown(countdown - 1);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [countdown]);
   return (
     <>
       <Layout parent="Home" sub="Pages" subChild="Privacy">
@@ -225,7 +241,6 @@ function Privacy() {
                                 value={phone}
                                 name="phone-number"
                                 onChange={handlePhoneNumberChange}
-                                placeholder="03xxxxxxxxx"
                               // className={isValid ? "valid" : "invalid"}
                               />
 
@@ -272,6 +287,12 @@ function Privacy() {
                                     )}
                                     isInputNum
                                   />
+                                  <br />
+                                  <button onClick={handleSendOTP} className="btn btn-heading btn-block" disabled={isDisabled}>
+                                    {isDisabled ? 'Send OTP' : 'Send OTP'}
+                                  </button>
+                                  {isDisabled && <p> {`Resend OTP in ${countdown} seconds`} </p>}
+                                  <br />
                                 </div>
                                 <div
 
