@@ -592,6 +592,9 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                           <li>
                             <Link href="/page-404">404 Page</Link>
                           </li>
+                          <li>
+                            <Link href="/forget-password">Forget Password</Link>
+                          </li>
                         </ul>
                       </li>
                       <li>
