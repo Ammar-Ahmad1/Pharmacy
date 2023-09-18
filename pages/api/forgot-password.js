@@ -2,6 +2,7 @@
 import nodemailer from 'nodemailer';
 import Otp from '@models/otp'; // Import the new OTP model
 import { connectToDB } from '@config/database';
+import User from '@models/user';
 
 function generateRandomOTP() {
     // Implement this function
@@ -17,6 +18,13 @@ export default async function handler(req, res) {
     await connectToDB();
     const { email } = req.body;
     console.log(email);
+
+    // Check if the user exists
+    const user = await User.findOne({ email });
+    console.log(user)
+    if (!user) {
+      return res.status(400).json({ error: 'User not found' });
+    }
 
     // Generate a random OTP
     const otp = generateRandomOTP(); // Implement this function

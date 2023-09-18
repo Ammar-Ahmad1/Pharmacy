@@ -5,9 +5,11 @@ import Link from "next/link";
 import Layout from "../components/layout/Layout";
 import OtpInput from "react18-input-otp";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+function ForgetPassword() {
 
-function Login() {
-
+    const router = useRouter();
     const [sendOTP, setSendOTP] = useState(false);
     const [codeOTP, setCodeOTP] = useState('');
     const [credentials, setCredentials] = useState('');
@@ -20,17 +22,36 @@ function Login() {
         setCredentials(e.target.value);
     };
 
-    const handleSendOTP = (e) => {
+    const handleSendOTP = async(e) => {
         e.preventDefault();
 
         if (credentials) {
-            toast.success(`OTP Sent to "${credentials}"`, { autoClose: 3000 })
-            setTimeout(() => {
-                setSendOTP(true);
-            }, 2000);
-            return;
-        }
-        toast.error('Please Enter Email', { autoClose: 3000 });
+            try {
+              // Make an API call to send OTP
+              const response = await axios.post("/api/forgot-password", { email: credentials });
+                console.log(response);
+              if (response.status === 200) {
+                toast.success(`OTP Sent to "${credentials}"`, { autoClose: 3000 });
+                setTimeout(() => {
+                  setSendOTP(true);
+                }, 2000);
+              }else if(response.status === 400){
+                toast.error("User not found", { autoClose: 3000 });
+              }
+
+              else {
+                toast.error("Failed to send OTP", { autoClose: 3000 });
+              }
+            } catch (error) {
+                if(error.response.status === 400){
+                    toast.error("User not found", { autoClose: 3000 });
+                }
+                else
+                  toast.error("Failed to send OTP", { autoClose: 3000 });
+            }
+          } else {
+            toast.error("Please Enter Email", { autoClose: 3000 });
+          }
     };
 
     const handlePasswordChange = (e) => {
@@ -44,16 +65,31 @@ function Login() {
         setIsConfirmed(password === e.target.value);
     };
 
-    const handleVerifyOTP = (e) => {
+    const handleVerifyOTP = async(e) => {
         e.preventDefault();
-
-
-
-        if (codeOTP === 111111) {
-            toast.success('OTP Verified', { autoClose: 3000 });
-            return;
-        }
-        toast.error('Please Enter Corrent OTP', { autoClose: 3000 });
+        console.log(credentials, codeOTP, password)
+        try {
+            // Make an API call to verify OTP and reset password
+            const response = await axios.post("/api/reset-password", {
+              email: credentials,
+              otp: codeOTP,
+              newPassword: password,
+            });
+      
+            if (response.status === 200) {
+              toast.success("Password Reset Successful", { autoClose: 3000 });
+              router.push("/page-login");
+              // Redirect the user to the login page or home page as needed
+            } else if(response.status === 400){
+                toast.error(response.data.error, { autoClose: 3000 })
+            }
+            else
+            {
+              toast.error("Failed to reset password", { autoClose: 3000 });
+            }
+          } catch (error) {
+            toast.error("Failed to reset password", { autoClose: 3000 });
+          }
     }
     return (
         <>
@@ -107,16 +143,16 @@ function Login() {
                                                     required=""
                                                     name="email"
                                                     className="mb-20"
-                                                    placeholder="Email/Phone Number"
+                                                    placeholder=""
                                                     onChange={handlePasswordChange}
                                                     value={password} />
 
                                                 <label>Confirm Password: *</label>
                                                 <input
-                                                    type="text"
+                                                    type="password"
                                                     required=""
                                                     name="email"
-                                                    placeholder="Email/Phone Number"
+                                                    placeholder=""
                                                     onChange={handleConfirmPassword}
                                                     value={confirmPassword} />
                                                 {isConfirmed ? (
@@ -126,7 +162,7 @@ function Login() {
                                                 )}
                                                 <div className="form-group">
                                                     <br />
-                                                    <button type="submit" className="btn btn-heading btn-block" name="verifyOTP" >
+                                                    <button type="submit" className="btn btn-heading btn-block" onClick={handleVerifyOTP} >
                                                         Save Changes
                                                     </button>
                                                 </div>
@@ -143,4 +179,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default ForgetPassword;

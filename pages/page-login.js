@@ -161,9 +161,9 @@ function Login() {
                                 </label>
                               </div>
                             </div>
-                            <a className="text-muted" href="#">
+                            <Link className="text-muted" href="/forget-password">
                               Forgot password?
-                            </a>
+                            </Link>
                           </div>
                           <div className="form-group">
                             <button
