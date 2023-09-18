@@ -118,12 +118,15 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                         </li>
                       </ul>
                     </li>
+                  {!session?.user?.id && 
                     <li>
                       <Link href="/page-register" className="text-brand">Sign Up</Link>
                     </li>
-                    <li>
+}{!session?.user?.id &&
+                   <li>
                       <Link href="/page-login" className="text-brand">Log In</Link>
                     </li>
+                  }
                   </ul>
                 </div>
               </div>

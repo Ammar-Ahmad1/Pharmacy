@@ -225,6 +225,7 @@ function Privacy() {
                                 value={phone}
                                 name="phone-number"
                                 onChange={handlePhoneNumberChange}
+                                placeholder="03xxxxxxxxx"
                               // className={isValid ? "valid" : "invalid"}
                               />
 

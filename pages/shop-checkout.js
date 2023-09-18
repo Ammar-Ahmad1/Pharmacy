@@ -333,7 +333,7 @@ const Cart = ({
                       onChange={(e) => {
                         setName(e.target.value);
                       }}
-                      placeholder="First name *"
+                      placeholder="Your Name *"
                     />
                   </div>
                   <div className="form-group">
