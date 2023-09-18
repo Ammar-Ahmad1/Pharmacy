@@ -444,7 +444,7 @@ function Privacy() {
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-6 pr-30 d-none d-lg-block">
+                  {/* <div className="col-lg-6 pr-30 d-none d-lg-block">
                     <div className="card-login mt-115">
                       <a href="#" className="social-login facebook-login">
                         <img
@@ -474,7 +474,7 @@ function Privacy() {
                         <span>Continue with Apple</span>
                       </a>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
