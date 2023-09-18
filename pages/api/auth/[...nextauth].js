@@ -16,7 +16,7 @@ const handler = NextAuth({
           await connectToDB();
           console.log(credentials);
           const user = await User.findOne({
-            email: credentials.email,
+            phone: credentials.phone,
             password: credentials.password,
           });
           console.log(user)
