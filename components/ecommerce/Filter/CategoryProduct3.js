@@ -33,8 +33,9 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "jeans")}>
                     <a>
                         <img
-                            src="/assets/imgs/theme/icons/category-1.svg"
-                            alt="nest"
+                            src="/assets/imgs/icons/svg/negative/body/bacteria.svg"
+                            alt="bacteria"
+                            className="rounded"
                         />
                         Dermatologicals
                     </a>
@@ -43,8 +44,9 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "shoe")}>
                     <a>
                         <img
-                            src="/assets/imgs/theme/icons/category-2.svg"
-                            alt="nest"
+                            src="/assets/imgs/icons/svg/negative/body/eye.svg"
+                            alt="eye"
+                            className="rounded"
                         />
                         Eyes , Nose , Ear
                     </a>
@@ -53,8 +55,9 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "jacket")}>
                     <a>
                         <img
-                            src="/assets/imgs/theme/icons/category-3.svg"
-                            alt="nest"
+                            src="/assets/imgs/icons/svg/negative/devices/syringe-vaccine.svg"
+                            alt="prescription drugs"
+                            className="rounded"
                         />
                         Prescription Drugs
                     </a>
@@ -63,8 +66,9 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "trousers")}>
                     <a>
                         <img
-                            src="/assets/imgs/theme/icons/category-4.svg"
-                            alt="nest"
+                            src="/assets/imgs/icons/svg/negative/body/stomach.svg"
+                            alt="sensory-organs"
+                            className="rounded"
                         />
                         Sensory Organs
                     </a>
@@ -73,8 +77,9 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "accessories")}>
                     <a>
                         <img
-                            src="/assets/imgs/theme/icons/category-5.svg"
-                            alt="nest"
+                            src="/assets/imgs/icons/svg/negative/body/enzyme.svg"
+                            alt="others"
+                            className="rounded"
                         />
                         Others
                     </a>

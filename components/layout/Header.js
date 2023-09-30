@@ -138,7 +138,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
             <div className="header-wrap">
               <div className="logo logo-width-1">
                 <Link href="/">
-                  <img src="/assets/imgs/theme/logo.svg" alt="logo" />
+                  <img src="/assets/imgs/oxygen.svg" alt="logo" />
                 </Link>
               </div>
               <div className="header-right">
@@ -271,7 +271,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
             <div className="header-wrap header-space-between position-relative">
               <div className="logo logo-width-1 d-block d-lg-none">
                 <Link href="/">
-                  <img src="/assets/imgs/theme/logo.svg" alt="logo" />
+                  <img src="/assets/imgs/oxygen.svg" alt="logo" />
                 </Link>
               </div>
               <div className="header-nav d-none d-lg-flex">
