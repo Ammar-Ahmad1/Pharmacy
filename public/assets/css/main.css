@@ -216,18 +216,18 @@ li.hr span {
 
 /*--- Common Classes---------------------*/
 ::-moz-selection {
-    background: #3bb77e;
+    background: #49bcce;
     /* WebKit/Blink Browsers */
     color: #fff;
 }
 ::selection {
-    background: #3bb77e;
+    background: #49bcce;
     /* WebKit/Blink Browsers */
     color: #fff;
 }
 
 ::-moz-selection {
-    background: #3bb77e;
+    background: #49bcce;
     /* Gecko Browsers */
     color: #fff;
 }
@@ -366,7 +366,7 @@ input[type="number"]:focus,
 }
 
 .text-brand {
-    color: #3bb77e !important;
+    color: #49bcce !important;
 }
 
 .text-brand-2 {
@@ -420,7 +420,7 @@ input[type="number"]:focus,
 }
 
 .bg-brand {
-    background-color: #3bb77e !important;
+    background-color: #49bcce !important;
 }
 
 .bg-primary {
@@ -591,7 +591,7 @@ input[type="number"]:focus,
 }
 
 .border-brand {
-    border-color: #3bb77e !important;
+    border-color: #49bcce !important;
 }
 
 .border-muted {
@@ -916,7 +916,7 @@ strong,
 }
 
 .section-title a.show-all:hover {
-    color: #3bb77e;
+    color: #49bcce;
 }
 
 .section-title a.show-all i {
@@ -942,7 +942,7 @@ strong,
 }
 
 .section-title span {
-    color: #3bb77e;
+    color: #21284e;
 }
 
 h5.widget-title {
@@ -1043,7 +1043,7 @@ h5.widget-title {
 /*COMPONENTS -> BUTTONS*/
 .btn-default {
     color: #fff;
-    background-color: #3bb77e;
+    background-color: #21284e;
     border-radius: 50px;
     padding: 13px 28px;
     font-family: "Quicksand", sans-serif;
@@ -1104,12 +1104,12 @@ h5.widget-title {
 }
 
 .btn-shadow-brand:hover {
-    border: 1px solid #3bb77e;
+    border: 1px solid #21284e;
 }
 
 .btn-brand {
-    background-color: #3bb77e;
-    border-color: #3bb77e;
+    background-color: #21284e;
+    border-color: #21284e;
 }
 
 .btn-heading,
@@ -1127,18 +1127,18 @@ button[type="submit"] {
     padding: 15px 40px;
     color: #ffffff;
     border: none;
-    background-color: #3bb77e;
-    border: 1px solid #29a56c;
+    background-color: #21284e;
+    border: 1px solid #21284e;
     border-radius: 10px;
 }
 
 button.submit:hover,
 button[type="submit"]:hover {
-    background-color: #29a56c !important;
+    background-color: #21284e !important;
 }
 
 .btn-brand:hover {
-    background-color: #29a56c !important;
+    background-color: #21284e !important;
 }
 
 .btn-login {
@@ -5095,7 +5095,7 @@ table .product-thumbnail img {
 }
 
 .detail-qty > a:hover {
-    color: #29a56c;
+    color: #21284e;
 }
 
 .detail-qty > a.qty-up {
@@ -7892,7 +7892,7 @@ h6.post-title {
 }
 
 .header-style-1 .main-categori-wrap > a:hover {
-    background-color: #29a56c;
+    background-color: #21284e;
 }
 
 .header-style-1 .main-menu.main-menu-light-white > nav > ul > li > a {

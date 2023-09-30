@@ -33,8 +33,9 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "Anti-infective")}>
                     <a>
                         <img
-                            src="/assets/imgs/theme/icons/category-1.svg"
-                            alt="nest"
+                            src="/assets/imgs/icons/svg/negative/body/bacteria.svg"
+                            alt="bacteria"
+                            className="rounded"
                         />
                         Anti Infective
                     </a>
@@ -43,8 +44,9 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "Anti-epileptic")}>
                     <a>
                         <img
-                            src="/assets/imgs/theme/icons/category-2.svg"
-                            alt="nest"
+                            src="/assets/imgs/icons/svg/negative/body/neurology.svg"
+                            alt="antiepileptic"
+                            className="rounded"
                         />
                         Anti Epileptic
                     </a>
@@ -53,8 +55,9 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "A1imentary-Tract-&-Metabolism")}>
                     <a>
                         <img
-                            src="/assets/imgs/theme/icons/category-3.svg"
-                            alt="nest"
+                            src="/assets/imgs/icons/svg/negative/medications/medicines.svg"
+                            alt="medicines"
+                            className="rounded"
                         />
                         Anti Depressant
                     </a>
@@ -63,8 +66,9 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "Sensory Organs")}>
                     <a>
                         <img
-                            src="/assets/imgs/theme/icons/category-5.svg"
-                            alt="nest"
+                            src="/assets/imgs/icons/svg/negative/body/liver.svg"
+                            alt="metabolism"
+                            className="rounded"
                         />
                         Alimentary Tract & Metabolism
                     </a>
@@ -72,8 +76,9 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "Dermatologicals")}>
                     <a>
                         <img
-                            src="/assets/imgs/theme/icons/category-4.svg"
-                            alt="nest"
+                            src="/assets/imgs/icons/svg/negative/body/heart.svg"
+                            alt="cardio"
+                            className="rounded"
                         />
                         Cardio Vascular System
                     </a>
