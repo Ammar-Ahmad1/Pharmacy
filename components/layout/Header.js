@@ -118,15 +118,15 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                         </li>
                       </ul>
                     </li>
-                  {!session?.user?.id && 
-                    <li>
-                      <Link href="/page-register" className="text-brand">Sign Up</Link>
-                    </li>
-}{!session?.user?.id &&
-                   <li>
-                      <Link href="/page-login" className="text-brand">Log In</Link>
-                    </li>
-                  }
+                    {!session?.user?.id &&
+                      <li>
+                        <Link href="/page-register" className="text-brand">Sign Up</Link>
+                      </li>
+                    }{!session?.user?.id &&
+                      <li>
+                        <Link href="/page-login" className="text-brand">Log In</Link>
+                      </li>
+                    }
                   </ul>
                 </div>
               </div>
@@ -136,9 +136,9 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
         <div className="header-middle header-middle-ptb-1 d-none d-lg-block">
           <div className="container">
             <div className="header-wrap">
-              <div className="logo logo-width-1">
+              <div className="logo logo-width-2 mx-4">
                 <Link href="/">
-                  <img src="/assets/imgs/oxygen.svg" alt="logo" />
+                  <img src="/assets/imgs/oxygenGreen.svg" alt="logo" />
                 </Link>
               </div>
               <div className="header-right">
@@ -169,7 +169,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                     </div>
 
                     <div className="header-action-icon-2"
-                      style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                      style={{ display: session?.user?.role === 'vendor' ? "none" : "block" }}
                     >
                       <Link href="/shop-compare">
                         <img className="svgInject" alt="Evara" src="/assets/imgs/theme/icons/icon-compare.svg" />
@@ -180,7 +180,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                       </Link>
                     </div>
                     <div className="header-action-icon-2"
-                    style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                      style={{ display: session?.user?.role === 'vendor' ? "none" : "block" }}
                     >
                       <Link href="/shop-wishlist">
                         <img className="svgInject" alt="Evara" src="/assets/imgs/theme/icons/icon-heart.svg" />
@@ -191,7 +191,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                       </Link>
                     </div>
                     <div className="header-action-icon-2"
-                    style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                      style={{ display: session?.user?.role === 'vendor' ? "none" : "block" }}
                     >
                       <Link href="/shop-cart" className="mini-cart-icon">
                         <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg" />
@@ -219,7 +219,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                               </Link>
                             </li>
                             <li
-                            style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                              style={{ display: session?.user?.role === 'vendor' ? "none" : "block" }}
                             >
                               <Link href="/page-account">
                                 <i className="fi fi-rs-location-alt mr-10"></i>
@@ -227,7 +227,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                               </Link>
                             </li>
                             <li
-                            style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                              style={{ display: session?.user?.role === 'vendor' ? "none" : "block" }}
                             >
                               <Link href="/page-account">
                                 <i className="fi fi-rs-label mr-10"></i>
@@ -235,7 +235,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                               </Link>
                             </li>
                             <li
-                            style={{display: session?.user?.role==='vendor' ? "none" : "block"}}
+                              style={{ display: session?.user?.role === 'vendor' ? "none" : "block" }}
                             >
                               <Link href="/shop-wishlist">
                                 <i className="fi fi-rs-heart mr-10"></i>
@@ -271,7 +271,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
             <div className="header-wrap header-space-between position-relative">
               <div className="logo logo-width-1 d-block d-lg-none">
                 <Link href="/">
-                  <img src="/assets/imgs/oxygen.svg" alt="logo" />
+                  <img src="/assets/imgs/oxygenGreen.svg" alt="logo" />
                 </Link>
               </div>
               <div className="header-nav d-none d-lg-flex">
@@ -519,7 +519,7 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                         </ul>
                       </li> */}
 
-                      <li>
+                      {/* <li>
                         <Link href="/blog-category-grid">
                           Blog
                           <i className="fi-rs-angle-down"></i>
@@ -555,7 +555,9 @@ const Header = ({ totalCartItems, totalCompareItems, toggleClick, totalWishlistI
                             </ul>
                           </li>
                         </ul>
-                      </li>
+                      </li> */}
+
+
                       <li>
                         <Link href="/#">
                           Pages

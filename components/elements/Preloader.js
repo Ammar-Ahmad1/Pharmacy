@@ -7,7 +7,7 @@ const Preloader = () => {
 			<div className="preloader d-flex align-items-center justify-content-center">
 				<div className="preloader-inner position-relative">
 					<div className="text-center">
-						<img src="/assets/imgs/theme/loading.gif" alt="nest" />
+						<img src="/assets/imgs/theme/loading2.gif" alt="nest" />
 					</div>
 				</div>
 			</div>

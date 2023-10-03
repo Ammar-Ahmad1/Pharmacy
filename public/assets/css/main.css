@@ -366,7 +366,7 @@ input[type="number"]:focus,
 }
 
 .text-brand {
-    color: #49bcce !important;
+    color: #3bb77e !important;
 }
 
 .text-brand-2 {
@@ -6584,6 +6584,11 @@ h6.post-title {
 
 .logo.logo-width-1 a img {
     width: 180px;
+    min-width: 180px;
+}
+
+.logo.logo-width-2 a img {
+    width: 240px;
     min-width: 180px;
 }
 
