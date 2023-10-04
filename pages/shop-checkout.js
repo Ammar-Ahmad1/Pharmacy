@@ -240,8 +240,9 @@ const Cart = ({
                     )}
                     {showLoginForm && (
                       <div
-                        className={`panel-collapse collapse login_form ${showLoginForm ? "show" : ""
-                          }`}
+                        className={`panel-collapse collapse login_form ${
+                          showLoginForm ? "show" : ""
+                        }`}
                         id="loginform"
                       >
                         <div className="panel-body">
@@ -359,33 +360,34 @@ const Cart = ({
                     />
                   </div>
                   <div className="form-group">
-
                     <label>City*</label>
 
                     <select
-                    // className="form-control"
-                    style={{
-                      color: "black",
-                      fontSize: "16px",
-                      height: "50px",
-                      width: "100%",
-                      border: "1px solid #e5e5e5",
-                      borderRadius: "5px",
-                      padding: "0 15px",
-                      marginBottom: "10px",
-                      marginTop: "10px",
-                    }}
-                    name="city"
-                    onChange={(e) => setCity(e.target.value)}
-                    value={city}
-
-                    required>
+                      // className="form-control"
+                      style={{
+                        color: "black",
+                        fontSize: "16px",
+                        height: "50px",
+                        width: "100%",
+                        border: "1px solid #e5e5e5",
+                        borderRadius: "5px",
+                        padding: "0 15px",
+                        marginBottom: "10px",
+                        marginTop: "10px",
+                      }}
+                      name="city"
+                      onChange={(e) => setCity(e.target.value)}
+                      value={city}
+                      required
+                    >
                       <option value="" disabled selected>
                         Select The City
                       </option>
                       <option value="Islamabad">Islamabad</option>
-                      <option value="" disabled
-                      style={{ color: "black", fontWeight: "bold" }}
+                      <option
+                        value=""
+                        disabled
+                        style={{ color: "black", fontWeight: "bold" }}
                       >
                         Punjab Cities
                       </option>
@@ -493,7 +495,9 @@ const Cart = ({
                       <option value="Vehari">Vehari</option>
                       <option value="Wah Cantonment">Wah Cantonment</option>
                       <option value="Wazirabad">Wazirabad</option>
-                      <option value="" disabled
+                      <option
+                        value=""
+                        disabled
                         style={{ color: "black", fontWeight: "bold" }}
                       >
                         Sindh Cities
@@ -556,8 +560,10 @@ const Cart = ({
                       <option value="Thatta">Thatta</option>
                       <option value="Umerkot">Umerkot</option>
                       <option value="Warah">Warah</option>
-                      <option value="" disabled
-                      style={{ color: "black", fontWeight: "bold" }}
+                      <option
+                        value=""
+                        disabled
+                        style={{ color: "black", fontWeight: "bold" }}
                       >
                         Khyber Cities
                       </option>
@@ -607,8 +613,10 @@ const Cart = ({
                       <option value="Thall">Thall</option>
                       <option value="Timergara">Timergara</option>
                       <option value="Tordher">Tordher</option>
-                      <option value="" disabled
-                      style={{ color: "black", fontWeight: "bold" }}
+                      <option
+                        value=""
+                        disabled
+                        style={{ color: "black", fontWeight: "bold" }}
                       >
                         Balochistan Cities
                       </option>

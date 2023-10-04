@@ -77,7 +77,7 @@ const Footer = () => {
                                         <h3 className="icon-box-title">
                                             Free delivery
                                         </h3>
-                                        <p>24/7 amazing services</p>
+                                        <p>amazing services</p>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@ const Footer = () => {
                                         <h3 className="icon-box-title">
                                             Safe delivery
                                         </h3>
-                                        <p>Within 30 days</p>
+                                        <p>Within few days</p>
                                     </div>
                                 </div>
                             </div>
@@ -176,8 +176,7 @@ const Footer = () => {
                                             />
                                         </Link>
                                         <p className="font-lg text-heading">
-                                            Awesome grocery store website
-                                            template
+                                           Get medicines delivered at your doorstep
                                         </p>
                                     </div>
                                     <ul className="contact-infor">
@@ -188,8 +187,7 @@ const Footer = () => {
                                             />
                                             <strong>Address: </strong>{" "}
                                             <span>
-                                                5171 W Campbell Ave undefined
-                                                Kent, Utah 53127 United States
+                                               D.C. Road, Gujranwala, Pakistan
                                             </span>
                                         </li>
                                         <li>
@@ -342,7 +340,7 @@ const Footer = () => {
                                 data-wow-delay=".5s"
                             >
                                 <h4 className="widget-title ">Install App</h4>
-                                <p className="">From App Store or Google Play</p>
+                                <p className="">From App Store or Google Play (Coming Soon)</p>
                                 <div className="download-app ">
                                     <a
                                         href="#"
@@ -361,7 +359,7 @@ const Footer = () => {
                                         />
                                     </a>
                                 </div>
-                                <p className="mb-20 ">Secured Payment Gateways</p>
+                                <p className="mb-20 ">Secured Payment Gateways (Coming Soon)</p>
                                 <img
                                     className=""
                                     src="/assets/imgs/theme/payment-method.png"
