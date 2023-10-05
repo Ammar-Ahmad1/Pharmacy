@@ -41,7 +41,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                     </a>
 
                 </li>
-                <li onClick={(e) => selectCategory(e, "Eyes,Nose,Ear")}>
+                <li onClick={(e) => selectCategory(e, "Eyes , Nose , Ear")}>
                     <a>
                         <img
                             src="/assets/imgs/icons/svg/negative/body/eye.svg"

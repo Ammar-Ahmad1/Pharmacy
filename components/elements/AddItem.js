@@ -18,11 +18,11 @@ function Account() {
     "Anti Epileptic",
     "Anti Depressant",
     "Alimentary Tract & Metabolism",
-    "Cardio vascular System",
+    "Cardio Vascular System",
     "Dermatologicals",
     "Eyes , Nose , Ear",
     "Prescription Drugs",
-    "Sensory Organs",
+    "Medical Equipment",
     "Others",
   ];
 
