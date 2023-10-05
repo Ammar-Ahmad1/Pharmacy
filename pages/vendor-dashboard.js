@@ -45,6 +45,7 @@ const ProductsFullWidth = ({
     profit: 0,
     orders: 0,
   });
+  const [thisYearSales, setThisYearSales] = useState({ profit: 0, orders: 0 });
   const [selectedStatus, setSelectedStatus] = useState("Pending");
 
   console.log(products);
@@ -89,6 +90,7 @@ const ProductsFullWidth = ({
       let todaySales = 0;
       let thisWeekSales = 0;
       let thisMonthSales = 0;
+      let thisYearSales = 0;
 
       let todayProfit = 0;
       let todayOrders = 0;
@@ -96,6 +98,8 @@ const ProductsFullWidth = ({
       let thisWeekOrders = 0;
       let thisMonthProfit = 0;
       let thisMonthOrders = 0;
+      let thisYearProfit = 0;
+      let thisYearOrders = 0;
 
       data.data.forEach((order) => {
         const orderDate = new Date(order.date);
@@ -117,6 +121,11 @@ const ProductsFullWidth = ({
           thisMonthProfit += parseFloat(order.profit);
           thisMonthOrders++;
         }
+        if (orderDate.getFullYear() === currentDate.getFullYear()) {
+          thisYearSales += parseFloat(order.totalAmount);
+          thisYearProfit += parseFloat(order.profit);
+          thisYearOrders++;
+        }
       });
 
       setTodaySales({
@@ -133,6 +142,11 @@ const ProductsFullWidth = ({
         profit: thisMonthProfit.toFixed(2),
         orders: thisMonthOrders,
         sales: thisMonthSales.toFixed(2),
+      });
+      setThisYearSales({
+        profit: thisYearProfit.toFixed(2),
+        orders: thisYearOrders,
+        sales: thisYearSales.toFixed(2),
       });
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -790,6 +804,21 @@ const ProductsFullWidth = ({
                           <div className="d-flex align-items-center">
                             <h6 className="me-1">Orders: </h6>
                             <p>{thisMonthSales.orders}</p>
+                          </div>
+                        </div>
+                        <div className="mt-4">
+                          <h5>This Year Sales</h5>
+                          <div className="d-flex align-items-center mt-1">
+                            <h6 className="me-1">Sales: </h6>
+                            <p>Rs. {thisYearSales.sales}</p>
+                          </div>
+                          <div className="d-flex align-items-center mt-1">
+                            <h6 className="me-1">Profit: </h6>
+                            <p>Rs. {thisYearSales.profit}</p>
+                          </div>
+                          <div className="d-flex align-items-center">
+                            <h6 className="me-1">Orders: </h6>
+                            <p>{thisYearSales.orders}</p>
                           </div>
                         </div>
                       </div>
