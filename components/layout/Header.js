@@ -428,10 +428,11 @@ const Header = ({
                       </li>
 
                       <li>
-                        <a href="#">
-                          Vendors <i className="fi-rs-angle-down"></i>
+                        <a href="/vendor-dashboard">
+                          Vendors 
+                          {/* <i className="fi-rs-angle-down"></i> */}
                         </a>
-                        <ul className="sub-menu">
+                        {/* <ul className="sub-menu">
                           <li>
                             <Link href="/vendors">Vendors Grid</Link>
                           </li>
@@ -446,7 +447,7 @@ const Header = ({
                           <li>
                             <Link href="/vendor-guide">Vendor Guide</Link>
                           </li>
-                        </ul>
+                        </ul> */}
                       </li>
 
                       <li>

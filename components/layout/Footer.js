@@ -8,7 +8,7 @@ const Footer = () => {
                 <section className="newsletter mb-15  wow animate__animated animate__fadeIn">
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg-12">
+                            <div className="col">
                                 <div className="position-relative newsletter-inner">
                                     <div className="newsletter-content">
                                         <h2 className="mb-20">
@@ -58,7 +58,7 @@ const Footer = () => {
                                         <h3 className="icon-box-title">
                                             Best prices & offers
                                         </h3>
-                                        <p>Orders Rs.50 or more</p>
+                                        <p>Orders Rs.1000 or more</p>
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@ const Footer = () => {
                 <section className="section-padding footer-mid">
                     <div className="container pt-15 pb-20">
                         <div className="row">
-                            <div className="col">
+                            <div className="col-lg-3 col-md-6 col-sm-12 text-center">
                                 <div
                                     className="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0  wow animate__animated animate__fadeInUp"
                                     data-wow-delay="0"
@@ -176,7 +176,7 @@ const Footer = () => {
                                             />
                                         </Link>
                                         <p className="font-lg text-heading">
-                                           Get medicines delivered at your doorstep
+                                            Get medicines delivered at your doorstep
                                         </p>
                                     </div>
                                     <ul className="contact-infor">
@@ -187,7 +187,7 @@ const Footer = () => {
                                             />
                                             <strong>Address: </strong>{" "}
                                             <span>
-                                               D.C. Road, Gujranwala, Pakistan
+                                                D.C. Road, Gujranwala, Pakistan
                                             </span>
                                         </li>
                                         <li>
@@ -219,154 +219,93 @@ const Footer = () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div
-                                className="footer-link-widget col  wow animate__animated animate__fadeInUp"
-                                data-wow-delay=".1s"
-                            >
-                                <h4 className="widget-title">Company</h4>
-                                <ul className="footer-list  mb-sm-5 mb-md-0">
-                                    <li>
-                                        <a href="#">About Us</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Delivery Information</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Privacy Policy</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Terms &amp; Conditions</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Contact Us</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Support Center</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Careers</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div
-                                className="footer-link-widget col  wow animate__animated animate__fadeInUp"
-                                data-wow-delay=".2s"
-                            >
-                                <h4 className="widget-title ">Account</h4>
-                                <ul className="footer-list  mb-sm-5 mb-md-0">
-                                    <li>
-                                        <a href="#">Sign In</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">View Cart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">My Wishlist</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Track My Order</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Help Ticket</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Shipping Details</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Compare products</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div
-                                className="footer-link-widget col  wow animate__animated animate__fadeInUp"
-                                data-wow-delay=".3s"
-                            >
-                                <h4 className="widget-title ">Corporate</h4>
-                                <ul className="footer-list  mb-sm-5 mb-md-0">
-                                    <li>
-                                        <a href="#">Become a Vendor</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Affiliate Program</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Farm Business</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Farm Careers</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Our Suppliers</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Accessibility</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Promotions</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div
-                                className="footer-link-widget col  wow animate__animated animate__fadeInUp"
-                                data-wow-delay=".4s"
-                            >
-                                <h4 className="widget-title ">Popular</h4>
-                                <ul className="footer-list  mb-sm-5 mb-md-0">
-                                    <li>
-                                        <a href="#">Milk & Flavoured Milk</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Butter and Margarine</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Eggs Substitutes</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Marmalades</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Sour Cream and Dips</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Tea & Kombucha</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Cheese</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div
-                                className="footer-link-widget widget-install-app col  wow animate__animated animate__fadeInUp"
-                                data-wow-delay=".5s"
-                            >
-                                <h4 className="widget-title ">Install App</h4>
-                                <p className="">From App Store or Google Play (Coming Soon)</p>
-                                <div className="download-app ">
-                                    <a
-                                        href="#"
-                                        className="hover-up mb-sm-2 mb-lg-0"
-                                    >
-                                        <img
-                                            className="active"
-                                            src="/assets/imgs/theme/app-store.jpg"
-                                            alt="nest"
-                                        />
-                                    </a>
-                                    <a href="#" className="hover-up mb-sm-2">
-                                        <img
-                                            src="/assets/imgs/theme/google-play.jpg"
-                                            alt="nest"
-                                        />
-                                    </a>
+                                    <div className="col-lg-3 col-md-6 col-sm-12 text-center">
+                                        <div
+                                            className="footer-link-widget wow animate__animated animate__fadeInUp"
+                                            data-wow-delay=".1s"
+                                        >
+                                            <h4 className="widget-title">Company</h4>
+                                            <ul className="footer-list  mb-sm-5 mb-md-0">
+                                                <li>
+                                                    <a href="#">About Us</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Delivery Information</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Privacy Policy</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Terms &amp; Conditions</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Contact Us</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Support Center</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Careers</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-3 col-md-6 col-sm-12 text-center">
+                                        <div
+                                            className="footer-link-widget wow animate__animated animate__fadeInUp"
+                                            data-wow-delay=".2s"
+                                        >
+                                            <h4 className="widget-title ">Account</h4>
+                                            <ul className="footer-list  mb-sm-5 mb-md-0">
+                                                <li>
+                                                    <a href="#">Sign In</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">View Cart</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">My Wishlist</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Compare products</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-3 col-md-6 col-sm-12 text-center">
+                                        <div
+                                            className="footer-link-widget widget-install-app col  wow animate__animated animate__fadeInUp"
+                                            data-wow-delay=".5s"
+                                        >
+                                            <h4 className="widget-title ">Install App</h4>
+                                            <p className="">From App Store or Google Play (Coming Soon)</p>
+                                            <div className="download-app justify-content-center">
+                                                <a
+                                                    href="#"
+                                                    className="hover-up mb-sm-2 mb-lg-0"
+                                                >
+                                                    <img
+                                                        className="active"
+                                                        src="/assets/imgs/theme/app-store.jpg"
+                                                        alt="nest"
+                                                    />
+                                                </a>
+                                                <a href="#" className="hover-up mb-sm-2">
+                                                    <img
+                                                        src="/assets/imgs/theme/google-play.jpg"
+                                                        alt="nest"
+                                                    />
+                                                </a>
+                                            </div>
+                                            <p className="mb-20 ">Secured Payment Gateways (Coming Soon)</p>
+                                            <img
+                                                className=""
+                                                src="/assets/imgs/theme/payment-method.png"
+                                                alt="nest"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                                <p className="mb-20 ">Secured Payment Gateways (Coming Soon)</p>
-                                <img
-                                    className=""
-                                    src="/assets/imgs/theme/payment-method.png"
-                                    alt="nest"
-                                />
-                            </div>
-                        </div>
                     </div>
                 </section>
                 <div
