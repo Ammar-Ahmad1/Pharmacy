@@ -101,7 +101,10 @@ const ProductsFullWidth = ({
       let thisYearProfit = 0;
       let thisYearOrders = 0;
 
-      data.data.forEach((order) => {
+
+      const deliveredOrders = data.data.filter((order) => order.status);
+      console.log(deliveredOrders);
+      deliveredOrders.forEach((order) => {
         const orderDate = new Date(order.date);
 
         if (orderDate.toDateString() === currentDate.toDateString()) {
