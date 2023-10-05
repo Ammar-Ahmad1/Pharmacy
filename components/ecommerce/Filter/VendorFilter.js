@@ -9,15 +9,16 @@ import CheckBox from "./Checkbox";
 const VendorFilter = ({ updateProductFilters }) => {
     const [sizes, setSizeCheckbox] = useState(
         [
-            { value: "NestFood" },
-            { value: "stouffer" },
-            { value: "starKist" },
-            { value: "aldi" },
-            { value: "adidas" },
-            { value: "Costco" },
-            { value: "Harris" },
-            { value: "iSnack" },
-            { value: "Burbe" }
+            { value: "Tablet/Capsules" },
+            { value: "Syrups" },
+            { value: "Suspensions" },
+            { value: "Injections" },
+            { value: "Creams/Ointments/Gels" },
+            { value: "Bandages" },
+            { value: "Suppositories" },
+            { value: "Drops/Sprays/Inhalers" },
+            { value: "Oral" },
+            { value: "Medical Devices/Equipment" }
         ]
     );
 

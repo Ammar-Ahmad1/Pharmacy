@@ -31,7 +31,7 @@ const Tags = ({ updateProductFilters }) => {
     };
     return (
         <>
-            <ul className="tags-list">
+            {/* <ul className="tags-list">
                 {tags.map((tag, i) => (
                     <li  className="hover-up" onClick={() => handleClick(i, tag.value)} key={i}>
                         <a
@@ -45,7 +45,7 @@ const Tags = ({ updateProductFilters }) => {
                         </a>
                     </li>
                 ))}
-            </ul>
+            </ul> */}
         </>
     );
 };

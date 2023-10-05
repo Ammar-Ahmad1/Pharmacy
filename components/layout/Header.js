@@ -342,7 +342,7 @@ const Header = ({
                     onClick={handleToggle}
                   >
                     <span className="fi-rs-apps"></span>
-                    All Categories
+                    Categories
                     <i className="fi-rs-angle-down"></i>
                   </a>
 

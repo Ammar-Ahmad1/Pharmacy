@@ -70,7 +70,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
     return (
         <>
             <Layout noBreadcrumb="d-none">
-            <Breadcrumb2/>
+                <Breadcrumb2 />
                 <section className="mt-50 mb-50">
                     <div className="container mb-30">
                         <div className="row flex-row-reverse">
@@ -129,21 +129,22 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                 </div>
                             </div>
                             <div className="col-lg-1-5 primary-sidebar sticky-sidebar">
-                                <div className="sidebar-widget widget-category-2 mb-30">
+                                {/* <div className="sidebar-widget widget-category-2 mb-30">
                                     <h5 className="section-title style-1 mb-30">
                                         Category
                                     </h5>
                                     <CategoryProduct />
-                                </div>
+                                </div> */}
 
                                 <div className="sidebar-widget price_range range mb-30">
-                                <h5 className="section-title style-1 mb-30">Fill by price</h5>
+                                    <h5 className="section-title style-1 mb-30">Product Filters</h5>
 
                                     <div className="price-filter">
-                                        <div className="price-filter-inner">
-                                            <br />
+                                        <div className="price-filter-inner list-group-item">
+                                            <label className="fw-900">
+                                                Price Range in Rs
+                                            </label>
                                             <PriceRangeSlider />
-
                                             <br />
                                         </div>
                                     </div>
@@ -151,16 +152,15 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                     <div className="list-group">
                                         <div className="list-group-item mb-10 mt-10">
                                             <label className="fw-900">
-                                                Color
+                                                Filter by Types
                                             </label>
                                             <VendorFilter />
-                                            <label className="fw-900 mt-15">
+                                            {/* <label className="fw-900 mt-15">
                                                 Item Condition
                                             </label>
-                                            <SizeFilter />
+                                            <SizeFilter /> */}
                                         </div>
                                     </div>
-                                    <br />
                                 </div>
 
                                 {/* <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">

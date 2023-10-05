@@ -1077,6 +1077,10 @@ h5.widget-title {
     padding: 10px 24px !important;
     font-size: 12px;
 }
+.btn-coupon {
+    padding: 0 !important;
+    font-size: 12px;
+}
 
 .btn-outline {
     background-color: transparent !important;
@@ -1114,8 +1118,8 @@ h5.widget-title {
 
 .btn-heading,
 button.btn-heading[type="submit"] {
-    background-color: #253d4e;
-    border-color: #253d4e;
+    background-color: #3bb77e;
+    border-color: #3bb77e;
     font-weight: 700;
     border: 0;
 }
@@ -5754,7 +5758,7 @@ table.no-border thead {
 .archive-header {
     background: url(../imgs/blog/header-bg.png) no-repeat center center;
     border-radius: 20px;
-    padding: 70px 80px;
+    padding: 20px 40px;
     background-size: cover;
 }
 
@@ -8690,11 +8694,6 @@ span.fi-rs-apps {
 
 .widget-category ul > li a:hover {
     color: #3bb77e;
-}
-
-.price_range {
-    background: url(../imgs/banner/fillter-widget-bg.png) no-repeat right bottom;
-    background-size: 150px;
 }
 
 .primary-sidebar .sidebar-widget {

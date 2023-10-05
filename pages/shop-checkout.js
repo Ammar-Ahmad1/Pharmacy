@@ -313,8 +313,8 @@ const Cart = ({
 
                   <div className="col-lg-6">
                     <form method="post" className="apply-coupon">
-                      <input type="text" placeholder="Enter Coupon Code..." />
-                      <button className="btn  btn-md" name="login">
+                      <input type="text" placeholder="Enter Code" />
+                      <button className="btn btn-coupon" name="login">
                         Apply Coupon
                       </button>
                     </form>
@@ -335,7 +335,6 @@ const Cart = ({
                       onChange={(e) => {
                         setName(e.target.value);
                       }}
-                      placeholder="Your Name *"
                     />
                   </div>
                   <div className="form-group">
@@ -364,7 +363,7 @@ const Cart = ({
                     <label>City*</label>
 
                     <select
-                      // className="form-control"
+                      className="form-select"
                       style={{
                         color: "black",
                         fontSize: "16px",

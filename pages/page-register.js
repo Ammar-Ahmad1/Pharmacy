@@ -172,7 +172,7 @@ function Privacy() {
       if (data.success) {
         toast.success("OTP sent successfully");
         setSendOTP(true);
-        setCountdown(10);
+        setCountdown(60);
         setIsDisabled(true);
       } else if (data.error) {
         toast.error(data.error);
@@ -282,7 +282,6 @@ function Privacy() {
                                       width: "48px",
                                       margin: "0 4px",
                                     }}
-                                    separator={<span>-</span>}
                                     renderInput={(props) => (
                                       <input {...props} />
                                     )}
