@@ -52,7 +52,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                     </a>
 
                 </li>
-                <li onClick={(e) => selectCategory(e, "A1imentary-Tract-&-Metabolism")}>
+                <li onClick={(e) => selectCategory(e, "Anti Depressant")}>
                     <a>
                         <img
                             src="/assets/imgs/icons/svg/negative/medications/medicines.svg"
@@ -63,7 +63,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                     </a>
 
                 </li>
-                <li onClick={(e) => selectCategory(e, "Sensory Organs")}>
+                <li onClick={(e) => selectCategory(e, "A1imentary-Tract-&-Metabolism")}>
                     <a>
                         <img
                             src="/assets/imgs/icons/svg/negative/body/liver.svg"
@@ -73,7 +73,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                         Alimentary Tract & Metabolism
                     </a>
                 </li>
-                <li onClick={(e) => selectCategory(e, "Dermatologicals")}>
+                <li onClick={(e) => selectCategory(e, "Cardio Vascular System")}>
                     <a>
                         <img
                             src="/assets/imgs/icons/svg/negative/body/heart.svg"

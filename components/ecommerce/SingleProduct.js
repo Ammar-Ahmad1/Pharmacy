@@ -131,11 +131,13 @@ const SingleProduct = ({
             </Link>
             </div>
           </h2>
-
+          <span className="font-small text-muted"> {product.category} </span>
           <div className="product-rate-cover">
+          
             <div className="product-rate d-inline-block">
               <div className="product-rating" style={{ width: "90%" }}></div>
             </div>
+            
             <span className="font-small ml-5 text-muted">
               {" "}
               ({product.ratingScore})
