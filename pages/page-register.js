@@ -233,11 +233,12 @@ function Privacy() {
                         {!recievedOTP && (
                           <form method="post">
                             <div className="form-group">
+                              <label>Phone Number</label>
                               <input
                                 type="text"
                                 required
                                 aria-required
-                                placeholder="Phone Number"
+                                placeholder="03xxxxxxxxx"
                                 value={phone}
                                 name="phone-number"
                                 onChange={handlePhoneNumberChange}
@@ -316,24 +317,27 @@ function Privacy() {
                         {recievedOTP && (
                           <form method="post">
                             <div className="form-group">
+                              <label>Full Name</label>
                               <input
                                 type="text"
                                 required=""
                                 name="username"
-                                placeholder="Name"
+                                placeholder="Full Name"
                                 onChange={(e) => setName(e.target.value)}
                               />
                             </div>
                             <div className="form-group">
+                              <label>Email</label>
                               <input
                                 type="text"
                                 required=""
                                 name="email"
-                                placeholder="Email"
+                                placeholder="example@example.com"
                                 onChange={(e) => setEmail(e.target.value)}
                               />
                             </div>
                             <div className="form-group">
+                              <label>Password</label>
                               <input
                                 required=""
                                 type="password"
@@ -343,6 +347,7 @@ function Privacy() {
                               />
                             </div>
                             <div className="form-group">
+                              <label>Confirm Password</label>
                               <input
                                 required=""
                                 type="password"
