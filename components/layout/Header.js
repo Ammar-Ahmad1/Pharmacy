@@ -176,7 +176,7 @@ const Header = ({
                 </div>
                 <div className="header-action-right">
                   <div className="header-action-2">
-                    <div className="search-location">
+                    {/* <div className="search-location">
                       <form action="#">
                         <select className="select-active">
                           <option value="" disabled selected>
@@ -471,7 +471,7 @@ const Header = ({
                           <option value="Ziarat">Ziarat</option>
                         </select>
                       </form>
-                    </div>
+                    </div> */}
 
                     <div
                       className="header-action-icon-2"
