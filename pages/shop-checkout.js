@@ -191,6 +191,7 @@ const Cart = ({
           setPlacingOrder(false);
         });
     } else {
+      setShowLoginForm(true);
       toast.error("Please login first");
     }
   };
@@ -304,6 +305,19 @@ const Cart = ({
                               >
                                 {loading ? "Loading..." : "Login"}
                               </button>
+                              <a
+                                href="#registerform"
+                                data-bs-toggle="collapse"
+                                className="font-lg ml-20"
+                                aria-expanded="false"
+                                onClick={()=>
+                                  {
+                                    router.push("/page-register")
+                                  }
+                                }
+                              >
+                                Click here to register
+                              </a>
                             </div>
                           </form>
                         </div>
@@ -325,11 +339,12 @@ const Cart = ({
                 </div>
                 <form method="post">
                   <div className="form-group">
-                    <label>Full Name (example: Rolls Royce) *</label>
+                    <label>Full Name*</label>
                     <input
                       type="text"
                       required=""
                       name="fname"
+                      placeholder="Full Name"
                       value={name}
                       onChange={(e) => {
                         setName(e.target.value);
