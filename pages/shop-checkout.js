@@ -60,22 +60,6 @@ const Cart = ({
   }, []);
 
   const nominatimUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
-  // useEffect(() => {
-  //   if (!gettingCity) {
-  //     setGettingCity(true);
-  //     fetch(nominatimUrl)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         const city = data.address.city;
-  //         setCity(city);
-  //       })
-  //       .catch((error) => console.error("Error:", error))
-  //       .finally(() => {
-  //         setGettingCity(false);
-  //       });
-  //   }
-  // }, [latitude, longitude, gettingCity]);
   useEffect(() => {
     const getProvidersData = async () => {
       const providers = await getProviders();
@@ -93,7 +77,7 @@ const Cart = ({
     setLoading(true);
     const result = await signIn("credentials", {
       redirect: false,
-      email: loginEmail,
+      phone: loginEmail,
       password,
     });
     if (result.error) {
@@ -255,10 +239,11 @@ const Cart = ({
                           </p>
                           <form method="post">
                             <div className="form-group">
+                              <label>Phone Number*</label>
                               <input
                                 type="text"
                                 name="email"
-                                placeholder="Username Or Email"
+                                placeholder="03xxxxxxxxx"
                                 onChange={(e) => {
                                   setLoginEmail(e.target.value);
                                 }}
@@ -266,6 +251,7 @@ const Cart = ({
                               />
                             </div>
                             <div className="form-group">
+                              <label>Password*</label>
                               <input
                                 type="password"
                                 name="password"
@@ -676,7 +662,7 @@ const Cart = ({
                       required=""
                       type="text"
                       name="phone"
-                      placeholder="Phone *"
+                      placeholder="03xxxxxxxxx"
                       onChange={(e) => {
                         setPhone(e.target.value);
                       }}
@@ -1092,7 +1078,7 @@ const Cart = ({
                             </td>
                             <td>
                               <h6 className="w-160 mb-5">
-                                <a>{item.title}</a>
+                                <a>{item.name}</a>
                                 <div className="product-rate-cover">
                                   <div className="product-rate d-inline-block">
                                     <div
