@@ -73,21 +73,21 @@ const SingleProduct = ({
               aria-label="Quick view"
               className="action-btn hover-up"
               data-bs-toggle="modal"
-              onClick={(e) => openQuickView(product)}
+              onClick={() => openQuickView(product)}
             >
               <i className="fi-rs-eye"></i>
             </a>
             <a
               aria-label="Add To Wishlist"
               className="action-btn hover-up"
-              onClick={(e) => handleWishlist(product)}
+              onClick={() => handleWishlist(product)}
             >
               <i className="fi-rs-heart"></i>
             </a>
             <a
               aria-label="Compare"
               className="action-btn hover-up"
-              onClick={(e) => handleCompare(product)}
+              onClick={() => handleCompare(product)}
             >
               <i className="fi-rs-shuffle"></i>
             </a>

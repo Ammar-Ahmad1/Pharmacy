@@ -33,7 +33,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "jeans")}>
                     <a>
                         <img
-                            src="/assets/imgs/icons/svg/negative/body/bacteria.svg"
+                            src="/assets/imgs/icons/svg/negative/conditions/allergies.svg"
                             alt="bacteria"
                             className="rounded"
                         />
@@ -66,11 +66,11 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "trousers")}>
                     <a>
                         <img
-                            src="/assets/imgs/icons/svg/negative/body/stomach.svg"
-                            alt="sensory-organs"
+                            src="/assets/imgs/icons/svg/negative/devices/stethoscope.svg"
+                            alt="equipment"
                             className="rounded"
                         />
-                        Sensory Organs
+                        Medical Equipment
                     </a>
 
                 </li>
