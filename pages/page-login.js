@@ -62,7 +62,7 @@ function Login() {
     setLoading(false);
   };
   const [isValid, setIsValid] = useState(false);
-    const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("");
   const handlePhoneNumberChange = (e) => {
     const phoneNumber = e.target.value;
     const regex = /^[0-9\b]+$/;
@@ -102,16 +102,16 @@ function Login() {
                         <form method="post">
                           <div className="form-group">
                             {/* <input type="text" required="" name="email" placeholder="Email *" onChange={(e) => setEmail(e.target.value)} /> */}
+                            <label>Phone Number</label>
                             <input
                               type="text"
                               required
                               aria-required
-                              placeholder="Phone Number"
                               value={phone}
                               name="phone-number"
                               onChange={handlePhoneNumberChange}
                               placeholder="03xxxxxxxxx"
-                              // className={isValid ? "valid" : "invalid"}
+                            // className={isValid ? "valid" : "invalid"}
                             />
 
                             {!isValid && phone.trim() !== "" && (
@@ -124,6 +124,7 @@ function Login() {
                             )}
                           </div>
                           <div className="form-group">
+                            <label>Password</label>
                             <input
                               required=""
                               type="password"

@@ -177,7 +177,7 @@ const Cart = ({
                   </table>
                 </div>
                 <div className="divider center_icon mb-25">
-                  <hr/>
+                  <br />
                 </div>
                 <div className="d-flex justify-content-between">
 
