@@ -17,7 +17,8 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 
 // icons
-import { BsFillTrashFill } from "react-icons/bs";
+import { FaRegTrashCan } from "react-icons/fa6";
+import { HiMiniXMark } from "react-icons/hi2";
 import {
   IoIosArrowUp,
   IoIosArrowDown,
@@ -47,6 +48,7 @@ const ProductsFullWidth = ({
   });
   const [thisYearSales, setThisYearSales] = useState({ profit: 0, orders: 0 });
   const [selectedStatus, setSelectedStatus] = useState("Pending");
+  const [orderDetailsOpen, setOrderDetailsOpen] = useState(false);
 
   console.log(products);
 
@@ -216,6 +218,11 @@ const ProductsFullWidth = ({
 
   const handleToggleOrderDetails = (e, order) => {
     e.preventDefault();
+    if (!orderDetailsOpen) {
+      setOrderDetailsOpen(true);
+    } else {
+      setOrderDetailsOpen(false);
+    }
     if (currentOrder === order) {
       setCurrentOrder(null); // Deselect the order if it's already selected
     } else {
@@ -469,20 +476,24 @@ const ProductsFullWidth = ({
                     <div className="table-responsive">
                       <div className="input-group d-flex justify-content-between">
                         <div className="d-flex align-items-center">
-                          <input
-                            type="search"
-                            className="form-control"
-                            placeholder="Search Orders"
-                            aria-label="Search Orders"
-                            aria-describedby="basic-addon2"
-                            // value={searchOrder}
-                            onChange={handleSearchChange}
-                          />
+                          <label htmlFor="search-order" className="ms-2"> Search by Order Number
+                            <input
+                              type="search"
+                              id="search-order"
+                              className="form-control"
+                              placeholder="Search Orders"
+                              aria-label="Search Orders"
+                              aria-describedby="basic-addon2"
+                              // value={searchOrder}
+                              onChange={handleSearchChange}
+                            />
+                          </label>
                         </div>
                         {/* add filters for pending, delivered and cancelled orders */}
                         <div className="input-group-append">
                           <select
                             className="form-select"
+                            style={{ outline: "none", borderColor: "#ced4da", boxShadow: "none" }}
                             onChange={handleFilterChange}
                           >
                             <option value="">All Orders</option>
@@ -519,21 +530,24 @@ const ProductsFullWidth = ({
                           ) : (
                             (filteredOrders || orders)?.map((order) => (
                               <React.Fragment key={order._id}>
-                                <tr key={order._id}>
-                                  <td>{order.orderNumber}</td>
-                                  <td>
-                                    {
-                                      //only show sate and time
-                                      order.date.split("T")[0]
-                                    }
-                                  </td>
-                                  <td>
-                                    {order.cancelled
-                                      ? "Cancelled"
-                                      : order.status
-                                      ? "Delivered"
-                                      : "Pending"}
-                                    {/* {currentOrder === order && (
+                                {order &&
+                                  <tr
+                                    key={order._id}
+                                  >
+                                    <td>{order.orderNumber}</td>
+                                    <td>
+                                      {
+                                        //only show sate and time
+                                        order.date.split("T")[0]
+                                      }
+                                    </td>
+                                    <td>
+                                      {order.cancelled
+                                        ? "Cancelled"
+                                        : order.status
+                                          ? "Delivered"
+                                          : "Pending"}
+                                      {/* {currentOrder === order && (
                                       <div className="my-2">
                                         <span>
                                           <input
@@ -594,44 +608,61 @@ const ProductsFullWidth = ({
                                         </button>
                                       </div>
                                     )} */}
-                                  </td>
-                                  <td>Rs.{order.totalAmount}</td>
-                                  <td className="d-flex justify-content-between">
-                                    <Link
-                                      href="#"
-                                      className="btn-small d-block"
-                                      onClick={(e) => {
-                                        handleToggleOrderDetails(e, order); // Call the function to toggle order details
-                                      }}
-                                    >
-                                      Details
-                                      {!(currentOrder === order) && (
-                                        <IoIosArrowDropdown className="ms-1" />
-                                      )}
-                                      {currentOrder === order && (
-                                        <IoIosArrowDropupCircle className="ms-1" />
-                                      )}
-                                    </Link>
+                                    </td>
+                                    <td>Rs.{order.totalAmount}</td>
+                                    <td className="d-flex justify-content-between">
+                                      <Link
+                                        style={{
+                                          width: "80px",
+                                          textAlign: "center",
+                                          color: "#fff",
+                                          borderRadius: "5px",
+                                          backgroundColor: "#4a4175",
+                                          cursor: "pointer"
+                                        }}
+                                        href="#"
+                                        className="btn-small"
+                                        onClick={(e) => {
+                                          handleToggleOrderDetails(e, order); // Call the function to toggle order details
+                                        }}
+                                      >
+                                        Details
+                                        {!(currentOrder === order) && (
+                                          <IoIosArrowDropdown className="ms-1" />
+                                        )}
+                                        {currentOrder === order && (
+                                          <IoIosArrowDropupCircle className="ms-1" />
+                                        )}
+                                      </Link>
 
-                                    <Link
-                                      href="#"
-                                      onClick={(e) => {
-                                        handleDelete(e, order._id);
-                                      }}
-                                    >
-                                      <BsFillTrashFill
-                                        style={{ color: "red" }}
-                                      />
-                                    </Link>
-                                  </td>
-                                </tr>
+                                      <Link
+                                        href="#"
+                                        onClick={(e) => {
+                                          handleDelete(e, order._id);
+                                        }}
+                                      >
+                                        <FaRegTrashCan
+                                          style={{ color: "#f83535" }}
+                                        />
+                                      </Link>
+                                    </td>
+                                  </tr>
+                                }
                                 {/* Conditionally render order details */}
                                 {currentOrder === order && (
-                                  <tr className="bg-light">
+                                  <tr style={{backgroundColor: "#eff3f6", padding: "10px !important"}}>
                                     <td colSpan="5">
                                       <div className="order-details mt-1">
                                         {/* Display order details here */}
-                                        <h5> Items in Order</h5>
+                                        <div className="d-flex justify-content-between align-items-center mb-2">
+                                          <h5> Items in Order</h5>
+                                          <HiMiniXMark
+                                            style={{ fontSize: "20px" }}
+                                            onClick={(e) => {
+                                              handleToggleOrderDetails(e, order); // Call the function to toggle order details
+                                            }}
+                                          />
+                                        </div>
                                         <table className="table">
                                           <thead>
                                             <tr>
@@ -667,40 +698,65 @@ const ProductsFullWidth = ({
                                         </table>
                                         <div className="d-flex justify-content-between align-items-center">
                                           <div>
-                                            <h5>Delivery Details</h5>
+                                            <h5>Customer Details</h5>
                                             <p>
-                                              Deliver to: {order.address}-{" "}
-                                              {order.city} - {order.user.phone}
+                                              Deliver to: 
                                             </p>
+                                            <ul>
+                                              <li><span className="me-2 font-weight-bold">Address:</span>{order.address}</li>
+                                              <li><span className="me-2 font-weight-bold">Ph #:</span>{order.user.phone}</li>
+                                              <li><span className="me-2 font-weight-bold">City:</span>{order.city}</li>
+                                            </ul>
                                           </div>
                                           <div>
-{ !order.cancelled && !order.status && 
-                                            <span
-                                              style={{
-                                                width: "70px",
-                                                textAlign: "center",
-                                                color: "#fff",
-                                                padding: "5px 10px",
-                                                borderRadius: "5px",
-                                                backgroundColor: "#35927c",
-                                                boxShadow:
-                                                  "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
-                                                cursor: "pointer",
-                                                marginRight: "12px",
-                                                // display: order.status ? "none" : "block"
-                                              }}
-                                              onClick={(e) => {
-                                                handleUpdateStatusClick(
-                                                  e,
-                                                  order._id
-                                                );
-                                              }}
-                                            >
-                                              Delivered
-                                            </span>
-                                          }
+                                            {!order.cancelled && !order.status &&
+                                              <span>
+                                                <span
+                                                  style={{
+                                                    width: "70px",
+                                                    textAlign: "center",
+                                                    color: "#fff",
+                                                    padding: "5px 10px",
+                                                    borderRadius: "5px",
+                                                    backgroundColor: "#17a2b8",
+                                                    cursor: "pointer",
+                                                    marginRight: "12px",
+                                                    // display: order.status ? "none" : "block"
+                                                  }}
+                                                  onClick={(e) => {
+                                                    handleUpdateStatusClick(
+                                                      e,
+                                                      order._id
+                                                    );
+                                                  }}
+                                                >
+                                                  Confirmed
+                                                </span>
+                                                <span
+                                                  style={{
+                                                    width: "70px",
+                                                    textAlign: "center",
+                                                    color: "#fff",
+                                                    padding: "5px 10px",
+                                                    borderRadius: "5px",
+                                                    backgroundColor: "#28a745",
+                                                    cursor: "pointer",
+                                                    marginRight: "12px",
+                                                    // display: order.status ? "none" : "block"
+                                                  }}
+                                                  onClick={(e) => {
+                                                    handleUpdateStatusClick(
+                                                      e,
+                                                      order._id
+                                                    );
+                                                  }}
+                                                >
+                                                  Delivered
+                                                </span>
+                                              </span>
+                                            }
                                             {!order.cancelled &&
-                                            !order.status ? (
+                                              !order.status ? (
                                               <span
                                                 style={{
                                                   width: "70px",
@@ -708,9 +764,7 @@ const ProductsFullWidth = ({
                                                   color: "#fff",
                                                   padding: "5px 10px",
                                                   borderRadius: "5px",
-                                                  backgroundColor: "#ff1a1a",
-                                                  boxShadow:
-                                                    "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
+                                                  backgroundColor: "#f83535",
                                                   cursor: "pointer",
                                                   marginRight: "4px",
                                                 }}
@@ -731,8 +785,6 @@ const ProductsFullWidth = ({
                                                   padding: "5px 10px",
                                                   borderRadius: "5px",
                                                   backgroundColor: "#ffec5f",
-                                                  boxShadow:
-                                                    "0 4px 2px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.11)",
                                                   marginRight: "4px",
                                                   cursor: "pointer",
                                                 }}
@@ -893,7 +945,7 @@ const ProductsFullWidth = ({
         </section>
         <WishlistModal />
         <QuickView />
-      </Layout>
+      </Layout >
     </>
   );
 };
