@@ -104,7 +104,7 @@ const ProductsFullWidth = ({
       let thisYearOrders = 0;
 
 
-      const deliveredOrders = data.data.filter((order) => order.status==="Delivered");
+      const deliveredOrders = data.data.filter((order) => order.status === "Delivered");
       console.log(deliveredOrders);
       deliveredOrders.forEach((order) => {
         const orderDate = new Date(order.date);
@@ -406,22 +406,22 @@ const ProductsFullWidth = ({
       // Filter the orders based on the filter
       const filtered = orders.filter((order) => {
         if (filter === "pending") {
-          return !order.cancelled && order.status==="Pending";
+          return !order.cancelled && order.status === "Pending";
         } else if (filter === "delivered") {
-          return order.status==="Delivered";
+          return order.status === "Delivered";
         } else if (filter === "cancelled") {
           return order.cancelled;
         }
         else if (filter === "confirmed") {
-          return !order.cancelled && order.status==="Confirmed";
+          return !order.cancelled && order.status === "Confirmed";
         }
       });
 
       setFilteredOrders(filtered);
     }
   };
-  const handleUpdateStatusClickDeliver = async (e, orderId,status) => {
-    if(status==="Pending"){
+  const handleUpdateStatusClickDeliver = async (e, orderId, status) => {
+    if (status === "Pending") {
       toast.error("Order is not confirmed yet");
       return;
     }
@@ -579,6 +579,7 @@ const ProductsFullWidth = ({
                                 {order &&
                                   <tr
                                     key={order._id}
+                                    className={currentOrder === order ? "active-row" : ""}
                                   >
                                     <td>{order.orderNumber}</td>
                                     <td>
@@ -591,67 +592,69 @@ const ProductsFullWidth = ({
                                       {order.cancelled
                                         ? "Cancelled"
                                         : order.status}
+
                                       {/* {currentOrder === order && (
-                                      <div className="my-2">
-                                        <span>
-                                          <input
-                                            type="radio"
-                                            id="pending"
-                                            name="status"
-                                            value="pending"
-                                            checked={
-                                              selectedStatus === "Pending"
-                                            }
-                                            onChange={() =>
-                                              setSelectedStatus("Pending")
-                                            }
-                                          />
-                                          <span class="checkmark"></span>
-                                          <label htmlFor="pending">
-                                            Pending
-                                          </label>
-                                        </span>
-                                        <span>
-                                          <input
-                                            type="radio"
-                                            id="cancelled"
-                                            name="status"
-                                            value="cancelled"
-                                            checked={
-                                              selectedStatus === "Cancelled"
-                                            }
-                                            onChange={() =>
-                                              setSelectedStatus("Cancelled")
-                                            }
-                                          />
-                                          <span class="checkmark"></span>
-                                          <label htmlFor="cancelled">
-                                            Cancelled
-                                          </label>
-                                        </span>
-                                        <span>
-                                          <input
-                                            type="radio"
-                                            id="delivered"
-                                            name="status"
-                                            value="delivered"
-                                            checked={
-                                              selectedStatus === "Delivered"
-                                            }
-                                            onChange={() =>
-                                              setSelectedStatus("Delivered")
-                                            }
-                                          />
-                                          <span class="checkmark"></span>
-                                          <label htmlFor="delivered">
-                                            Delivered
-                                          </label>
-                                        </span>
-                                        <button className="btn p-2 ms-3">
-                                          apply
-                                        </button>
-                                      </div>
-                                    )} */}
+                                        <div className="my-2">
+                                          <span>
+                                            <input
+                                              type="radio"
+                                              id="pending"
+                                              name="status"
+                                              value="pending"
+                                              checked={
+                                                selectedStatus === "Pending"
+                                              }
+                                              onChange={() =>
+                                                setSelectedStatus("Pending")
+                                              }
+                                            />
+                                            <span class="checkmark"></span>
+                                            <label htmlFor="pending">
+                                              Pending
+                                            </label>
+                                          </span>
+                                          <span>
+                                            <input
+                                              type="radio"
+                                              id="cancelled"
+                                              name="status"
+                                              value="cancelled"
+                                              checked={
+                                                selectedStatus === "Cancelled"
+                                              }
+                                              onChange={() =>
+                                                setSelectedStatus("Cancelled")
+                                              }
+                                            />
+                                            <span class="checkmark"></span>
+                                            <label htmlFor="cancelled">
+                                              Cancelled
+                                            </label>
+                                          </span>
+                                          <span>
+                                            <input
+                                              type="radio"
+                                              id="delivered"
+                                              name="status"
+                                              value="delivered"
+                                              checked={
+                                                selectedStatus === "Delivered"
+                                              }
+                                              onChange={() =>
+                                                setSelectedStatus("Delivered")
+                                              }
+                                            />
+                                            <span class="checkmark"></span>
+                                            <label htmlFor="delivered">
+                                              Delivered
+                                            </label>
+                                          </span>
+                                          <button className="btn p-2 ms-3">
+                                            apply
+                                          </button>
+                                        </div>
+                                      )} */}
+
                                     </td>
                                     <td>Rs.{order.totalAmount}</td>
                                     <td className="d-flex justify-content-between">
@@ -685,16 +688,14 @@ const ProductsFullWidth = ({
                                           handleDelete(e, order._id);
                                         }}
                                       >
-                                        <FaRegTrashCan
-                                          style={{ color: "#f83535" }}
-                                        />
+                                        <FaRegTrashCan style={{ color: "#f83535" }} />
                                       </Link>
                                     </td>
                                   </tr>
                                 }
                                 {/* Conditionally render order details */}
                                 {currentOrder === order && (
-                                  <tr style={{backgroundColor: "#eff3f6", padding: "10px !important"}}>
+                                  <tr style={{ backgroundColor: "#d9e3ea", padding: "10px !important" }}>
                                     <td colSpan="5">
                                       <div className="order-details mt-1">
                                         {/* Display order details here */}
@@ -707,7 +708,8 @@ const ProductsFullWidth = ({
                                             }}
                                           />
                                         </div>
-                                        <table className="table">
+                                        <table className="table"
+                                         style={{ backgroundColor: "#eff3f6"}}>
                                           <thead>
                                             <tr>
                                               <th>Medicine</th>
@@ -744,7 +746,7 @@ const ProductsFullWidth = ({
                                           <div>
                                             <h5>Customer Details</h5>
                                             <p>
-                                              Deliver to: 
+                                              Deliver to:
                                             </p>
                                             <ul>
                                               <li><span className="me-2 font-weight-bold">Address:</span>{order.address}</li>
@@ -753,34 +755,34 @@ const ProductsFullWidth = ({
                                             </ul>
                                           </div>
                                           <div>
-                                            {!order.cancelled && (order.status==="Pending" || order.status==="Confirmed") &&
+                                            {!order.cancelled && (order.status === "Pending" || order.status === "Confirmed") &&
                                               <span>
                                                 {
-                                                  !(order.status==="Confirmed") ? 
+                                                  !(order.status === "Confirmed") ?
 
-                                                  <span
-                                                  style={{
-                                                    width: "70px",
-                                                    textAlign: "center",
-                                                    color: "#fff",
-                                                    padding: "5px 10px",
-                                                    borderRadius: "5px",
-                                                    backgroundColor: "#17a2b8",
-                                                    cursor: "pointer",
-                                                    marginRight: "12px",
-                                                    // display: order.status ? "none" : "block"
-                                                  }}
-                                                  onClick={(e) => {
-                                                    handleUpdateStatusClickConfirm(
-                                                      e,
-                                                      order._id
-                                                    );
-                                                  }}
-                                                >
-                                                  Confirmed
-                                                </span> : null
+                                                    <span
+                                                      style={{
+                                                        width: "70px",
+                                                        textAlign: "center",
+                                                        color: "#fff",
+                                                        padding: "5px 10px",
+                                                        borderRadius: "5px",
+                                                        backgroundColor: "#17a2b8",
+                                                        cursor: "pointer",
+                                                        marginRight: "12px",
+                                                        // display: order.status ? "none" : "block"
+                                                      }}
+                                                      onClick={(e) => {
+                                                        handleUpdateStatusClickConfirm(
+                                                          e,
+                                                          order._id
+                                                        );
+                                                      }}
+                                                    >
+                                                      Confirmed
+                                                    </span> : null
                                                 }
-                                                
+
                                                 <span
                                                   style={{
                                                     width: "70px",
@@ -806,7 +808,7 @@ const ProductsFullWidth = ({
                                               </span>
                                             }
                                             {!order.cancelled &&
-                                              (order.status==="Pending" || order.status==="Confirmed") ? (
+                                              (order.status === "Pending" || order.status === "Confirmed") ? (
                                               <span
                                                 style={{
                                                   width: "70px",
