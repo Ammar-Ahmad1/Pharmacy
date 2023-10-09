@@ -5,6 +5,7 @@ import Layout from "../components/layout/Layout";
 import { signIn, getProviders, useSession } from "next-auth/react";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login() {
   const router = useRouter();
@@ -15,6 +16,7 @@ function Login() {
   const [providers, setProviders] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     const getProvidersData = async () => {
@@ -123,16 +125,34 @@ function Login() {
                               <p className="text-success">Valid phone number</p>
                             )}
                           </div>
-                          <div className="form-group">
+                          <div className="form-group mb-40">
                             <label>Password</label>
-                            <input
-                              required=""
-                              type="password"
-                              name="password"
-                              placeholder="Your password *"
-                              onChange={(e) => setPassword(e.target.value)}
-                            />
+                            <div className="password-input">
+                              <input
+                                required=""
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                placeholder="Your password *"
+                                onChange={(e) => setPassword(e.target.value)}
+                              />
+                              <div className="custome-checkbox">
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  id="showpassword"
+                                  checked={showPassword}
+                                  onChange={() => setShowPassword(!showPassword)}
+                                />
+                                <label
+                                  className="form-check-label"
+                                  htmlFor="showpassword"
+                                >
+                                  <span>Show Password</span>
+                                </label>
+                              </div>
+                            </div>
                           </div>
+
                           {/* <div className="login_footer form-group">
                                                     <div className="chek-form">
                                                         <input type="text" required="" name="email" placeholder="Security code *" />
@@ -144,7 +164,7 @@ function Login() {
                                                         <b className="text-best">5</b>
                                                     </span>
                                                 </div> */}
-                          <div className="login_footer form-group mb-50">
+                          <div className="login_footer form-group mb-20">
                             <div className="chek-form">
                               <div className="custome-checkbox">
                                 <input
