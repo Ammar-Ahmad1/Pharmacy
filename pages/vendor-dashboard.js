@@ -104,7 +104,7 @@ const ProductsFullWidth = ({
       let thisYearOrders = 0;
 
 
-      const deliveredOrders = data.data.filter((order) => order.status);
+      const deliveredOrders = data.data.filter((order) => order.status==="Delivered");
       console.log(deliveredOrders);
       deliveredOrders.forEach((order) => {
         const orderDate = new Date(order.date);
@@ -406,18 +406,26 @@ const ProductsFullWidth = ({
       // Filter the orders based on the filter
       const filtered = orders.filter((order) => {
         if (filter === "pending") {
-          return !order.cancelled && !order.status;
+          return !order.cancelled && order.status==="Pending";
         } else if (filter === "delivered") {
-          return order.status;
+          return order.status==="Delivered";
         } else if (filter === "cancelled") {
           return order.cancelled;
+        }
+        else if (filter === "confirmed") {
+          return !order.cancelled && order.status==="Confirmed";
         }
       });
 
       setFilteredOrders(filtered);
     }
   };
-  const handleUpdateStatusClick = async (e, orderId) => {
+  const handleUpdateStatusClickDeliver = async (e, orderId,status) => {
+    if(status==="Pending"){
+      toast.error("Order is not confirmed yet");
+      return;
+    }
+
     try {
       // Show a confirmation dialog to confirm the cancellation
       const confirmed = window.confirm(
@@ -453,6 +461,43 @@ const ProductsFullWidth = ({
       );
     }
   };
+  const handleUpdateStatusClickConfirm = async (e, orderId) => {
+    try {
+      // Show a confirmation dialog to confirm the cancellation
+      const confirmed = window.confirm(
+        "Are you sure you want to mark this order as delivered?"
+      );
+
+      if (!confirmed) {
+        // User canceled the action, do nothing
+        return;
+      }
+
+      // Make a PUT request to the API endpoint to cancel the order
+      const response = await fetch(`/api/order/confirm/${orderId}`, {
+        method: "PUT",
+      });
+
+      if (response.ok) {
+        // Order was successfully canceled, you can update your UI or show a message here
+        toast.success("Order was marked as delivered successfully");
+
+        getOrders();
+      } else {
+        // Handle any error or display an error message
+        const data = await response.json();
+        toast.error(data.error);
+        console.error("Failed to mark the order as delivered:", data.error);
+      }
+    } catch (error) {
+      toast.error("An error occurred while marking the order as delivered");
+      console.error(
+        "An error occurred while marking the order as delivered:",
+        error
+      );
+    }
+  };
+
   return (
     <>
       <Layout parent="Home" sub="Vendor  " subChild="Dashboard">
@@ -500,6 +545,7 @@ const ProductsFullWidth = ({
                             <option value="pending">Pending Orders</option>
                             <option value="delivered">Delivered Orders</option>
                             <option value="cancelled">Cancelled Orders</option>
+                            <option value="confirmed">Confirmed Orders</option>
                           </select>
                         </div>
                       </div>
@@ -544,9 +590,7 @@ const ProductsFullWidth = ({
                                     <td>
                                       {order.cancelled
                                         ? "Cancelled"
-                                        : order.status
-                                          ? "Delivered"
-                                          : "Pending"}
+                                        : order.status}
                                       {/* {currentOrder === order && (
                                       <div className="my-2">
                                         <span>
@@ -709,9 +753,12 @@ const ProductsFullWidth = ({
                                             </ul>
                                           </div>
                                           <div>
-                                            {!order.cancelled && !order.status &&
+                                            {!order.cancelled && (order.status==="Pending" || order.status==="Confirmed") &&
                                               <span>
-                                                <span
+                                                {
+                                                  !(order.status==="Confirmed") ? 
+
+                                                  <span
                                                   style={{
                                                     width: "70px",
                                                     textAlign: "center",
@@ -724,14 +771,16 @@ const ProductsFullWidth = ({
                                                     // display: order.status ? "none" : "block"
                                                   }}
                                                   onClick={(e) => {
-                                                    handleUpdateStatusClick(
+                                                    handleUpdateStatusClickConfirm(
                                                       e,
                                                       order._id
                                                     );
                                                   }}
                                                 >
                                                   Confirmed
-                                                </span>
+                                                </span> : null
+                                                }
+                                                
                                                 <span
                                                   style={{
                                                     width: "70px",
@@ -745,9 +794,10 @@ const ProductsFullWidth = ({
                                                     // display: order.status ? "none" : "block"
                                                   }}
                                                   onClick={(e) => {
-                                                    handleUpdateStatusClick(
+                                                    handleUpdateStatusClickDeliver(
                                                       e,
-                                                      order._id
+                                                      order._id,
+                                                      order.status
                                                     );
                                                   }}
                                                 >
@@ -756,7 +806,7 @@ const ProductsFullWidth = ({
                                               </span>
                                             }
                                             {!order.cancelled &&
-                                              !order.status ? (
+                                              (order.status==="Pending" || order.status==="Confirmed") ? (
                                               <span
                                                 style={{
                                                   width: "70px",
