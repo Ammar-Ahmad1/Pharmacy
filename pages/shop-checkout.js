@@ -113,7 +113,8 @@ const Cart = ({
     setName(data.data.name);
     setPhone(data.data.phone);
   };
-  const placeOrder = () => {
+  const placeOrder = (e) => {
+    e.preventDefault();
     if (session) {
       if (!name || !email || !phone || !address || !city) {
         toast.error("Please fill all the fields");
@@ -225,9 +226,8 @@ const Cart = ({
                     )}
                     {showLoginForm && (
                       <div
-                        className={`panel-collapse collapse login_form ${
-                          showLoginForm ? "show" : ""
-                        }`}
+                        className={`panel-collapse collapse login_form ${showLoginForm ? "show" : ""
+                          }`}
                         id="loginform"
                       >
                         <div className="panel-body">
@@ -296,10 +296,9 @@ const Cart = ({
                                 data-bs-toggle="collapse"
                                 className="font-lg ml-20"
                                 aria-expanded="false"
-                                onClick={()=>
-                                  {
-                                    router.push("/page-register")
-                                  }
+                                onClick={() => {
+                                  router.push("/page-register")
+                                }
                                 }
                               >
                                 Click here to register
@@ -311,14 +310,7 @@ const Cart = ({
                     )}
                   </div>
 
-                  <div className="col-lg-6">
-                    <form method="post" className="apply-coupon">
-                      <input type="text" placeholder="Enter Code" />
-                      <button className="btn btn-coupon" name="login">
-                        Apply Coupon
-                      </button>
-                    </form>
-                  </div>
+
                 </div>
                 <div className="mb-25">
                   <h4>Billing Details</h4>
@@ -1051,7 +1043,7 @@ const Cart = ({
                 </form>
               </div>
               <div className="col-lg-5">
-                <div className="border p-40 cart-totals ml-30 mb-50">
+                <div className="border cart-totals ml-30 mb-50">
                   <div className="d-flex align-items-end justify-content-between mb-30">
                     <h4>Your Order</h4>
                     <h6 className="text-muted">Subtotal</h6>
@@ -1200,6 +1192,14 @@ const Cart = ({
                         </div>
                       </div> */}
                     </div>
+                  </div>
+                  <div className="col-lg-8 mt-20">
+                    <form method="post" className="apply-coupon">
+                      <input type="text" placeholder="Enter Code" />
+                      <button className="btn btn-coupon" name="login">
+                        Apply Coupon
+                      </button>
+                    </form>
                   </div>
                   <a
                     href="#"
