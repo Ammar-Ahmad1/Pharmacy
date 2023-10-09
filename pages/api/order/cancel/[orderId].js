@@ -36,6 +36,7 @@ export default async function handler(req, res) {
         else if(req.body.action === "undo"){
           console.log("undo");
           order.cancelled = false;
+          order.status = "Pending";
         }
 
           // Save the updated order

@@ -32,8 +32,8 @@ const orderSchema = new Schema({
         type: Date,
     },
     status: {
-        type: Boolean,
-        default: false,
+        type: String,
+        default: "Pending",
     },
     totalAmount: {
         type: String,
