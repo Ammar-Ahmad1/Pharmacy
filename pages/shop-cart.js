@@ -240,7 +240,7 @@ const Cart = ({
                   </div>
                 </div>
 
-                
+
                 <div className="row mb-50">
                   {/* <div className="col-lg-6 col-md-12">
                                         <div className="heading_s1 mb-3">
