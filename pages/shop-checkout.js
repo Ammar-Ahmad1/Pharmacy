@@ -13,6 +13,8 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { signIn, getProviders } from "next-auth/react";
+import LoginBlock from "@components/ecommerce/LoginBlock";
+import SignupBlock from "@components/ecommerce/SignupBlock";
 
 const Cart = ({
   openCart,
@@ -204,7 +206,7 @@ const Cart = ({
             <div className="row">
               <div className="col-lg-7">
                 <div className="row mb-50">
-                  <div className="col-lg-6 mb-sm-15 mb-lg-0 mb-md-3">
+                  <div className="col-lg-12 mb-sm-15 mb-lg-0 mb-md-3">
                     {!session && (
                       <div className="toggle_info">
                         <span>
@@ -226,86 +228,12 @@ const Cart = ({
                     )}
                     {showLoginForm && (
                       <div
-                        className={`panel-collapse collapse login_form ${showLoginForm ? "show" : ""
+                        className={`panel-collapse collapse login_form d-md-flex ${showLoginForm ? "show" : ""
                           }`}
                         id="loginform"
                       >
-                        <div className="panel-body">
-                          <p className="mb-30 font-sm">
-                            If you have shopped with us before, please enter
-                            your details below. If you are a new customer,
-                            please proceed to the Billing &amp; Shipping
-                            section.
-                          </p>
-                          <form method="post">
-                            <div className="form-group">
-                              <label>Phone Number*</label>
-                              <input
-                                type="text"
-                                name="email"
-                                placeholder="03xxxxxxxxx"
-                                onChange={(e) => {
-                                  setLoginEmail(e.target.value);
-                                }}
-                                value={loginEmail}
-                              />
-                            </div>
-                            <div className="form-group">
-                              <label>Password*</label>
-                              <input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                onChange={(e) => {
-                                  setPassword(e.target.value);
-                                }}
-                                value={password}
-                              />
-                            </div>
-                            <div className="login_footer form-group">
-                              <div className="chek-form">
-                                <div className="custome-checkbox">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    name="checkbox"
-                                    id="remember"
-                                    value=""
-                                  />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="remember"
-                                  >
-                                    <span>Remember me</span>
-                                  </label>
-                                </div>
-                              </div>
-                              <a href="#">Forgot password?</a>
-                            </div>
-                            <div className="form-group">
-                              <button
-                                className="btn btn-md"
-                                name="login"
-                                onClick={loginUser}
-                                disabled={loading}
-                              >
-                                {loading ? "Loading..." : "Login"}
-                              </button>
-                              <a
-                                href="#registerform"
-                                data-bs-toggle="collapse"
-                                className="font-lg ml-20"
-                                aria-expanded="false"
-                                onClick={() => {
-                                  router.push("/page-register")
-                                }
-                                }
-                              >
-                                Click here to register
-                              </a>
-                            </div>
-                          </form>
-                        </div>
+                      <LoginBlock />
+                      <SignupBlock />
                       </div>
                     )}
                   </div>
