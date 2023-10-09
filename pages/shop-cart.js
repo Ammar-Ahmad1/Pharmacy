@@ -40,7 +40,8 @@ const Cart = ({
   }, [price()]);
   const router = useRouter();
 
-  const handleRoute = () => {
+  const handleRoute = (e) => {
+    e.preventDefault();
     if (cartItems.length <= 0) return toast.error("Cart is empty");
     router.push("/shop-checkout");
   };
