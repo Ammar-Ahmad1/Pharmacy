@@ -28,25 +28,31 @@ function CategoryTab() {
     const request = await fetch(`/api/medicine`);
     const allProducts = await request.json();
     console.log(allProducts);
-    const cat1Item = allProducts.data.filter((item) => item.Categories == "Allergy");
-
+    const cat1Item = allProducts.data.filter((item) => item.category === "Dermatologicals");
     console.log(cat1Item);
     setCat1(cat1Item);
     setActive("2");
   };
 
   const catP2 = async () => {
-    const request = await fetch(`${server}/static/product.json`);
+
+    const request = await fetch(`/api/medicine`);
     const allProducts = await request.json();
-    const cat2Item = allProducts.filter((item) => item.category == "shoe");
+    const cat2Item = allProducts.data.filter((item) => 
+      // filter popular products
+      item.totalSell>25
+    );
     setCat2(cat2Item);
+    console.log(cat2Item);
     setActive("3");
   };
   const catP3 = async () => {
-    const request = await fetch(`${server}/static/product.json`);
+    const request = await fetch(`/api/medicine`);
     const allProducts = await request.json();
-    const cat3Item = allProducts.filter(
-        (item) => item.category == "accessories"
+    const cat3Item = allProducts.data.filter(
+        (item) => 
+        // filter new products
+        item.created > new Date("2021-01-01")
     );
     setCat3(cat3Item);
     setActive("4");

@@ -7,7 +7,10 @@ import OtpInput from "react18-input-otp";
 import AuthCode from "react-auth-code-input";
 import { useRouter } from "next/navigation";
 
-function Privacy() {
+function Privacy({
+  setShowLoginForm,
+  showLoginForm,
+}) {
   // const auth = getAuth();
   const router = useRouter();
   const [providers, setProviders] = useState(null);
@@ -24,7 +27,40 @@ function Privacy() {
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [countdown, setCountdown] = useState(120);
+  const [loading, setLoading] = useState(false);
 
+  // const [providers, setProviders] = useState(null);
+
+  const loginUser = async (phone, password) => {
+    if (!phone || !password) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+
+    setLoading(true);
+    const result = await signIn("credentials", {
+      redirect: false,
+      phone: phone,
+      password,
+    });
+    if (result.error) {
+      setError(result.error);
+      toast.error(result.error);
+    } else {
+      toast.success("Logged in successfully");
+      setShowLoginForm(false);
+      console.log(result);
+      if (session) {
+        if (session.user.role === "customer") {
+          router.push("/shop-checkout");
+        } // Redirect to home page if logged in
+        else if (session.user.role === "vendor")
+          router.push("/vendor-dashboard");
+        // router.push("/");
+      }
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
     if (session) {
@@ -78,7 +114,8 @@ function Privacy() {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          router.push("/page-login");
+          // router.push("/page-login");
+          loginUser(phone,password);
           if (data.error) {
             console.log(data.error);
           } else {
@@ -411,7 +448,9 @@ function Privacy() {
               className="btn"
               name="login"
               onClick={(e) => handleSignUp(e)}
-              disabled={f} // Disable the button when loading
+              disabled={
+                isSigningUp
+              } // Disable the button when loading
             >
               {isSigningUp ? "Signing up..." : "Register"}
               {/* Submit &amp; Register */}

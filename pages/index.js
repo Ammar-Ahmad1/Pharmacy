@@ -74,41 +74,6 @@ function Index2() {
                         <FetchTabSlider />
                     </div>
                 </section>
-
-                {/* Deals of the Day Components */}
-
-                {/* <section className="section-padding pb-5">
-                    <div className="container">
-                        <div className="section-title wow animate__animated animate__fadeIn" data-wow-delay="0">
-                            <h3 className="">Deals Of The Day</h3>
-                            <Link href="/shop-grid-right" className="show-all">
-                                All Deals
-                                <i className="fi-rs-angle-right"></i>
-                            </Link>
-                        </div>
-                        <FetchDeals />
-                    </div>
-                </section> */}
-
-                <section className="popular-categories section-padding">
-                    <div className="container">
-                        <div className="section-title">
-                            <div className="title">
-                                <h3>Shop by Categories</h3>
-                                <Link href="/shop-grid-right" className="show-all">
-                                    All Categories
-                                    <i className="fi-rs-angle-right"></i>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="carausel-8-columns-cover position-relative">
-                            <div className="carausel-8-columns" id="carausel-8-columns">
-                                <CategorySlider2 />
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
                 <Bottom />
             </Layout>
         </>

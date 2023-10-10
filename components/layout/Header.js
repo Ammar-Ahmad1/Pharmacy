@@ -357,53 +357,6 @@ const Header = ({
                       <CategoryProduct2 />
                       <CategoryProduct3 />
                     </div>
-                    <div
-                      className="more_slide_open"
-                      style={{ display: "none" }}
-                    >
-                      <div className="d-flex categori-dropdown-inner">
-                        <ul>
-                          <li>
-                            <Link href="/products">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-1.svg"
-                                alt="nest"
-                              />
-                              Milks and Dairies
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/products">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-2.svg"
-                                alt="nest"
-                              />
-                              Clothing & beauty
-                            </Link>
-                          </li>
-                        </ul>
-                        <ul className="end">
-                          <li>
-                            <Link href="/products">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-3.svg"
-                                alt="nest"
-                              />
-                              Wines & Drinks
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/products">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-4.svg"
-                                alt="nest"
-                              />
-                              Fresh Seafood
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div className="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block  font-heading">
@@ -423,31 +376,15 @@ const Header = ({
                       <li>
                         <Link href="/products">
                           Shop
-                          {/* <i className="fi-rs-angle-down"></i> */}
+                          
                         </Link>
                       </li>
 
                       <li>
                         <a href="/vendor-dashboard">
                           Vendors 
-                          {/* <i className="fi-rs-angle-down"></i> */}
+                          
                         </a>
-                        {/* <ul className="sub-menu">
-                          <li>
-                            <Link href="/vendors">Vendors Grid</Link>
-                          </li>
-                          <li>
-                            <Link href="/vendors-list">Vendors List</Link>
-                          </li>
-                          <li>
-                            <Link href="/vendor-dashboard">
-                              Vendor Dashboard
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/vendor-guide">Vendor Guide</Link>
-                          </li>
-                        </ul> */}
                       </li>
 
                       <li>
@@ -456,15 +393,6 @@ const Header = ({
                           <i className="fi-rs-angle-down"></i>
                         </Link>
                         <ul className="sub-menu">
-                          <li>
-                            <Link href="/page-about">About Us</Link>
-                          </li>
-                          <li>
-                            <Link href="/add-item">Add Item</Link>
-                          </li>
-                          <li>
-                            <Link href="/page-contact">Contact</Link>
-                          </li>
                           <li>
                             <Link href="/page-account">My Account</Link>
                           </li>
@@ -475,23 +403,12 @@ const Header = ({
                             <Link href="/page-register">Register</Link>
                           </li>
                           <li>
-                            <Link href="/page-purchase-guide">
-                              Purchase Guide
-                            </Link>
-                          </li>
-                          <li>
                             <Link href="/page-privacy-policy">
                               Privacy Policy
                             </Link>
                           </li>
                           <li>
                             <Link href="/page-terms">Terms of Service</Link>
-                          </li>
-                          <li>
-                            <Link href="/page-404">404 Page</Link>
-                          </li>
-                          <li>
-                            <Link href="/forget-password">Forget Password</Link>
                           </li>
                         </ul>
                       </li>
@@ -548,74 +465,6 @@ const Header = ({
                       />
                       <span className="pro-count white">{totalCartItems}</span>
                     </Link>
-                    <div className="cart-dropdown-wrap cart-dropdown-hm2">
-                      <ul>
-                        <li>
-                          <div className="shopping-cart-img">
-                            <Link href="/shop-grid-right">
-                              <img
-                                alt="Evara"
-                                src="/assets/imgs/shop/thumbnail-3.jpg"
-                              />
-                            </Link>
-                          </div>
-                          <div className="shopping-cart-title">
-                            <h4>
-                              <Link href="/shop-grid-right">
-                                Plain Striola Shirts
-                              </Link>
-                            </h4>
-                            <h3>
-                              <span>1 × </span>
-                              Rs.800.00
-                            </h3>
-                          </div>
-                          <div className="shopping-cart-delete">
-                            <Link href="/#">
-                              <i className="fi-rs-cross-small"></i>
-                            </Link>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="shopping-cart-img">
-                            <Link href="/shop-grid-right">
-                              <img
-                                alt="Evara"
-                                src="/assets/imgs/shop/thumbnail-4.jpg"
-                              />
-                            </Link>
-                          </div>
-                          <div className="shopping-cart-title">
-                            <h4>
-                              <Link href="/shop-grid-right">
-                                Macbook Pro 2024
-                              </Link>
-                            </h4>
-                            <h3>
-                              <span>1 × </span>
-                              Rs.3500.00
-                            </h3>
-                          </div>
-                          <div className="shopping-cart-delete">
-                            <Link href="/#">
-                              <i className="fi-rs-cross-small"></i>
-                            </Link>
-                          </div>
-                        </li>
-                      </ul>
-                      <div className="shopping-cart-footer">
-                        <div className="shopping-cart-total">
-                          <h4>
-                            Total
-                            <span>Rs.383.00</span>
-                          </h4>
-                        </div>
-                        <div className="shopping-cart-button">
-                          <Link href="/shop-cart">View cart</Link>
-                          <Link href="/shop-checkout">Checkout</Link>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>

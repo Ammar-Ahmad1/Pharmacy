@@ -15,7 +15,12 @@ const MedicineSchema = new Schema({
     review: Number,
     rating: Number,
     ratingScore: Number,
-    created: Date,
+    created:
+    {
+      type: Date,
+      default: Date.now
+    },
+    
     image: String,
     featured: Boolean,
     trending: Boolean,
