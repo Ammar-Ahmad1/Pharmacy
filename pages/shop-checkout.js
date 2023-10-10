@@ -47,19 +47,19 @@ const Cart = ({
   const [longitude, setLongitude] = useState(0);
   const [gettingCity, setGettingCity] = useState(false);
 
-  useEffect(() => {
-    try {
-      setGettingCity(true);
-      navigator.geolocation.getCurrentPosition(function (position) {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-      });
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setGettingCity(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     setGettingCity(true);
+  //     navigator.geolocation.getCurrentPosition(function (position) {
+  //       setLatitude(position.coords.latitude);
+  //       setLongitude(position.coords.longitude);
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   } finally {
+  //     setGettingCity(false);
+  //   }
+  // }, []);
 
   const nominatimUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
   useEffect(() => {
@@ -69,37 +69,6 @@ const Cart = ({
     };
     getProvidersData();
   }, []);
-  const loginUser = async (e) => {
-    e.preventDefault();
-    if (!loginEmail || !password) {
-      toast.error("Please fill all the fields");
-      return;
-    }
-
-    setLoading(true);
-    const result = await signIn("credentials", {
-      redirect: false,
-      phone: loginEmail,
-      password,
-    });
-    if (result.error) {
-      setError(result.error);
-      toast.error(result.error);
-    } else {
-      toast.success("Logged in successfully");
-      setShowLoginForm(false);
-      console.log(result);
-      if (session) {
-        if (session.user.role === "customer") {
-        } // Redirect to home page if logged in
-        else if (session.user.role === "vendor")
-          router.push("/vendor-dashboard");
-        // router.push("/");
-      }
-    }
-    setLoading(false);
-  };
-  console.log(cartItems, "cartItems");
   const price = () => {
     let price = 0;
     cartItems.forEach((item) => (price += item.price * item.quantity));
@@ -232,8 +201,14 @@ const Cart = ({
                           }`}
                         id="loginform"
                       >
-                      <LoginBlock />
-                      <SignupBlock />
+                      <LoginBlock 
+                      showLoginForm={showLoginForm}
+                      setShowLoginForm={setShowLoginForm}
+                      />
+                      <SignupBlock 
+                      showLoginForm={showLoginForm}
+                      setShowLoginForm={setShowLoginForm}
+                      />
                       </div>
                     )}
                   </div>
@@ -641,7 +616,7 @@ const Cart = ({
                       className="different_address collapse in"
                     >
                       <div className="form-group">
-                        <label>Full Name (example: Rolls Royce) *</label>
+                        <label>Full Name (example: Full Name) *</label>
                         <input
                           type="text"
                           required=""

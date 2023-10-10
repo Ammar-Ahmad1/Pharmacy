@@ -24,7 +24,7 @@ export default async function handler(req, res) {
 
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
-  const verifySid = "VA15f483fb6f007a3711f7f270313d347a";
+  const verifySid = "VA6737b7638930fe25163401a29df0267e";
   const twilioClient = new Twilio(accountSid, authToken);
 
   try {

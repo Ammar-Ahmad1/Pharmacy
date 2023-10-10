@@ -12,13 +12,13 @@ const Footer = () => {
                                 <div className="position-relative newsletter-inner">
                                     <div className="newsletter-content">
                                         <h2 className="mb-20">
-                                            Stay home & get your daily <br />
-                                            needs from our shop
+                                            Stay home & get your medicines <br />
+                                            from our shop
                                         </h2>
                                         <p className="mb-45">
                                             Start You'r Daily Shopping with{" "}
                                             <span className="text-brand">
-                                                Nest Mart
+                                                Oxygen Pharma
                                             </span>
                                         </p>
                                         <form className="form-subcriber d-flex">
@@ -58,7 +58,7 @@ const Footer = () => {
                                         <h3 className="icon-box-title">
                                             Best prices & offers
                                         </h3>
-                                        <p>Orders Rs.1000 or more</p>
+                                        {/* <p>Orders Rs.1000 or more</p> */}
                                     </div>
                                 </div>
                             </div>
@@ -204,7 +204,7 @@ const Footer = () => {
                                                 alt="nest"
                                             />
                                             <strong>Email:</strong>
-                                            <span>sale@Nest.com</span>
+                                            <span>sales@oxygenPharma.com</span>
                                         </li>
                                         <li>
                                             <img
@@ -318,9 +318,8 @@ const Footer = () => {
                         </div>
                         <div className="col-xl-4 col-lg-6 col-md-6">
                             <p className="font-sm mb-0">
-                                &copy; 2024,{" "}
-                                <strong className="text-brand">Nest</strong> - HTML
-                                Ecommerce Template <br />
+                                &copy; 2023,{" "}
+                                <strong className="text-brand">OxygenPharma</strong> - Medicine Delivery <br />
                                 All rights reserved
                             </p>
                         </div>

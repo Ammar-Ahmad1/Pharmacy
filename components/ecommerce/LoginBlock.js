@@ -5,7 +5,10 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { signIn, getProviders } from "next-auth/react";
 
-export default function LoginBlock() {
+export default function LoginBlock({
+  setShowLoginForm,
+  showLoginForm,
+}) {
   const { data: session } = useSession();
   const router = useRouter();
   const [loginEmail, setLoginEmail] = useState("");
@@ -13,7 +16,7 @@ export default function LoginBlock() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [providers, setProviders] = useState(null);
-  const [showLoginForm, setShowLoginForm] = useState(false);
+  // const [showLoginForm, setShowLoginForm] = useState(false);
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -34,8 +37,14 @@ export default function LoginBlock() {
     } else {
       toast.success("Logged in successfully");
       setShowLoginForm(false);
-      if (session && session.user.role === "vendor") {
-        router.push("/vendor-dashboard");
+      console.log(result);
+      if (session) {
+        if (session.user.role === "customer") {
+          router.push("/shop-checkout");
+        } // Redirect to home page if logged in
+        else if (session.user.role === "vendor")
+          router.push("/vendor-dashboard");
+        // router.push("/");
       }
     }
     setLoading(false);
