@@ -21,7 +21,7 @@ const MedicineSchema = new Schema({
       default: Date.now
     },
     
-    image: String,
+    image: [String],
     featured: Boolean,
     trending: Boolean,
     totalSell: Number,

@@ -3,7 +3,8 @@ import Medicine from "@models/medicine.js";
 import multer from "multer";
 import cloudinary from "@config/cloudinary.js";
 import { writeFile, unlink } from "fs/promises";
-
+import { join } from "path";
+import { tmpdir } from "os";
 const storage = multer.diskStorage({
   destination: '/tmp/uploads',
   filename: function (req, file, cb) {
@@ -11,7 +12,7 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage }).array('image', 2);
 const handler = async (req, res) => {
   const { method } = req;
 
@@ -29,17 +30,11 @@ const handler = async (req, res) => {
       break;
     case "POST":
       try {
-        const file = req.body.image;
-        const base64Data = file.replace(/^data:image\/\w+;base64,/, "");
-        const buffer = Buffer.from(base64Data, "base64");
-        const tempFilePath = "/tmp/uploads"; // Update this path
-        await writeFile(tempFilePath, buffer);
-
-        const cloudinaryResponse = await cloudinary.uploader.upload(
-          tempFilePath
-        );
-        // // // // Access public URL of the uploaded image
-        const imageUrl = cloudinaryResponse.secure_url;
+        
+        const imageUrl = await uploadToCloudinary(req.body.image);
+        const imageUrl2 = await uploadToCloudinary(req.body.image2);        
+        console.log(imageUrl);
+        console.log(imageUrl2);
         const medicineData = await Medicine.create({
           name: req.body.name,
           slug: req.body.slug,
@@ -55,7 +50,7 @@ const handler = async (req, res) => {
           rating: req.body.rating,
           ratingScore: req.body.ratingScore,
           created: req.body.created,
-          image: imageUrl,
+          image: [imageUrl, imageUrl2],
           featured: req.body.featured,
           trending: req.body.trending,
           totalSell: req.body.totalSell,
@@ -67,8 +62,9 @@ const handler = async (req, res) => {
           },
         });
 
-        await unlink(tempFilePath);
-        res.status(201).json({ success: true, data: medicineData });
+        res.status(201).json({ success: true, 
+          data: medicineData
+         });
       } catch (error) {
         console.log(error);
         res.status(400).json({ success: false });
@@ -78,6 +74,20 @@ const handler = async (req, res) => {
       res.status(400).json({ success: false });
       break;
   }
+};
+const uploadToCloudinary = async (base64Image) => {
+  const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, "");
+  const buffer = Buffer.from(base64Data, "base64");
+
+  const tempFilePath = join(tmpdir(), `${Date.now()}-image.jpg`);
+
+  await writeFile(tempFilePath, buffer);
+
+  const cloudinaryResponse = await cloudinary.uploader.upload(tempFilePath);
+
+  await unlink(tempFilePath);
+
+  return cloudinaryResponse.secure_url;
 };
 
 export default handler;

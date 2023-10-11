@@ -138,6 +138,9 @@ function Account() {
   const [featured, setFeatured] = useState(false);
   const [fileBase64, setFileBase64] = useState(null);
   const [file, setFile] = useState(null);
+  const [fileBase641, setFileBase641] = useState(null);
+  const [file1, setFile1] = useState(null);
+  const [selectedFile1, setSelectedFile1] = useState(null);
   const handleFileChange = (selectedFile) => {
     setSelectedFile(selectedFile);
     setFile(selectedFile);
@@ -149,6 +152,18 @@ function Account() {
     };
 
     fileReader.readAsDataURL(selectedFile);
+  };
+  const handleFileChange1 = (selectedFile1) => {
+    setSelectedFile1(selectedFile1);
+    setFile1(selectedFile1);
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      const base64File = fileReader.result.split(",")[1]; // Extract the base64 portion
+      setFileBase641(base64File);
+      // You can also set other file-related states if needed
+    };
+
+    fileReader.readAsDataURL(selectedFile1);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -164,6 +179,7 @@ function Account() {
       !sideEffect ||
       !price ||
       !fileBase64 ||
+      !fileBase641 ||
       !stock ||
       !discount
     ) {
@@ -195,6 +211,7 @@ function Account() {
           ratingScore: 0,
           created: new Date(),
           image: fileBase64,
+          image2: fileBase641,
           featured: featured,
           trending: false,
           totalSell: 0,
@@ -337,7 +354,7 @@ function Account() {
                                   </div>
                                 </div>
 
-                                <div className="form-group col-md-12">
+                                {/* <div className="form-group col-md-12">
                                   <div className="d-flex col-md-6">
                                     <input
                                       type="text"
@@ -370,7 +387,7 @@ function Account() {
                                       </li>
                                     ))}
                                   </ul>
-                                </div>
+                                </div> */}
 
                                 {/* <ImageUpload /> */}
                                 <div>
@@ -386,6 +403,27 @@ function Account() {
                                   {selectedFile && (
                                     <img
                                       src={URL.createObjectURL(selectedFile)}
+                                      alt="Selected"
+                                      style={{
+                                        maxWidth: "200px",
+                                        marginTop: "10px",
+                                      }}
+                                    />
+                                  )}
+                                </div>
+                                <div>
+                                  <label>
+                                    Upload Second Image <span className="required">*</span>
+                                  </label>
+                                  <input
+                                    type="file"
+                                    // onChange={handleFileChange}
+                                    className="pt-3"
+                                    onChange={(e) => handleFileChange1(e.target.files[0])}
+                                  />
+                                  {selectedFile1 && (
+                                    <img
+                                      src={URL.createObjectURL(selectedFile1)}
                                       alt="Selected"
                                       style={{
                                         maxWidth: "200px",

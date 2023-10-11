@@ -75,7 +75,7 @@ const ProductDetails = ({
                   <div className="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
                     <div className="detail-gallery">
                       <span className="zoom-icon">
-                        <i className="fi-rs-search"></i>
+                        {/* <i className="fi-rs-search"></i> */}
                       </span>
 
                       <div className="product-image-slider">
