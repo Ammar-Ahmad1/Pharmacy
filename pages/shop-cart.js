@@ -180,24 +180,15 @@ const Cart = ({
                 <div className="divider center_icon mb-25">
                   <br />
                 </div>
-                <div className="d-flex justify-content-between">
 
-                  <div className="cart-action mb-25"
-                  >
-                    <a
-                      className="btn "
-                      onClick={() => router.push("/products")}
-                    >
-                      <i className="fi-rs-shopping-bag mr-10"></i>
-                      Continue Shopping
-                    </a>
-                  </div>
-                  <div className="col-lg-6 col-md-12">
+                
+                <div className="d-lg-flex columnReverse justify-content-between">
+                  <div className="col-lg-6 col-md-12 order-sm-1 order-lg-2 mb-50">
                     <div className="border p-md-4 p-30 border-radius cart-totals">
                       <div className="heading_s1 mb-3">
                         <h4>Cart Totals</h4>
                       </div>
-                      <div className="table-responsive">
+                      <div className="table-responsive order-md-2">
                         <table className="table">
                           <tbody>
                             <tr>
@@ -232,11 +223,17 @@ const Cart = ({
                           </tbody>
                         </table>
                       </div>
-                      <a href="#" onClick={handleRoute} className="btn ">
+                      <a href="#" onClick={handleRoute} className="btn">
                         <i className="fi-rs-box-alt mr-10"></i>
                         Proceed To CheckOut
                       </a>
                     </div>
+                  </div>
+                  <div className="cart-action order-sm-2 order-lg-1">
+                    <a className="btn" onClick={() => router.push("/products")}>
+                      <i className="fi-rs-shopping-bag mr-10"></i>
+                      Continue Shopping
+                    </a>
                   </div>
                 </div>
 

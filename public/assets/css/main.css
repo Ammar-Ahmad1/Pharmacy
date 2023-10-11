@@ -11132,6 +11132,13 @@ footer .hotline img {
     .custom-modal .modal-dialog {
         max-width: 720px !important;
     }
+
+
+    /* custom classes */
+
+    .columnReverse {
+        flex-direction: reverse;
+    }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 992px) {

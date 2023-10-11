@@ -498,6 +498,52 @@ const ProductsFullWidth = ({
     }
   };
 
+  // Status Color
+
+  const getStatusStyle = (status) => {
+    let style = {};
+
+    switch (status) {
+      case "Delivered":
+        style.backgroundColor = "#28a745";
+        style.color = "white";
+        style.borderRadius = "4px";
+        style.maxWidth = "120px";
+        style.textAlign = "center";
+        break;
+      case "Confirmed":
+        style.backgroundColor = "#17a2b8";
+        style.color = "white";
+        style.borderRadius = "4px";
+        style.maxWidth = "120px";
+        style.textAlign = "center";
+        break;
+      case "Cancelled":
+        style.backgroundColor = "#f83535";
+        style.color = "white";
+        style.borderRadius = "4px";
+        style.maxWidth = "120px";
+        style.textAlign = "center";
+        break;
+      case "Pending":
+        style.backgroundColor = "#ebe22f";
+        style.color = "black";
+        style.borderRadius = "4px";
+        style.maxWidth = "120px";
+        style.textAlign = "center";
+        break;
+      default:
+        style.backgroundColor = "#f83535";
+        style.color = "black";
+        style.borderRadius = "4px";
+        style.maxWidth = "120px";
+        style.textAlign = "center";
+        break;
+    }
+
+    return style;
+  }
+
   return (
     <>
       <Layout parent="Home" sub="Vendor  " subChild="Dashboard">
@@ -590,8 +636,8 @@ const ProductsFullWidth = ({
                                     </td>
                                     <td>
                                       {order.cancelled
-                                        ? "Cancelled"
-                                        : order.status}
+                                        ? <p style={getStatusStyle("Cancelled")}>Cancelled</p>
+                                        : <p style={getStatusStyle(order.status)}>{order.status}</p>}
 
                                       {/* {currentOrder === order && (
                                         <div className="my-2">
@@ -709,7 +755,7 @@ const ProductsFullWidth = ({
                                           />
                                         </div>
                                         <table className="table"
-                                         style={{ backgroundColor: "#eff3f6"}}>
+                                          style={{ backgroundColor: "#eff3f6" }}>
                                           <thead>
                                             <tr>
                                               <th>Medicine</th>
