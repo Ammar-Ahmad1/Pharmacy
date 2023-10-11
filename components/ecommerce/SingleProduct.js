@@ -57,26 +57,26 @@ const SingleProduct = ({
             <Link href="/products/[slug]" as={`/products/${product.slug}`}>
               <img
                 className="default-img"
-                src={product.images ? product.images[0]?.img : product.image}
+                src={product.image[0]}
                 alt="nest"
               />
 
               <img
                 className="hover-img"
-                src={product.images ? product.images[1]?.img : product.image}
+                src={product.image[1]}
                 alt="nest"
               />
             </Link>
           </div>
           <div className="product-action-1">
-            <a
+            {/* <a
               aria-label="Quick view"
               className="action-btn hover-up"
               data-bs-toggle="modal"
               onClick={() => openQuickView(product)}
             >
               <i className="fi-rs-eye"></i>
-            </a>
+            </a> */}
             <a
               aria-label="Add To Wishlist"
               className="action-btn hover-up"

@@ -45,12 +45,12 @@ const SingleProduct2 = ({ product, addToCart, addToCompare, addToWishlist, openQ
                 <div className="product-img-action-wrap">
                     <div className="product-img product-img-zoom">
                         <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-                            <img className="default-img" src={product.images?product.images[0].img: product.image} alt="nest" />
-                            <img className="hover-img" src={product.images?product.images[1].img: product.image} alt="nest" />
+                            <img className="default-img" src={product.image[0]} alt="nest" />
+                            <img className="hover-img" src={product.image[1]} alt="nest" />
                         </Link>
                     </div>
                     <div className="product-action-1">
-                        <a
+                        {/* <a
                             aria-label="Quick view"
                             className="action-btn hover-up"
                             data-bs-toggle="modal"
@@ -58,7 +58,7 @@ const SingleProduct2 = ({ product, addToCart, addToCompare, addToWishlist, openQ
                             onClick={(e) => openQuickView(product)}
                         >
                             <i className="fi-rs-eye"></i>
-                        </a>
+                        </a> */}
                         <a aria-label="Add To Wishlist" className="action-btn hover-up" onClick={(e) => handleWishlist(product)}>
                             <i className="fi-rs-heart"></i>
                         </a>
