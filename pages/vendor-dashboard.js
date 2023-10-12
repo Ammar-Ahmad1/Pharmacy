@@ -508,35 +508,35 @@ const ProductsFullWidth = ({
         style.backgroundColor = "#28a745";
         style.color = "white";
         style.borderRadius = "4px";
-        style.maxWidth = "120px";
+        style.padding = "0px 4px";
         style.textAlign = "center";
         break;
       case "Confirmed":
         style.backgroundColor = "#17a2b8";
         style.color = "white";
         style.borderRadius = "4px";
-        style.maxWidth = "120px";
+        style.padding = "0px 4px";
         style.textAlign = "center";
         break;
       case "Cancelled":
         style.backgroundColor = "#f83535";
         style.color = "white";
         style.borderRadius = "4px";
-        style.maxWidth = "120px";
+        style.padding = "0px 4px";
         style.textAlign = "center";
         break;
       case "Pending":
         style.backgroundColor = "#ebe22f";
         style.color = "black";
         style.borderRadius = "4px";
-        style.maxWidth = "120px";
+        style.padding = "0px 4px";
         style.textAlign = "center";
         break;
       default:
         style.backgroundColor = "#f83535";
         style.color = "black";
         style.borderRadius = "4px";
-        style.maxWidth = "120px";
+        style.padding = "0px 4px";
         style.textAlign = "center";
         break;
     }
@@ -551,12 +551,12 @@ const ProductsFullWidth = ({
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h1 className="display-2 mt-30 pb-30">Dashboard</h1>
+                <h1 className="mt-30 pb-30 h1 font-xxl font-weight-bold">Dashboard</h1>
                 <hr className="mb-80" />
                 <div className="row">
                   <div className="col-lg-9">
-                    <div className="d-flex justify-content-between align-items-center mb-2">
-                      <h3 className="mb-30">Recent Orders</h3>
+                    <div className="d-flex justify-content-between align-items-center mb-2 ms-2">
+                      <h3 className="h2 font-weight-bold">All Orders</h3>
                       <Link
                         className="btn btn-fill-out hover: font-weight-bold"
                         href={"/add-item"}
@@ -564,7 +564,7 @@ const ProductsFullWidth = ({
                         Add Medicine
                       </Link>
                     </div>
-                    <div className="table-responsive">
+                    <div className="table-responsive mt-20 ps-2 pe-2">
                       <div className="input-group d-flex justify-content-between">
                         <div className="d-flex align-items-center">
                           <label htmlFor="search-order" className="ms-2"> Search by Order Number
@@ -581,22 +581,25 @@ const ProductsFullWidth = ({
                           </label>
                         </div>
                         {/* add filters for pending, delivered and cancelled orders */}
-                        <div className="input-group-append">
-                          <select
-                            className="form-select"
-                            style={{ outline: "none", borderColor: "#ced4da", boxShadow: "none" }}
-                            onChange={handleFilterChange}
-                          >
-                            <option value="">All Orders</option>
-                            <option value="pending">Pending Orders</option>
-                            <option value="delivered">Delivered Orders</option>
-                            <option value="cancelled">Cancelled Orders</option>
-                            <option value="confirmed">Confirmed Orders</option>
-                          </select>
+                        <div className="input-group-append" style={{ marginRight: "4px" }}>
+
+                          <label>Sort by status
+                            <select
+                              className="form-select"
+                              style={{ outline: "none", borderColor: "#ced4da", boxShadow: "none", margin: "0 auto" }}
+                              onChange={handleFilterChange}
+                            >
+                              <option value="">All Orders</option>
+                              <option value="pending">Pending Orders</option>
+                              <option value="delivered">Delivered Orders</option>
+                              <option value="cancelled">Cancelled Orders</option>
+                              <option value="confirmed">Confirmed Orders</option>
+                            </select>
+                          </label>
                         </div>
                       </div>
                       <br />
-                      <table className="table">
+                      <table className="table table-striped">
                         <thead>
                           <tr>
                             <th>Order</th>
@@ -627,7 +630,7 @@ const ProductsFullWidth = ({
                                     key={order._id}
                                     className={currentOrder === order ? "active-row" : ""}
                                   >
-                                    <td>{order.orderNumber}</td>
+                                    <td className="font-weight-bold">{order.orderNumber}</td>
                                     <td>
                                       {
                                         //only show sate and time
@@ -636,71 +639,8 @@ const ProductsFullWidth = ({
                                     </td>
                                     <td>
                                       {order.cancelled
-                                        ? <p style={getStatusStyle("Cancelled")}>Cancelled</p>
-                                        : <p style={getStatusStyle(order.status)}>{order.status}</p>}
-
-                                      {/* {currentOrder === order && (
-                                        <div className="my-2">
-                                          <span>
-                                            <input
-                                              type="radio"
-                                              id="pending"
-                                              name="status"
-                                              value="pending"
-                                              checked={
-                                                selectedStatus === "Pending"
-                                              }
-                                              onChange={() =>
-                                                setSelectedStatus("Pending")
-                                              }
-                                            />
-                                            <span class="checkmark"></span>
-                                            <label htmlFor="pending">
-                                              Pending
-                                            </label>
-                                          </span>
-                                          <span>
-                                            <input
-                                              type="radio"
-                                              id="cancelled"
-                                              name="status"
-                                              value="cancelled"
-                                              checked={
-                                                selectedStatus === "Cancelled"
-                                              }
-                                              onChange={() =>
-                                                setSelectedStatus("Cancelled")
-                                              }
-                                            />
-                                            <span class="checkmark"></span>
-                                            <label htmlFor="cancelled">
-                                              Cancelled
-                                            </label>
-                                          </span>
-                                          <span>
-                                            <input
-                                              type="radio"
-                                              id="delivered"
-                                              name="status"
-                                              value="delivered"
-                                              checked={
-                                                selectedStatus === "Delivered"
-                                              }
-                                              onChange={() =>
-                                                setSelectedStatus("Delivered")
-                                              }
-                                            />
-                                            <span class="checkmark"></span>
-                                            <label htmlFor="delivered">
-                                              Delivered
-                                            </label>
-                                          </span>
-                                          <button className="btn p-2 ms-3">
-                                            apply
-                                          </button>
-                                        </div>
-                                      )} */}
-
+                                        ? <p style={{ ...getStatusStyle("Cancelled"), maxWidth: "120px", margin: "0 auto" }}>Cancelled</p>
+                                        : <p style={{ ...getStatusStyle(order.status), maxWidth: "120px", margin: "0 auto" }}>{order.status}</p>}
                                     </td>
                                     <td>Rs.{order.totalAmount}</td>
                                     <td className="d-flex justify-content-between">
