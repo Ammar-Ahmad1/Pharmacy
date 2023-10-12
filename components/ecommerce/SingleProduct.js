@@ -68,7 +68,9 @@ const SingleProduct = ({
               />
             </Link>
           </div>
-          <div className="product-action-1">
+          <div className="product-action-1"
+          style = {{display:check ? 'none' : 'block'}}
+          >
             {/* <a
               aria-label="Quick view"
               className="action-btn hover-up"

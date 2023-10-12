@@ -49,7 +49,11 @@ const SingleProduct2 = ({ product, addToCart, addToCompare, addToWishlist, openQ
                             <img className="hover-img" src={product.image[1]} alt="nest" />
                         </Link>
                     </div>
-                    <div className="product-action-1">
+                    <div className="product-action-1"
+                        style={{
+                            display: check ? 'none' : 'block'
+                        }}
+                        >
                         {/* <a
                             aria-label="Quick view"
                             className="action-btn hover-up"

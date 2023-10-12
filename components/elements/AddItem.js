@@ -2,7 +2,11 @@ import Layout from "../layout/Layout";
 import React, { useState, useEffect } from "react";
 import ImageUpload from "../elements/ImageUpload";
 import { toast } from "react-toastify";
+import Compressor from 'compressorjs';
+import { useRouter } from "next/router";
+
 function Account() {
+  const router = useRouter();
   // displaying slug
   const [name, setName] = useState("");
   const slug = name.toLowerCase().replace(/\s+/g, "-");
@@ -141,30 +145,123 @@ function Account() {
   const [fileBase641, setFileBase641] = useState(null);
   const [file1, setFile1] = useState(null);
   const [selectedFile1, setSelectedFile1] = useState(null);
+  const [loading, setLoading] = useState(false);
   const handleFileChange = (selectedFile) => {
     setSelectedFile(selectedFile);
-    setFile(selectedFile);
-    const fileReader = new FileReader();
-    fileReader.onload = () => {
-      const base64File = fileReader.result.split(",")[1]; // Extract the base64 portion
-      setFileBase64(base64File);
-      // You can also set other file-related states if needed
-    };
-
-    fileReader.readAsDataURL(selectedFile);
+    const maxSize = 50000; // Maximum file size in bytes (50KB)
+    
+    if (selectedFile?.size <= maxSize) {
+      // The selected file is already within the size limit, no further compression needed
+      setFile(selectedFile);
+      console.log(selectedFile.size / 1024, "less than 50KB");
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        const base64File = fileReader.result.split(',')[1];
+        setFileBase64(base64File);
+      };
+      fileReader.readAsDataURL(selectedFile);
+    } else {
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        const image = new Image();
+        image.src = fileReader.result;
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxWidth = 500;
+          const maxHeight = 500;
+          let width = image.width;
+          let height = image.height;
+          
+          if (width > maxWidth || height > maxHeight) {
+            if (width / maxWidth > height / maxHeight) {
+              width = maxWidth;
+              height = (image.height / image.width) * maxWidth;
+            } else {
+              height = maxHeight;
+              width = (image.width / image.height) * maxHeight;
+            }
+          }
+  
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(image, 0, 0, width, height);
+  
+          canvas.toBlob((blob) => {
+            const compressedFile = new File([blob], selectedFile.name, { type: 'image/jpeg' });
+            setFile(compressedFile);
+            console.log(compressedFile.size / 1024, "compressed to 50KB or less");
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+              const base64File = fileReader.result.split(',')[1];
+              setFileBase64(base64File);
+            };
+            fileReader.readAsDataURL(compressedFile);
+          }, 'image/jpeg', 0.6); // Adjust quality as needed (0 to 1)
+        };
+      };
+      fileReader.readAsDataURL(selectedFile);
+    }
   };
+  
   const handleFileChange1 = (selectedFile1) => {
     setSelectedFile1(selectedFile1);
-    setFile1(selectedFile1);
-    const fileReader = new FileReader();
-    fileReader.onload = () => {
-      const base64File = fileReader.result.split(",")[1]; // Extract the base64 portion
-      setFileBase641(base64File);
-      // You can also set other file-related states if needed
-    };
-
-    fileReader.readAsDataURL(selectedFile1);
+    const maxSize = 50000; // Maximum file size in bytes (50KB)
+  
+    if (selectedFile1?.size <= maxSize) {
+      // The selected file is already within the size limit, no further compression needed
+      setFile1(selectedFile1);
+      console.log(selectedFile1.size / 1024, "less than 50KB");
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        const base64File = fileReader.result.split(',')[1];
+        setFileBase641(base64File);
+      };
+      fileReader.readAsDataURL(selectedFile1);
+    } else {
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        const image = new Image();
+        image.src = fileReader.result;
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxWidth = 500;
+          const maxHeight = 500;
+          let width = image.width;
+          let height = image.height;
+  
+          if (width > maxWidth || height > maxHeight) {
+            if (width / maxWidth > height / maxHeight) {
+              width = maxWidth;
+              height = (image.height / image.width) * maxWidth;
+            } else {
+              height = maxHeight;
+              width = (image.width / image.height) * maxHeight;
+            }
+          }
+  
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(image, 0, 0, width, height);
+  
+          canvas.toBlob((blob) => {
+            const compressedFile = new File([blob], selectedFile1.name, { type: 'image/jpeg' });
+            setFile1(compressedFile);
+            console.log(compressedFile.size / 1024, "compressed to 50KB or less");
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+              const base64File = fileReader.result.split(',')[1];
+              setFileBase641(base64File);
+            };
+            fileReader.readAsDataURL(compressedFile);
+          }, 'image/jpeg', 0.6); // Adjust quality as needed (0 to 1)
+        };
+      };
+      fileReader.readAsDataURL(selectedFile1);
+    }
   };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -188,6 +285,7 @@ function Account() {
     }
 
     console.log("submitting");
+    setLoading(true);
     try {
       fetch("/api/medicine", {
         method: "POST",
@@ -232,6 +330,8 @@ function Account() {
           console.log(data);
           if (data.success) {
             toast.success("Medicine added successfully");
+            router.push("/vendor-dashboard");
+
           }
           else {
             toast.error("Medicine not added");
@@ -241,6 +341,8 @@ function Account() {
     } catch (err) {
       console.log(err);
 
+    }finally{
+      setLoading(false);
     }
 
   };
@@ -604,8 +706,9 @@ function Account() {
                                     name="submit"
                                     value="Submit"
                                     onClick={handleSubmit}
+                                    disabled={loading}
                                   >
-                                    Save Change
+                                    {loading ? "Adding..." : "Add Item"}
                                   </button>
                                 </div>
                               </div>
