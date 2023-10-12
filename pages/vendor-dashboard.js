@@ -599,7 +599,17 @@ const ProductsFullWidth = ({
                           </div>
                           <div>
                             <label htmlFor="date-table">Search by date
-                              <input type="date" id="date-table" className="pe-3 col-12 d-block form-control-search" />
+                              <input type="date" id="date-table" className="pe-3 col-12 d-block form-control-search" 
+                                onChange={(e) => {
+                                  // Filter the orders based on the search term
+                                  //ignore case
+                                  const filtered = orders.filter((order) =>
+                                    order.date.split("T")[0].includes(e.target.value)
+                                  );
+                                  setFilteredOrders(filtered);
+                                }}
+                                
+                              />
                             </label>
                           </div>
                         </div>
