@@ -1000,6 +1000,21 @@ const Cart = ({
                                 {item.quantity * item.price}
                               </h4>
                             </td>
+                            {
+                              item.category === "Prescription Drugs" ? (
+                                <td>
+                                  <button
+                                    className="btn btn-fill-out btn-sm"
+                                    // onClick={() => {
+                                    //   // setPrescriptionModal(true);
+                                    //   // setPrescription(item.prescription);
+                                    // }}
+                                  >
+                                    Add Prescription
+                                  </button>
+                                </td>
+                              ) : null
+                            }
                           </tr>
                         ))}
                       </tbody>
@@ -1041,59 +1056,6 @@ const Cart = ({
                           </p>
                         </div>
                       </div>
-                      {/* <div className="custome-radio">
-                        <input
-                          className="form-check-input"
-                          required=""
-                          type="radio"
-                          name="payment_option"
-                          id="exampleRadios4"
-                          defaultChecked={true}
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="exampleRadios4"
-                          data-bs-toggle="collapse"
-                          data-target="#checkPayment"
-                          aria-controls="checkPayment"
-                        >
-                          Check Payment
-                        </label>
-                        <div
-                          className="form-group collapse in"
-                          id="checkPayment"
-                        >
-                          <p className="text-muted mt-5">
-                            Please send your cheque to Store Name, Store Street,
-                            Store Town, Store State / County, Store Postcode.{" "}
-                          </p>
-                        </div>
-                      </div> */}
-                      {/* <div className="custome-radio">
-                        <input
-                          className="form-check-input"
-                          required=""
-                          type="radio"
-                          name="payment_option"
-                          id="exampleRadios5"
-                          defaultChecked={true}
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="exampleRadios5"
-                          data-bs-toggle="collapse"
-                          data-target="#paypal"
-                          aria-controls="paypal"
-                        >
-                          Paypal
-                        </label>
-                        <div className="form-group collapse in" id="paypal">
-                          <p className="text-muted mt-5">
-                            Pay via PayPal; you can pay with your credit card if
-                            you don't have a PayPal account.
-                          </p>
-                        </div>
-                      </div> */}
                     </div>
                   </div>
                   <div className="col-lg-8 mt-20">
