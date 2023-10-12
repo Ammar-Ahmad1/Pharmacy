@@ -1778,12 +1778,14 @@ label {
 .form-control {
     border: 1px solid #f0e9ff;
     border-radius: 10px;
-    /* height: 48px; */
     padding-left: 18px;
     font-size: 16px;
     background: transparent;
 }
-
+.form-control-search {
+    height: 48px;
+    /* max-width: 360px; */
+}
 .comment-form {
     padding-top: 45px;
     margin-bottom: 20px;
