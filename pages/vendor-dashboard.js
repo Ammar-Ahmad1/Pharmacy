@@ -555,10 +555,10 @@ const ProductsFullWidth = ({
                 <hr className="mb-80" />
                 <div className="row">
                   <div className="col-lg-9">
-                    <div className="d-flex justify-content-between align-items-center mb-2 ms-2">
-                      <h3 className="h2 font-weight-bold">All Orders</h3>
+                    <div className="d-flex align-items-center mb-2 ms-2">
+                      <h3 className="h1 font-weight-bold me-4">All Orders</h3>
                       <Link
-                        className="btn btn-fill-out hover: font-weight-bold"
+                        className="btn btn-small hover: font-weight-bold"
                         href={"/add-item"}
                       >
                         Add Medicine
@@ -566,12 +566,12 @@ const ProductsFullWidth = ({
                     </div>
                     <div className="table-responsive mt-20 ps-2 pe-2">
                       <div className="input-group d-flex justify-content-between">
-                        <div className="d-flex align-items-center">
-                          <label htmlFor="search-order" className="ms-2"> Search by Order Number
+                        <div className="d-flex align-items-end">
+                          <label htmlFor="search-order"> Search by Order Number
                             <input
                               type="search"
                               id="search-order"
-                              className="form-control"
+                              className="form-control-search col-sm-12 d-lg-block"
                               placeholder="Search Orders"
                               aria-label="Search Orders"
                               aria-describedby="basic-addon2"
@@ -581,21 +581,27 @@ const ProductsFullWidth = ({
                           </label>
                         </div>
                         {/* add filters for pending, delivered and cancelled orders */}
-                        <div className="input-group-append" style={{ marginRight: "4px" }}>
-
-                          <label>Sort by status
-                            <select
-                              className="form-select"
-                              style={{ outline: "none", borderColor: "#ced4da", boxShadow: "none", margin: "0 auto" }}
-                              onChange={handleFilterChange}
-                            >
-                              <option value="">All Orders</option>
-                              <option value="pending">Pending Orders</option>
-                              <option value="delivered">Delivered Orders</option>
-                              <option value="cancelled">Cancelled Orders</option>
-                              <option value="confirmed">Confirmed Orders</option>
-                            </select>
-                          </label>
+                        <div className="input-group-append">
+                          <div className="mb-4">
+                            <label>Sort by status
+                              <select
+                                className="form-select"
+                                style={{ outline: "none", borderColor: "#ced4da", boxShadow: "none"}}
+                                onChange={handleFilterChange}
+                              >
+                                <option value="">All Orders</option>
+                                <option value="pending">Pending Orders</option>
+                                <option value="delivered">Delivered Orders</option>
+                                <option value="cancelled">Cancelled Orders</option>
+                                <option value="confirmed">Confirmed Orders</option>
+                              </select>
+                            </label>
+                          </div>
+                          <div>
+                            <label htmlFor="date-table">Search by date
+                              <input type="date" id="date-table" className="pe-3 col-12 d-block form-control-search" />
+                            </label>
+                          </div>
                         </div>
                       </div>
                       <br />
