@@ -555,15 +555,7 @@ const ProductsFullWidth = ({
                 <hr className="mb-80" />
                 <div className="row">
                   <div className="col-lg-9">
-                    <div className="d-flex align-items-center mb-2 ms-2">
-                      <h3 className="h1 font-weight-bold me-4">All Orders</h3>
-                      <Link
-                        className="btn btn-small hover: font-weight-bold"
-                        href={"/add-item"}
-                      >
-                        Add Medicine
-                      </Link>
-                    </div>
+                    <h3 className="h1 font-weight-bold me-4">All Orders</h3>
                     <div className="table-responsive mt-20 ps-2 pe-2">
                       <div className="input-group d-flex justify-content-between">
                         <div className="d-flex align-items-end">
@@ -586,7 +578,7 @@ const ProductsFullWidth = ({
                             <label>Sort by status
                               <select
                                 className="form-select"
-                                style={{ outline: "none", borderColor: "#ced4da", boxShadow: "none"}}
+                                style={{ outline: "none", borderColor: "#ced4da", boxShadow: "none" }}
                                 onChange={handleFilterChange}
                               >
                                 <option value="">All Orders</option>
@@ -599,7 +591,7 @@ const ProductsFullWidth = ({
                           </div>
                           <div>
                             <label htmlFor="date-table">Search by date
-                              <input type="date" id="date-table" className="pe-3 col-12 d-block form-control-search" 
+                              <input type="date" id="date-table" className="pe-3 col-12 d-block form-control-search"
                                 onChange={(e) => {
                                   // Filter the orders based on the search term
                                   //ignore case
@@ -608,7 +600,7 @@ const ProductsFullWidth = ({
                                   );
                                   setFilteredOrders(filtered);
                                 }}
-                                
+
                               />
                             </label>
                           </div>
@@ -936,6 +928,14 @@ const ProductsFullWidth = ({
                 </div>
               </div>
             </div>
+
+            <Link
+              className="btn btn-small hover: font-weight-bold"
+              href={"/add-item"}
+            >
+              Add Medicine
+            </Link>
+
             <div className="row flex-row-reverse">
               <div className="col-lg-12">
                 <h3 className="mb-30 mt-30">Your Products</h3>
