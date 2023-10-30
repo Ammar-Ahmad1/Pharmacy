@@ -44,10 +44,10 @@ const Header = ({
           </span>
         </div>
 
-        <div className="header-top header-top-ptb-1 d-none d-lg-block">
+        <div className="header-top header-top-ptb-1 d-none d-md-block">
           <div className="container">
             <div className="row align-items-center justify-content-between">
-              <div className="col-xl-3 col-lg-4">
+              <div className="col-xl-3 col-lg-4 col-sm-4">
                 <div className="header-info">
                   <ul>
                     <li>
@@ -174,6 +174,16 @@ const Header = ({
                 <div className="search-style-2">
                   <Search />
                 </div>
+                <div className="header-action-icon-2 d-block d-xl-none">
+                <div
+                  className="burger-icon burger-icon-white"
+                  onClick={toggleClick}
+                >
+                  <span className="burger-icon-top"></span>
+                  <span className="burger-icon-mid"></span>
+                  <span className="burger-icon-bottom"></span>
+                </div>
+              </div>
                 <div className="header-action-right">
                   <div className="header-action-2">
                     <div
@@ -238,7 +248,7 @@ const Header = ({
                     </div>
 
                     {session?.user?.id && (
-                      <div className="header-action-icon-2">
+                      <div className="header-action-icon-2 d-md-block">
                         <Link href="/page-account">
                           <img
                             className="svgInject"

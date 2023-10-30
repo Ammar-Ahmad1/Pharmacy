@@ -13,7 +13,7 @@ function About() {
                                 </div>
                                 <div className="col-lg-6">
                                     <div className="pl-25">
-                                        <h2 className="mb-30">Welcome to Nest</h2>
+                                        <h2 className="mb-30">Welcome to Oxygen Pharma</h2>
                                         <p className="mb-25">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate id est laborum.</p>
                                         <p className="mb-50">Ius ferri velit sanctus cu, sed at soleat accusata. Dictas prompta et Ut placerat legendos interpre.Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante Etiam sit amet orci eget. Quis commodo odio aenean sed adipiscing. Turpis massa tincidunt dui ut ornare lectus. Auctor elit sed vulputate mi sit amet. Commodo consequat. Duis aute irure dolor in reprehenderit in voluptate id est laborum.</p>
 
@@ -104,7 +104,7 @@ function About() {
                     </div>
                 </div>
                 <section className="container mb-50 d-none d-md-block">
-                    <div className="row about-count">
+                    <div className="row about-count col-12 m-auto">
                         <div className="col-lg-1-5 col-md-6 text-center mb-lg-0 mb-md-5">
                             <h1 className="heading-1"><span className="count">12</span>+</h1>
                             <h4>Glorious years</h4>
