@@ -4,6 +4,8 @@ import Cat1Tab from "../elements/FeaturedTab";
 import Cat2Tab from "../elements/NewArrivalTab";
 import Cat3Tab from "../elements/TrendingTab";
 import Link from "next/link";
+import { fetchProduct } from "../../redux/action/product";
+import { toast } from "react-toastify";
 
 function CategoryTab() {
   const [active, setActive] = useState("1");
@@ -12,6 +14,7 @@ function CategoryTab() {
   const [cat2, setCat2] = useState([]);
   const [cat3, setCat3] = useState([]);
   const [loading, setLoading] = useState(true);
+  
   const catPAll = async () => {
     try {
       setLoading(true);
@@ -87,7 +90,33 @@ function CategoryTab() {
   useEffect(() => {
     catPAll();
   }, []);
+  const handleMedicineDelete = async (id) => {
+    // Display a confirmation dialog
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this medicine?"
+    );
 
+    if (!confirmed) {
+      // If the user cancels the confirmation, do nothing
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/medicine/delete?medicineId=${id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast.success("Medicine Deleted");
+      if(active === "1") catPAll();
+      if(active === "2") catP1();
+      if(active === "3") catP2();
+      if(active === "4") catP3();
+
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   return (
     <>
       <div className="section-title style-2 wow animate__animated animate__fadeIn">
@@ -140,7 +169,7 @@ function CategoryTab() {
             }
           >
             <div className="product-grid-4 row">
-              <Cat1Tab products={catAll} />
+              <Cat1Tab products={catAll} handleMedicineDelete={handleMedicineDelete}/>
             </div>
           </div>
 
@@ -150,7 +179,7 @@ function CategoryTab() {
             }
           >
             <div className="product-grid-4 row">
-              <Cat1Tab products={cat1} />
+              <Cat1Tab products={cat1} handleMedicineDelete={handleMedicineDelete}/>
             </div>
           </div>
 
@@ -160,7 +189,7 @@ function CategoryTab() {
             }
           >
             <div className="product-grid-4 row">
-              <Cat3Tab products={cat2} />
+              <Cat3Tab products={cat2} handleMedicineDelete={handleMedicineDelete}/>
             </div>
           </div>
           <div
@@ -169,7 +198,7 @@ function CategoryTab() {
             }
           >
             <div className="product-grid-4 row">
-              <Cat2Tab products={cat3} />
+              <Cat2Tab products={cat3} handleMedicineDelete={handleMedicineDelete}/>
             </div>
           </div>
         </div>
