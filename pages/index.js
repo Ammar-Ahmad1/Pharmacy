@@ -8,15 +8,51 @@ import Banner5 from "../components/elements/Banner5";
 import Bottom from "../components/elements/Bottom";
 import CategorySlider2 from "../components/sliders/Category2";
 import IntroPopup from "./../components/elements/IntroPopup";
-
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 
 function Index2() {
+
+    const [searchTerm, setSearchTerm] = useState("");
+    const router = useRouter();
+
+    const handleSearch = () => {
+        router.push({
+            pathname: "/products",
+            query: {
+                search: searchTerm,
+            },
+        });
+        setSearchTerm("");
+    };
+
+    const handleInput = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            handleSearch();
+        }
+    };
+
     return (
         <>
             {/* <IntroPopup /> */}
             <Layout noBreadcrumb="d-none" headerStyle="header-style-1">
-                <section className="home-slider style-2 position-relative mb-50">
+                <section className="home-slider style-2 position-relative mb-20">
                     <div className="container">
+                        <div className="mobile-search search-style-3 mobile-header-border col-10 m-auto mb-20 d-block d-lg-none">
+                            <form action="#">
+                                <input
+                                    value={searchTerm}
+                                    onKeyDown={handleInput}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    type="text"
+                                    placeholder="Search Products"
+                                />
+                                <button type="submit">
+                                    <i className="fi-rs-search"></i>
+                                </button>
+                            </form>
+                        </div>
                         <div className="row">
                             <div className="col-xl-8 col-lg-12">
                                 <div className="home-slide-cover">
@@ -57,6 +93,20 @@ function Index2() {
                 <section className="product-tabs section-padding position-relative">
                     <div className="container">
                         <div className="row">
+                            <div className="mobile-search search-style-3 mobile-header-border col-10 m-auto mb-20 d-block d-lg-none">
+                                <form action="#">
+                                    <input
+                                        value={searchTerm}
+                                        onKeyDown={handleInput}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        type="text"
+                                        placeholder="Search Products"
+                                    />
+                                    <button type="submit">
+                                        <i className="fi-rs-search"></i>
+                                    </button>
+                                </form>
+                            </div>
                             <div className="col-lg-12">
                                 <CategoryTab />
                             </div>
@@ -71,7 +121,7 @@ function Index2() {
 
                 <section className="section-padding pb-5">
                     <div className="container">
-                        <FetchTabSlider />
+                        {/* <FetchTabSlider /> */}
                     </div>
                 </section>
                 <Bottom />
