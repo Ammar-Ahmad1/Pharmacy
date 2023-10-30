@@ -18,7 +18,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
     // console.log(products);
 
     let Router = useRouter(),
-        searchTerm = Router.query.search,
+        searchingTerm = Router.query.search,
         showLimit = 12,
         showPagination = 4;
 
@@ -28,7 +28,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
     let [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        fetchProduct(searchTerm, "/api/medicine", productFilters);
+        fetchProduct(searchingTerm, "/api/medicine", productFilters);
         cratePagination();
     }, [productFilters, limit, pages, products.items.length]);
 
@@ -67,6 +67,28 @@ const Products = ({ products, productFilters, fetchProduct }) => {
         setCurrentPage(1);
         setPages(Math.ceil(products.items.length / Number(e.target.value)));
     };
+
+    const [searchTerm, setSearchTerm] = useState("");
+    const router = useRouter();
+
+    const handleSearch = () => {
+        router.push({
+            pathname: "/products",
+            query: {
+                search: searchTerm,
+            },
+        });
+        setSearchTerm("");
+    };
+
+    const handleInput = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            handleSearch();
+        }
+    };
+
+    
     return (
         <>
             <Layout noBreadcrumb="d-none">
@@ -76,6 +98,20 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                         <div className="row flex-row-reverse">
                             <div className="col-lg-4-5">
                                 <div className="shop-product-fillter">
+                                    <div className="mobile-search search-style-3 mobile-header-border col-10 m-auto mb-20 d-block d-lg-none">
+                                        <form action="#">
+                                            <input
+                                                value={searchTerm}
+                                                onKeyDown={handleInput}
+                                                onChange={(e) => setSearchTerm(e.target.value)}
+                                                type="text"
+                                                placeholder="Search Products"
+                                            />
+                                            <button type="submit">
+                                                <i className="fi-rs-search"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                     <div className="totall-product">
                                         <p>
                                             We found
