@@ -32,7 +32,7 @@ const ThumbSlider = ({ product }) => {
       <Swiper
         onSwiper={setThumbsSwiper}
         spaceBetween={10}
-        slidesPerView={4}
+        slidesPerView={6}
         freeMode={true}
         watchSlidesProgress={true}
         className="mySwiper"

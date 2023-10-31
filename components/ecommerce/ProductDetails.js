@@ -72,10 +72,10 @@ const ProductDetails = ({
             <div className="col-xl-10 col-lg-12 m-auto">
               <div className="product-detail accordion-detail">
                 <div className="row mb-50  mt-30">
-                  <div className="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
+                  <div className="col-md-4 m-auto col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
                     <div className="detail-gallery">
                       <span className="zoom-icon">
-                        {/* <i className="fi-rs-search"></i> */}
+                        <i className="fi-rs-search"></i>
                       </span>
 
                       <div className="product-image-slider">
