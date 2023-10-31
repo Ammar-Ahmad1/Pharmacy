@@ -9,7 +9,7 @@ function Account() {
   const router = useRouter();
   // displaying slug
   const [name, setName] = useState("");
-  const slug = name.toLowerCase().replace(/\s+/g, "-");
+  const slug = name.toLowerCase().replace(/[\/\s]+/g, "-");
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -267,18 +267,13 @@ function Account() {
 
     if (
       !name ||
-      !slug ||
       !company ||
       !type ||
       !selectedCategory ||
-      !inputValue ||
-      !use ||
-      !sideEffect ||
       !price ||
       !fileBase64 ||
       !fileBase641 ||
-      !stock ||
-      !discount
+      !stock
     ) {
       toast.error("Please fill in all mandatory fields.");
       return; // Exit the function if any field is empty
@@ -389,7 +384,7 @@ function Account() {
                                     <span className="required">*</span>
                                   </label>
                                   <input
-                                    required=""
+                                    required
                                     className="form-control"
                                     name="Company"
                                     onChange={(e) => setCompany(e.target.value)}
@@ -514,9 +509,7 @@ function Account() {
                                   )}
                                 </div>
                                 <div>
-                                  <label>
-                                    Upload Second Image <span className="required">*</span>
-                                  </label>
+                                  <label>Upload Second Image *</label>
                                   <input
                                     type="file"
                                     // onChange={handleFileChange}
@@ -539,7 +532,6 @@ function Account() {
                                     Salt <span className="required">*</span>
                                   </label>
                                   <input
-                                    required=""
                                     className="form-control"
                                     name="salt"
                                     onChange={handleInputSalt}
@@ -550,9 +542,9 @@ function Account() {
                                   <label>
                                     Usage <span className="required">*</span>
                                   </label>
-                                  <input
-                                    required=""
+                                  <textarea
                                     className="form-control"
+                                    rows={"4"}
                                     name="use"
                                     onChange={(e) => setUse(e.target.value)}
                                   />
@@ -569,7 +561,6 @@ function Account() {
                                     }`}
                                   </style>
                                   <textarea
-                                    required=""
                                     className="form-control"
                                     rows="4"
                                     name="SideEffect"
@@ -601,7 +592,6 @@ function Account() {
                                   </label>
                                   <input
                                     type="number"
-                                    required=""
                                     className="form-control"
                                     name="discount"
                                     onChange={handleDiscount}

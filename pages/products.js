@@ -88,7 +88,6 @@ const Products = ({ products, productFilters, fetchProduct }) => {
         }
     };
 
-    
     return (
         <>
             <Layout noBreadcrumb="d-none">
@@ -111,6 +110,20 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                                 <i className="fi-rs-search"></i>
                                             </button>
                                         </form>
+                                    </div>
+                                    <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                                        <nav aria-label="Page navigation example">
+                                            <Pagination
+                                                getPaginationGroup={
+                                                    getPaginationGroup
+                                                }
+                                                currentPage={currentPage}
+                                                pages={pages}
+                                                next={next}
+                                                prev={prev}
+                                                handleActive={handleActive}
+                                            />
+                                        </nav>
                                     </div>
                                     <div className="totall-product">
                                         <p>
