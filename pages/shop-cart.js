@@ -100,6 +100,7 @@ const Cart = ({
                               src={
                                 item.images ? item.images[0]?.img : item.image
                               }
+                              loading="lazy"
                             />
                           </td>
 

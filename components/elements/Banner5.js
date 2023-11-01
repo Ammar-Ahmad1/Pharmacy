@@ -8,7 +8,7 @@ const Banner5 = () => {
                     className="banner-img wow animate__animated animate__fadeInUp"
                     data-wow-delay="0"
                 >
-                    <img src="/assets/imgs/banner/banner-1.png" alt="nest" />
+                    <img src="/assets/imgs/banner/banner-1.png" alt="nest" loading="lazy"/>
                     <div className="banner-text">
                         <h4>
                             Everyday Fresh & <br />
@@ -27,7 +27,7 @@ const Banner5 = () => {
                     className="banner-img wow animate__animated animate__fadeInUp"
                     data-wow-delay=".2s"
                 >
-                    <img src="/assets/imgs/banner/banner-2.png" alt="nest" />
+                    <img src="/assets/imgs/banner/banner-2.png" alt="nest" loading="lazy"/>
                     <div className="banner-text">
                         <h4>
                             Make your Breakfast
@@ -45,7 +45,7 @@ const Banner5 = () => {
                     className="banner-img mb-sm-0 wow animate__animated animate__fadeInUp"
                     data-wow-delay=".4s"
                 >
-                    <img src="/assets/imgs/banner/banner-3.png" alt="nest" />
+                    <img src="/assets/imgs/banner/banner-3.png" alt="nest" loading="lazy"/>
                     <div className="banner-text">
                         <h4>
                             The best Organic <br />

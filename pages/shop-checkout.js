@@ -968,6 +968,7 @@ const Cart = ({
                                   item.images ? item.images[0]?.img : item.image
                                 }
                                 alt="#"
+                                loading="lazy"
                               />
                             </td>
                             <td>

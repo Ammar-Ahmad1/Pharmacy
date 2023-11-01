@@ -145,7 +145,7 @@ const BlogGrid = ({ show, wide }) => {
                 <article className={wide ? "col-xl-3 col-lg-4 col-md-6 text-center hover-up mb-30 animated" : "col-xl-4 col-lg-6 col-md-6 text-center hover-up mb-30 animated"} key={i}>
                     <div className="post-thumb">
                         <Link href="/blog-post-right">
-                            <img className="border-radius-15" src={`/assets/imgs/blog/${item.img}`} alt="nest" />
+                            <img className="border-radius-15" src={`/assets/imgs/blog/${item.img}`} alt="nest" loading="lazy"/>
                         </Link>
                         <div className="entry-meta">
                             <Link href="/blog-category-grid" className="entry-meta meta-2">

@@ -82,7 +82,7 @@ const CategorySlider2 = () => {
                         <div className="card-1">
                             <figure className=" img-hover-scale overflow-hidden">
                                 <Link href="/shop-grid-right">
-                                    <img src={`assets/imgs/theme/icons/${item.img}`} alt="nest" />
+                                    <img src={`assets/imgs/theme/icons/${item.img}`} alt="nest" loading="lazy"/>
                                 </Link>
                             </figure>
                             <h6>

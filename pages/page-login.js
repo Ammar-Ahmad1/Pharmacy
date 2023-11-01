@@ -89,6 +89,7 @@ function Login() {
                       className="border-radius-15"
                       src="assets/imgs/page/login-1.png"
                       alt="nest"
+                      loading="lazy"
                     />
                   </div>
                   <div className="col-lg-6 col-md-8">

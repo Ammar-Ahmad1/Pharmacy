@@ -28,6 +28,7 @@ const CategoryProduct = ({ updateProductCategory }) => {
                         <img
                             src="/assets/imgs/theme/icons/category-1.svg"
                             alt="nest"
+                            loading="lazy"
                         />
                         Milks & Dairies
                     </a>
@@ -38,6 +39,7 @@ const CategoryProduct = ({ updateProductCategory }) => {
                         <img
                             src="/assets/imgs/theme/icons/category-2.svg"
                             alt="nest"
+                            loading="lazy"
                         />
                         Clothing
                     </a>
@@ -48,6 +50,7 @@ const CategoryProduct = ({ updateProductCategory }) => {
                         <img
                             src="/assets/imgs/theme/icons/category-3.svg"
                             alt="nest"
+                            loading="lazy"
                         />
                         Pet Foods{" "}
                     </a>

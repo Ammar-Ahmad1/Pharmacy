@@ -50,6 +50,7 @@ const BrandSlider = () => {
                                 className="img-grey-hover"
                                 src={`assets/imgs/banner/${item.img}`}
                                 alt="nest"
+                                loading="lazy"
                             />
                         </div>
                     </SwiperSlide>

@@ -57,6 +57,7 @@ const Wishlist = ({
                                                                     }
                                                                     alt="nest"
                                                                     className="img-fluid"
+                                                                    loading="lazy"
                                                                 />
                                                             </td>
 

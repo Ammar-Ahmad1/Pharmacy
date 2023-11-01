@@ -113,11 +113,7 @@ function Index2() {
                         </div>
                     </div>
                 </section>
-                {/* <section className="banner-2 section-padding pb-0">
-                    <div className="container">
-                        <Banner2 />
-                    </div>
-                </section> */}
+                
 
                 <section className="section-padding pb-5">
                     <div className="container">

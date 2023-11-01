@@ -154,7 +154,7 @@ const ProductTab = ({product}) => {
                     </div>
                     <div className={activeIndex === 3 ? "tab-pane fade show active" : "tab-pane fade"} id="Reviews">
                         <div className="vendor-logo d-flex mb-30">
-                            <img src="/assets/imgs/vendor/vendor-18.svg" alt="nest" />
+                            <img src="/assets/imgs/vendor/vendor-18.svg" alt="nest" loading="lazy"/>
                             <div className="vendor-name ml-15">
                                 <h6>
                                     <a href="vendor-details-2.html">Noodles Co.</a>
@@ -169,11 +169,11 @@ const ProductTab = ({product}) => {
                         </div>
                         <ul className="contact-infor mb-50">
                             <li>
-                                <img src="/assets/imgs/theme/icons/icon-location.svg" alt="nest" />
+                                <img src="/assets/imgs/theme/icons/icon-location.svg" alt="nest" loading="lazy"/>
                                 <strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span>
                             </li>
                             <li>
-                                <img src="/assets/imgs/theme/icons/icon-contact.svg" alt="nest" />
+                                <img src="/assets/imgs/theme/icons/icon-contact.svg" alt="nest" loading="lazy"/>
                                 <strong>Contact Seller:</strong>
                                 <span>(+91) - 540-025-553</span>
                             </li>
@@ -203,7 +203,7 @@ const ProductTab = ({product}) => {
                                         <div className="single-comment justify-content-between d-flex">
                                             <div className="user justify-content-between d-flex">
                                                 <div className="thumb text-center">
-                                                    <img src="/assets/imgs/blog/author-2.png" alt="nest" />
+                                                    <img src="/assets/imgs/blog/author-2.png" alt="nest" loading="lazy"/>
                                                     <h6>
                                                         <a href="#">Jacky Chan</a>
                                                     </h6>
@@ -235,7 +235,7 @@ const ProductTab = ({product}) => {
                                         <div className="single-comment justify-content-between d-flex">
                                             <div className="user justify-content-between d-flex">
                                                 <div className="thumb text-center">
-                                                    <img src="/assets/imgs/blog/author-3.png" alt="nest" />
+                                                    <img src="/assets/imgs/blog/author-3.png" alt="nest" loading="lazy"/>
                                                     <h6>
                                                         <a href="#">Ana Rosie</a>
                                                     </h6>

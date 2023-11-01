@@ -47,6 +47,7 @@ const BannerFeatures = () => {
                         <img
                             src={`assets/imgs/theme/icons/${item.img}`}
                             alt="nest"
+                            loading="lazy"
                         />
                         <h4 className={item.color}>{item.title}</h4>
                     </div>

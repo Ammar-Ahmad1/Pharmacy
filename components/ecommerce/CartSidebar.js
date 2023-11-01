@@ -63,6 +63,7 @@ const CartSidebar = ({
                                             }}
                                             className="align-self-center mr-2"
                                             alt="nest"
+                                            loading="lazy"
                                         />
                                         <div>
                                             <h6 className="mb-0">

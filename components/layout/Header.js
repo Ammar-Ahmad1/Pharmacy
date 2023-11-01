@@ -167,7 +167,7 @@ const Header = ({
             <div className="header-wrap">
               <div className="logo logo-width-2">
                 <Link href="/">
-                  <img src="/assets/imgs/oxygenGreen.svg" alt="logo" />
+                  <img src="/assets/imgs/oxygenGreen.svg" alt="logo" loading="lazy"/>
                 </Link>
               </div>
               <div className="header-right mx-4">
@@ -198,6 +198,7 @@ const Header = ({
                           className="svgInject"
                           alt="Evara"
                           src="/assets/imgs/theme/icons/icon-compare.svg"
+                          loading="lazy"
                         />
                         <span className="pro-count blue">
                           {totalCompareItems}
@@ -219,6 +220,7 @@ const Header = ({
                           className="svgInject"
                           alt="Evara"
                           src="/assets/imgs/theme/icons/icon-heart.svg"
+                          loading="lazy"
                         />
                         <span className="pro-count blue">
                           {totalWishlistItems}
@@ -239,6 +241,7 @@ const Header = ({
                         <img
                           alt="Evara"
                           src="/assets/imgs/theme/icons/icon-cart.svg"
+                          loading="lazy"
                         />
                         <span className="pro-count blue">{totalCartItems}</span>
                       </Link>
@@ -254,6 +257,7 @@ const Header = ({
                             className="svgInject"
                             alt="Nest"
                             src="/assets/imgs/theme/icons/icon-user.svg"
+                            loading="lazy"
                           />
                         </Link>
                         <Link href="/page-account">
@@ -342,7 +346,7 @@ const Header = ({
             <div className="header-wrap header-space-between position-relative">
               <div className="logo logo-width-1 d-block d-lg-none">
                 <Link href="/">
-                  <img src="/assets/imgs/oxygenGreen.svg" alt="logo" />
+                  <img src="/assets/imgs/oxygenGreen.svg" alt="logo" loading="lazy"/>
                 </Link>
               </div>
               <div className="header-nav d-none d-lg-flex">
@@ -376,6 +380,7 @@ const Header = ({
                         <img
                           src="/assets/imgs/theme/icons/icon-hot.svg"
                           alt="hot deals"
+                          loading="lazy"
                         />
                         <Link href="/products">Hot Deals</Link>
                       </li>
@@ -436,6 +441,7 @@ const Header = ({
                 <img
                   src="/assets/imgs/theme/icons/icon-headphone.svg"
                   alt="hotline"
+                  loading="lazy"
                 />
 
                 <p>
@@ -461,6 +467,7 @@ const Header = ({
                       <img
                         alt="Evara"
                         src="/assets/imgs/theme/icons/icon-heart.svg"
+                        loading="lazy"
                       />
                       <span className="pro-count white">
                         {totalWishlistItems}
@@ -472,6 +479,7 @@ const Header = ({
                       <img
                         alt="Evara"
                         src="/assets/imgs/theme/icons/icon-cart.svg"
+                        loading="lazy"
                       />
                       <span className="pro-count white">{totalCartItems}</span>
                     </Link>

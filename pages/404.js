@@ -10,7 +10,7 @@ function Custom404() {
                             <div className="row">
                                 <div className="col-xl-8 col-lg-10 col-md-12 m-auto text-center">
                                     <p className="mb-20">
-                                        <img src="assets/imgs/page/page-404.png" alt="nest" className="hover-up" />
+                                        <img src="assets/imgs/page/page-404.png" alt="nest" className="hover-up" loading="lazy"/>
                                     </p>
                                     <h1 className="display-2 mb-30">Page Not Found</h1>
                                     <p className="font-lg text-grey-700 mb-30">

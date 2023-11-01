@@ -28,7 +28,7 @@ const BestSellerSlider = () => {
                 <article className="row align-items-center hover-up" key={i}>
                     <figure className="col-md-4 mb-0">
                         <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-                            <img src={product.images?product.images[0].img:product.image} alt="nest" />
+                            <img src={product.images?product.images[0].img:product.image} alt="nest" loading="lazy"/>
                         </Link>
                     </figure>
                     <div className="col-md-8 mb-0">
