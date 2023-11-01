@@ -4,7 +4,7 @@ const Banner6 = () => {
     return (
         <>
             <div className="banner-img wow fadeIn mb-45mb-lg-0 animated d-lg-block d-none">
-                <img src="/assets/imgs/banner/banner-11.jpg" alt="nest" />
+                <img src="/assets/imgs/banner/banner-11.jpg" alt="nest" loading="lazy"/>
                 <div className="banner-text">
                     <span>Women Zone</span>
                     <h4>

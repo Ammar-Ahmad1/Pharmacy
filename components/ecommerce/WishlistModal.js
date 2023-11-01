@@ -57,6 +57,7 @@ const WishlistModal = ({
                                                 alt="nest"
                                                 className="img-fluid"
                                                 width="70"
+                                                loading="lazy"
                                             />
                                         </td>
 

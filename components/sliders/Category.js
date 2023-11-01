@@ -127,7 +127,7 @@ const CategorySlider = () => {
                         <div className={`card-2 ${item.bg} wow animate__animated animate__fadeInUp`} onClick={(e) => selectCategory(e, item.slug)}>
                             <figure className=" img-hover-scale overflow-hidden">
                                 <a>
-                                    <img src={`assets/imgs/shop/${item.img}`} alt="nest" />
+                                    <img src={`assets/imgs/shop/${item.img}`} alt="nest" loading="lazy"/>
                                 </a>
                             </figure>
                             <h6>

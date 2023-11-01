@@ -16,7 +16,7 @@ const Deals1 = ({ product, addToCart }) => {
                 <div className="product-img-action-wrap">
                     <div className="product-img">
                         <Link href="/products">
-                            <img src={product.discount.banner} alt="nest" />
+                            <img src={product.discount.banner} alt="nest" loading="lazy"/>
                         </Link>
                     </div>
                 </div>

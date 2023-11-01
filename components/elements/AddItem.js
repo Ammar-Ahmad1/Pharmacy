@@ -510,6 +510,7 @@ function Account() {
                                         maxWidth: "200px",
                                         marginTop: "10px",
                                       }}
+                                      loading="lazy"
                                     />
                                   )}
                                 </div>
@@ -531,6 +532,7 @@ function Account() {
                                         maxWidth: "200px",
                                         marginTop: "10px",
                                       }}
+                                      loading="lazy"
                                     />
                                   )}
                                 </div>

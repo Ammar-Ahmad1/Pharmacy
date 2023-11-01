@@ -31,8 +31,8 @@ const SingleProductList = ({ product, addToCart, addToCompare, addToWishlist, op
                         <div className="product-img product-img-zoom">
                             <div className="product-img-inner">
                                 <Link href="/[id]" as={`/${product._id}`}>
-                                    <img className="default-img" src={product.images?product.images[0].img: product.image} alt="nest" />
-                                    <img className="hover-img" src={product.images?product.images[1].img: product.image} alt="nest" />
+                                    <img className="default-img" src={product.images?product.images[0].img: product.image} alt="nest" loading="lazy"/>
+                                    <img className="hover-img" src={product.images?product.images[1].img: product.image} alt="nest" loading="lazy"/>
                                 </Link>
                             </div>
                         </div>

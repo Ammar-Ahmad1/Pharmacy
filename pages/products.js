@@ -272,6 +272,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                     <img
                                         src="/assets/imgs/banner/banner-11.png"
                                         alt="nest"
+                                        loading="lazy"
                                     />
                                     <div className="banner-text">
                                         <span>Oganic</span>

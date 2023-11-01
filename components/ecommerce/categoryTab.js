@@ -156,12 +156,6 @@ function CategoryTab() {
           </li>
         </ul>
       </div>
-
-      {/* {loading ? (
-        <div className="text-center">
-          <img src="/assets/imgs/theme/loading2.gif" alt="loading" />
-        </div>
-      ) : ( */}
         <div className="tab-content wow fadeIn animated">
           <div
             className={
@@ -202,7 +196,6 @@ function CategoryTab() {
             </div>
           </div>
         </div>
-      {/* )} */}
     </>
   );
 }

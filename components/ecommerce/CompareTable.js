@@ -24,7 +24,9 @@ const CompareTable = ({ data, features, deleteFromCompare, addToCart }) => {
                         {data.map((product) =>
                             feature == "preview" ? (
                                 <td className="row_img">
-                                    <img src={product.images ?  product.images[0]?.img: "https://lh3.googleusercontent.com/a/AAcHTtci6RJekFINCdibq0iNLKa9rfOSIFl04lh86s2ITxUu=s96-c"} />
+                                    <img src={product.images ?  product.images[0]?.img: "https://lh3.googleusercontent.com/a/AAcHTtci6RJekFINCdibq0iNLKa9rfOSIFl04lh86s2ITxUu=s96-c"} 
+                                        loading="lazy"
+                                    />
                                 </td>
                             ) : feature == "name" ? (
                                 <td className="product_name">

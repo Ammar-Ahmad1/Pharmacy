@@ -22,7 +22,7 @@ function Guide() {
                                             </div>
                                         </div>
                                         <figure className="border-radius-15 mb-30">
-                                            <img className="border-radius-15" src="assets/imgs/page/guide-1.png" alt="nest" />
+                                            <img className="border-radius-15" src="assets/imgs/page/guide-1.png" alt="nest" loading="lazy"/>
                                         </figure>
                                         <div className="single-content mb-50">
                                             <h3>1. Account Registering</h3>

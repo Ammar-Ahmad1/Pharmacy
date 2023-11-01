@@ -5,7 +5,7 @@ const Banner3 = () => {
         <>
             <div className="col-md-6">
                 <div className="banner-img banner-1 wow fadeIn animated">
-                    <img src="/assets/imgs/banner/banner-5.jpg" alt="nest" />
+                    <img src="/assets/imgs/banner/banner-5.jpg" alt="nest" loading="lazy"/>
                     <div className="banner-text">
                         <span>Accessories</span>
                         <h4>
@@ -20,7 +20,7 @@ const Banner3 = () => {
             </div>
             <div className="col-md-6">
                 <div className="banner-img mb-15 wow fadeIn animated">
-                    <img src="/assets/imgs/banner/banner-6.jpg" alt="nest" />
+                    <img src="/assets/imgs/banner/banner-6.jpg" alt="nest" loading="lazy"/>
                     <div className="banner-text">
                         <span>Big Offer</span>
                         <h4>
@@ -33,7 +33,7 @@ const Banner3 = () => {
                     </div>
                 </div>
                 <div className="banner-img banner-2 wow fadeIn animated">
-                    <img src="/assets/imgs/banner/banner-7.jpg" alt="nest" />
+                    <img src="/assets/imgs/banner/banner-7.jpg" alt="nest" loading="lazy"/>
                     <div className="banner-text">
                         <span>Smart Offer</span>
                         <h4>

@@ -34,6 +34,7 @@ const Footer = () => {
                                     <img
                                         src="/assets/imgs/banner/banner-9.png"
                                         alt="newsletter"
+                                        loading="lazy"
                                     />
                                 </div>
                             </div>
@@ -52,6 +53,7 @@ const Footer = () => {
                                         <img
                                             src="/assets/imgs/theme/icons/icon-1.svg"
                                             alt="nest"
+                                            loading="lazy"
                                         />
                                     </div>
                                     <div className="banner-text">
@@ -71,6 +73,7 @@ const Footer = () => {
                                         <img
                                             src="/assets/imgs/theme/icons/icon-2.svg"
                                             alt="nest"
+                                            loading="lazy"
                                         />
                                     </div>
                                     <div className="banner-text">
@@ -90,6 +93,7 @@ const Footer = () => {
                                         <img
                                             src="/assets/imgs/theme/icons/icon-3.svg"
                                             alt="nest"
+                                            loading="lazy"
                                         />
                                     </div>
                                     <div className="banner-text">
@@ -109,6 +113,7 @@ const Footer = () => {
                                         <img
                                             src="/assets/imgs/theme/icons/icon-4.svg"
                                             alt="nest"
+                                            loading="lazy"
                                         />
                                     </div>
                                     <div className="banner-text">
@@ -128,6 +133,7 @@ const Footer = () => {
                                         <img
                                             src="/assets/imgs/theme/icons/icon-5.svg"
                                             alt="nest"
+                                            loading="lazy"
                                         />
                                     </div>
                                     <div className="banner-text">
@@ -147,6 +153,7 @@ const Footer = () => {
                                         <img
                                             src="/assets/imgs/theme/icons/icon-6.svg"
                                             alt="nest"
+                                            loading="lazy"
                                         />
                                     </div>
                                     <div className="banner-text">
@@ -173,6 +180,7 @@ const Footer = () => {
                                             <img
                                                 src="/assets/imgs/oxygenGreen.svg"
                                                 alt="logo"
+                                                loading="lazy"
                                             />
                                         </Link>
                                         <p className="font-lg text-heading">
@@ -184,6 +192,7 @@ const Footer = () => {
                                             <img
                                                 src="/assets/imgs/theme/icons/icon-location.svg"
                                                 alt="nest"
+                                                loading="lazy"
                                             />
                                             <strong>Address: </strong>{" "}
                                             <span>
@@ -194,6 +203,7 @@ const Footer = () => {
                                             <img
                                                 src="/assets/imgs/theme/icons/icon-contact.svg"
                                                 alt="nest"
+                                                loading="lazy"
                                             />
                                             <strong>Call Us:</strong>
                                             <span>(+91) - 540-025-124553</span>
@@ -202,6 +212,7 @@ const Footer = () => {
                                             <img
                                                 src="/assets/imgs/theme/icons/icon-email-2.svg"
                                                 alt="nest"
+                                                loading="lazy"
                                             />
                                             <strong>Email:</strong>
                                             <span>sales@oxygenPharma.com</span>
@@ -210,6 +221,7 @@ const Footer = () => {
                                             <img
                                                 src="/assets/imgs/theme/icons/icon-clock.svg"
                                                 alt="nest"
+                                                loading="lazy"
                                             />
                                             <strong>Hours:</strong>
                                             <span>
@@ -288,12 +300,14 @@ const Footer = () => {
                                                         className="active"
                                                         src="/assets/imgs/theme/app-store.jpg"
                                                         alt="nest"
+                                                        loading="lazy"
                                                     />
                                                 </a>
                                                 <a href="#" className="hover-up mb-sm-2">
                                                     <img
                                                         src="/assets/imgs/theme/google-play.jpg"
                                                         alt="nest"
+                                                        loading="lazy"
                                                     />
                                                 </a>
                                             </div>
@@ -302,6 +316,7 @@ const Footer = () => {
                                                 className=""
                                                 src="/assets/imgs/theme/payment-method.png"
                                                 alt="nest"
+                                                loading="lazy"
                                             />
                                         </div>
                                     </div>

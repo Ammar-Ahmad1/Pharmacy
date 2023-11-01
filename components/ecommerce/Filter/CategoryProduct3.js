@@ -36,6 +36,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                             src="/assets/imgs/icons/svg/negative/conditions/allergies.svg"
                             alt="bacteria"
                             className="rounded"
+                            loading="lazy"
                         />
                         Dermatologicals
                     </a>
@@ -47,6 +48,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                             src="/assets/imgs/icons/svg/negative/body/eye.svg"
                             alt="eye"
                             className="rounded"
+                            loading="lazy"
                         />
                         Eyes , Nose , Ear
                     </a>
@@ -58,6 +60,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                             src="/assets/imgs/icons/svg/negative/devices/syringe-vaccine.svg"
                             alt="prescription drugs"
                             className="rounded"
+                            loading="lazy"
                         />
                         Prescription Drugs
                     </a>
@@ -69,6 +72,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                             src="/assets/imgs/icons/svg/negative/devices/stethoscope.svg"
                             alt="equipment"
                             className="rounded"
+                            loading="lazy"
                         />
                         Medical Equipment
                     </a>
@@ -80,6 +84,7 @@ const CategoryProduct3 = ({ updateProductCategory }) => {
                             src="/assets/imgs/icons/svg/negative/body/enzyme.svg"
                             alt="others"
                             className="rounded"
+                            loading="lazy"
                         />
                         Others
                     </a>

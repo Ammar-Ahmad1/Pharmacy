@@ -9,6 +9,7 @@ const BlogFilter = () => {
                                                 className="w-36px mr-10"
                                                 src="/assets/imgs/theme/icons/category-1.svg"
                                                 alt="nest"
+                                                loading="lazy"
                                             />
                                             Recips Articles
                                         </h2>

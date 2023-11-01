@@ -151,7 +151,7 @@ const BlogGridBig = ({ show }) => {
                         </span>
                         <div className="post-thumb border-radius-15">
                             <Link href="/blog-post-right">
-                                <img className="border-radius-15" src={`/assets/imgs/blog/${item.img}`} alt="nest" />
+                                <img className="border-radius-15" src={`/assets/imgs/blog/${item.img}`} alt="nest" loading="lazy"/>
                             </Link>
                         </div>
                     </div>

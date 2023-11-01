@@ -59,12 +59,14 @@ const SingleProduct = ({
                 className="default-img"
                 src={product.image[0]}
                 alt="nest"
+                loading="lazy"
               />
 
               <img
                 className="hover-img"
                 src={product.image[1]}
                 alt="nest"
+                loading="lazy"
               />
             </Link>
           </div>

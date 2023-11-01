@@ -36,6 +36,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/icons/svg/negative/body/bacteria.svg"
                             alt="bacteria"
                             className="rounded"
+                            loading="lazy"
                         />
                         Anti Infective
                     </a>
@@ -47,6 +48,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/icons/svg/negative/body/neurology.svg"
                             alt="antiepileptic"
                             className="rounded"
+                            loading="lazy"
                         />
                         Anti Epileptic
                     </a>
@@ -58,6 +60,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/icons/svg/negative/medications/medicines.svg"
                             alt="medicines"
                             className="rounded"
+                            loading="lazy"
                         />
                         Anti Depressant
                     </a>
@@ -69,6 +72,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/icons/svg/negative/body/liver.svg"
                             alt="metabolism"
                             className="rounded"
+                            loading="lazy"
                         />
                         Alimentary Tract & Metabolism
                     </a>
@@ -79,6 +83,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
                             src="/assets/imgs/icons/svg/negative/body/heart.svg"
                             alt="cardio"
                             className="rounded"
+                            loading="lazy"
                         />
                         Cardio Vascular System
                     </a>
