@@ -418,6 +418,9 @@ const Header = ({
                             <Link href="/page-register">Register</Link>
                           </li>
                           <li>
+                            <Link href="/add-item">Add Item</Link>
+                          </li>
+                          <li>
                             <Link href="/page-privacy-policy">
                               Privacy Policy
                             </Link>

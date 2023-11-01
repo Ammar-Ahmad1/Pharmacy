@@ -51,7 +51,7 @@ const SingleProduct = ({
   };
   return (
     <>
-      <div className="product-cart-wrap mb-30">
+      <div className="product-cart-wrap d-flex flex-column justify-content-between mb-30">
         <div className="product-img-action-wrap">
           <div className="product-img product-img-zoom">
             <Link href="/products/[slug]" as={`/products/${product.slug}`}>
@@ -168,7 +168,7 @@ const SingleProduct = ({
               <a className="add" onClick={(e) => handleCart(product)}
               
               >
-                <i className="fi-rs-shopping-cart mr-5"></i>Add
+                <i className="fi-rs-shopping-cart mr-5"></i><span className="d-none d-md-inline">Add</span>
               </a>
             </div>
           </div>

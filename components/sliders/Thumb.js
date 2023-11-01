@@ -40,13 +40,13 @@ const ThumbSlider = ({ product }) => {
        
         {product.gallery ? (
           product.gallery.map((item, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={index} className="border border-5 border-black">
               <img src={item.thumb} alt={item.alt} />
             </SwiperSlide>
           ))
         ) : (
           product.image.map((image, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={index} className="border border-5 border-black">
               <img src={image} alt={product.alt} />
             </SwiperSlide>
           )))}
