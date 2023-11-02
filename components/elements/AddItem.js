@@ -149,7 +149,7 @@ function Account() {
   const handleFileChange = (selectedFile) => {
     setSelectedFile(selectedFile);
     const maxSize = 50000; // Maximum file size in bytes (50KB)
-    
+
     if (selectedFile?.size <= maxSize) {
       // The selected file is already within the size limit, no further compression needed
       setFile(selectedFile);
@@ -171,7 +171,7 @@ function Account() {
           const maxHeight = 500;
           let width = image.width;
           let height = image.height;
-          
+
           if (width > maxWidth || height > maxHeight) {
             if (width / maxWidth > height / maxHeight) {
               width = maxWidth;
@@ -181,12 +181,12 @@ function Account() {
               width = (image.width / image.height) * maxHeight;
             }
           }
-  
+
           canvas.width = width;
           canvas.height = height;
           const ctx = canvas.getContext('2d');
           ctx.drawImage(image, 0, 0, width, height);
-  
+
           canvas.toBlob((blob) => {
             const compressedFile = new File([blob], selectedFile.name, { type: 'image/jpeg' });
             setFile(compressedFile);
@@ -203,11 +203,11 @@ function Account() {
       fileReader.readAsDataURL(selectedFile);
     }
   };
-  
+
   const handleFileChange1 = (selectedFile1) => {
     setSelectedFile1(selectedFile1);
     const maxSize = 50000; // Maximum file size in bytes (50KB)
-  
+
     if (selectedFile1?.size <= maxSize) {
       // The selected file is already within the size limit, no further compression needed
       setFile1(selectedFile1);
@@ -229,7 +229,7 @@ function Account() {
           const maxHeight = 500;
           let width = image.width;
           let height = image.height;
-  
+
           if (width > maxWidth || height > maxHeight) {
             if (width / maxWidth > height / maxHeight) {
               width = maxWidth;
@@ -239,12 +239,12 @@ function Account() {
               width = (image.width / image.height) * maxHeight;
             }
           }
-  
+
           canvas.width = width;
           canvas.height = height;
           const ctx = canvas.getContext('2d');
           ctx.drawImage(image, 0, 0, width, height);
-  
+
           canvas.toBlob((blob) => {
             const compressedFile = new File([blob], selectedFile1.name, { type: 'image/jpeg' });
             setFile1(compressedFile);
@@ -261,7 +261,7 @@ function Account() {
       fileReader.readAsDataURL(selectedFile1);
     }
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -336,7 +336,7 @@ function Account() {
     } catch (err) {
       console.log(err);
 
-    }finally{
+    } finally {
       setLoading(false);
     }
 
@@ -345,13 +345,13 @@ function Account() {
   return (
     <>
       <Layout parent="Home" sub="Pages" subChild="AddItem">
-        <div className="page-content pt-150 pb-150" id="addItem">
+        <div className="page-content pt-lg-150 pb-lg-150 pt-4 pb-50" id="addItem">
           <div className="container">
             <div className="row">
               <div className="col-lg-10 m-auto">
                 <div className="row">
                   <div className="col-md-9">
-                    <div className="tab-content account dashboard-content pl-50">
+                    <div className="tab-content account dashboard-content pl-lg-50">
                       <div>
                         <div className="card">
                           <div className="card-header">
@@ -423,7 +423,7 @@ function Account() {
 
                                 <div className="form-group flex col-md-12">
                                   <label>
-                                    Type <span className="required">*</span>
+                                    Type of Medicine <span className="required">*</span>
                                   </label>
                                   <div className="dropdown col-md-2 ms-2">
                                     <span
@@ -450,6 +450,60 @@ function Account() {
                                     </ul>
                                   </div>
                                 </div>
+
+                                {
+                                  type === "Tablet/Capsules" &&
+                                  <div className="container mt-2 mb-4">
+                                    <div className="d-lg-flex align-items-center gap-2">
+                                      <div className="col-md-4">
+                                        <div className="form-group">
+                                          <label>Tablets on Strip:</label>
+                                          <input
+                                            type="number"
+                                            className="form-control"
+                                            value={tabletsOnStrip}
+                                            onChange={(e) =>
+                                              setTabletsOnStrip(e.target.value)
+                                            }
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="col-md-4">
+                                        <div className="form-group">
+                                          <label>Strips in Box:</label>
+                                          <input
+                                            type="number"
+                                            className="form-control"
+                                            value={stripsInBox}
+                                            onChange={(e) =>
+                                              setStripsInBox(e.target.value)
+                                            }
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="mt-2">
+                                        <button
+                                          className="btn btn-fill-out submit font-weight-bold"
+                                          onClick={handleAddMedicineStrip}
+                                        >
+                                          Add
+                                        </button>
+                                      </div>
+                                    </div>
+
+                                    <div className="mb-3">
+                                      <ul>
+                                        {medicineStrips.map((strip, index) => (
+                                          <li key={index}>
+                                            Tablets on Strip:{" "}
+                                            {strip.tabletsOnStrip}, Strips in Box:{" "}
+                                            {strip.stripsInBox}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  </div>
+                                }
 
                                 {/* <div className="form-group col-md-12">
                                   <div className="d-flex col-md-6">
@@ -487,47 +541,49 @@ function Account() {
                                 </div> */}
 
                                 {/* <ImageUpload /> */}
-                                <div>
-                                  <label>
-                                    Upload Image <span className="required">*</span>
-                                  </label>
-                                  <input
-                                    type="file"
-                                    // onChange={handleFileChange}
-                                    className="pt-3"
-                                    onChange={(e) => handleFileChange(e.target.files[0])}
-                                  />
-                                  {selectedFile && (
-                                    <img
-                                      src={URL.createObjectURL(selectedFile)}
-                                      alt="Selected"
-                                      style={{
-                                        maxWidth: "200px",
-                                        marginTop: "10px",
-                                      }}
-                                      loading="lazy"
+                                <div className="d-flex">
+                                  <div className="col-4">
+                                    <label>
+                                      Upload Image <span className="required">*</span>
+                                    </label>
+                                    <input
+                                      type="file"
+                                      // onChange={handleFileChange}
+                                      className="pt-3"
+                                      onChange={(e) => handleFileChange(e.target.files[0])}
                                     />
-                                  )}
-                                </div>
-                                <div>
-                                  <label>Upload Second Image *</label>
-                                  <input
-                                    type="file"
-                                    // onChange={handleFileChange}
-                                    className="pt-3"
-                                    onChange={(e) => handleFileChange1(e.target.files[0])}
-                                  />
-                                  {selectedFile1 && (
-                                    <img
-                                      src={URL.createObjectURL(selectedFile1)}
-                                      alt="Selected"
-                                      style={{
-                                        maxWidth: "200px",
-                                        marginTop: "10px",
-                                      }}
-                                      loading="lazy"
+                                    {selectedFile && (
+                                      <img
+                                        src={URL.createObjectURL(selectedFile)}
+                                        alt="Selected"
+                                        style={{
+                                          maxWidth: "200px",
+                                          marginTop: "10px",
+                                          maxHeight: "200px"
+                                        }}
+                                      />
+                                    )}
+                                  </div>
+                                  <div className="col-4 mx-auto">
+                                    <label>Upload Second Image *</label>
+                                    <input
+                                      type="file"
+                                      // onChange={handleFileChange}
+                                      className="pt-3"
+                                      onChange={(e) => handleFileChange1(e.target.files[0])}
                                     />
-                                  )}
+                                    {selectedFile1 && (
+                                      <img
+                                        src={URL.createObjectURL(selectedFile1)}
+                                        alt="Selected"
+                                        style={{
+                                          maxWidth: "200px",
+                                          marginTop: "10px",
+                                          maxHeight: "200px"
+                                        }}
+                                      />
+                                    )}
+                                  </div>
                                 </div>
                                 <div className="form-group col-md-12 mt-3">
                                   <label>
@@ -632,64 +688,6 @@ function Account() {
                                     onChange={(e) => setFeatured(!featured)}
                                   />
                                 </div>
-                                {
-                                  type === "Tablet" &&
-                                  <div className="container mt-4">
-                                    <label className="form-check-label">
-                                      Medicine Strips{" "}
-                                      <span className="required">*</span>
-                                    </label>
-                                    <div className="d-flex align-items-center gap-2">
-                                      <div className="col-md-4">
-                                        <div className="form-group">
-                                          <label>Tablets on Strip:</label>
-                                          <input
-                                            type="number"
-                                            className="form-control"
-                                            value={tabletsOnStrip}
-                                            onChange={(e) =>
-                                              setTabletsOnStrip(e.target.value)
-                                            }
-                                          />
-                                        </div>
-                                      </div>
-                                      <div className="col-md-4">
-                                        <div className="form-group">
-                                          <label>Strips in Box:</label>
-                                          <input
-                                            type="number"
-                                            className="form-control"
-                                            value={stripsInBox}
-                                            onChange={(e) =>
-                                              setStripsInBox(e.target.value)
-                                            }
-                                          />
-                                        </div>
-                                      </div>
-                                      <div className="mt-2">
-                                        <button
-                                          className="btn btn-fill-out submit font-weight-bold"
-                                          onClick={handleAddMedicineStrip}
-                                        >
-                                          Add
-                                        </button>
-                                      </div>
-                                    </div>
-
-                                    <div className="mb-3">
-                                      <ul>
-                                        {medicineStrips.map((strip, index) => (
-                                          <li key={index}>
-                                            Tablets on Strip:{" "}
-                                            {strip.tabletsOnStrip}, Strips in Box:{" "}
-                                            {strip.stripsInBox}
-                                          </li>
-                                        ))}
-                                      </ul>
-                                    </div>
-                                  </div>
-                                }
-
 
                                 <div className="col-md-12">
                                   <button

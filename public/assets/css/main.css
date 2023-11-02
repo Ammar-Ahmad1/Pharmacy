@@ -1782,10 +1782,12 @@ label {
     font-size: 16px;
     background: transparent;
 }
+
 .form-control-search {
     height: 48px;
     /* max-width: 360px; */
 }
+
 .comment-form {
     padding-top: 45px;
     margin-bottom: 20px;
@@ -3959,6 +3961,8 @@ table .product-thumbnail img {
     -moz-transition: 0.2s;
     -webkit-transition: 0.2s;
     -o-transition: 0.2s;
+    min-height: 434px;
+    max-height: 434px;
 }
 
 .product-cart-wrap:hover {
@@ -4198,8 +4202,10 @@ table .product-thumbnail img {
 }
 
 .product-cart-wrap .product-content-wrap {
-    padding: 0 20px 20px 20px;
+    padding: 10px;
 }
+
+
 
 .product-cart-wrap .product-content-wrap .product-category {
     margin-bottom: 5px;
@@ -4313,7 +4319,7 @@ table .product-thumbnail img {
 .product-cart-wrap .product-card-bottom .add-cart .add {
     position: relative;
     display: inline-block;
-    padding: 6px 20px 6px 20px;
+    padding: 6px 12px 4px 14px;
     border-radius: 4px;
     background-color: #def9ec;
     font-size: 14px;
@@ -4541,6 +4547,66 @@ table .product-thumbnail img {
     margin: 0 0 0 7px;
     text-decoration: line-through;
 }
+
+
+/* Prodesign product-image-slider */
+
+.zoom-on-hover .swiper-slide {
+    transition: transform 0.2s; /* Add a smooth transition effect */
+    overflow: hidden; /* Hide the overflow to prevent layout shifts */
+  }
+  
+  .zoom-on-hover .swiper-slide:hover {
+    transform: scale(1.1); /* Zoom in by 10% on hover */
+  }
+  
+  .image-zoom-container {
+    width: 100%; /* Ensure the container covers the entire image */
+    height: 0; /* Set an aspect ratio (e.g., 1:1) */
+    padding-bottom: 100%; /* Set an aspect ratio (e.g., 1:1) */
+    position: relative;
+    overflow: hidden; /* Hide overflow for cropped images */
+  }
+  
+  .image-zoom-container .draggable-image {
+    cursor: move; /* Set the cursor style to indicate draggability */
+    width: 100%; /* Ensure the container covers the entire image */
+    height: 0; /* Set an aspect ratio (e.g., 1:1) */
+    padding-bottom: 100%; /* Set an aspect ratio (e.g., 1:1) */
+    position: relative;
+    overflow: hidden; /* Hide overflow for cropped images */
+  }
+  
+  .image-zoom-container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+  }
+  
+  
+
+
+@media (min-width: 767px) {
+    .product-cart-wrap .product-content-wrap {
+        padding: 0 20px 20px 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .product-cart-wrap .product-content-wrap .product-price span {
+        font-size: 14px !important;
+        padding-top: 5px;
+    }
+
+}
+
+
+
+
+
+
+
 
 .range .list-group-item {
     position: relative;
