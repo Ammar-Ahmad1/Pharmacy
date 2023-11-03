@@ -12,7 +12,7 @@ const Search = () => {
                 search: searchTerm,
             },
         });
-        setSearchTerm("");
+        // setSearchTerm("");
     };
 
     const handleInput = (e) => {
