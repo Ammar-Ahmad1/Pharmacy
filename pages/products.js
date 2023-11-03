@@ -78,7 +78,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                 search: searchTerm,
             },
         });
-        setSearchTerm("");
+        // setSearchTerm("");
     };
 
     const handleInput = (e) => {

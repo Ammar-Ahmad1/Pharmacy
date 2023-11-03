@@ -21,7 +21,7 @@ const ThumbSlider = ({ product }) => {
         className="mySwiper2"
       >
        
-        {product.image.map((image, index) => (
+        {product.image?.map((image, index) => (
           <SwiperSlide key={index}>
             <img src={image} alt={product.alt} />
           </SwiperSlide>
@@ -45,7 +45,7 @@ const ThumbSlider = ({ product }) => {
             </SwiperSlide>
           ))
         ) : (
-          product.image.map((image, index) => (
+          product.image?.map((image, index) => (
             <SwiperSlide key={index} className="border border-5 border-black">
               <img src={image} alt={product.alt} />
             </SwiperSlide>

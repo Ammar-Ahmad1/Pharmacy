@@ -73,11 +73,18 @@ function CategoryTab() {
       setLoading(true);
       const request = await fetch(`/api/medicine`);
       const allProducts = await request.json();
+      console.log(allProducts);
+      //reverse the array to get the latest added products
+      // allProducts.data.reverse();
+
       const cat3Item = allProducts.data.filter(
         (item) =>
-          // filter new products
-          item.created > new Date("2021-01-01")
+          // filter products added in last 30 days
+          new Date(item.created) > new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000)
+          // item.name==="Panadol 30ml"
       );
+      cat3Item.reverse();
+      
       setCat3(cat3Item);
       setActive("4");
     } catch (error) {
