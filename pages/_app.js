@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }) {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 2000);
 
     // new WOW.WOW({
     //     live: false

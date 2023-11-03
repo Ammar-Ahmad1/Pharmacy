@@ -13,7 +13,7 @@ import Layout from "../components/layout/Layout";
 import { fetchProduct } from "../redux/action/product";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-
+import Preloader from "../components/elements/Preloader";
 import Link from "next/link";
 
 // icons
@@ -50,8 +50,6 @@ const ProductsFullWidth = ({
   const [selectedStatus, setSelectedStatus] = useState("Pending");
   const [orderDetailsOpen, setOrderDetailsOpen] = useState(false);
 
-  console.log(products);
-
   let Router = useRouter(),
     searchTerm = Router.query.search,
     showLimit = 12,
@@ -61,104 +59,114 @@ const ProductsFullWidth = ({
   let [limit, setLimit] = useState(showLimit);
   let [pages, setPages] = useState(Math.ceil(products.items.length / limit));
   let [currentPage, setCurrentPage] = useState(1);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     fetchProduct(searchTerm, "/api/medicine", productFilters);
     cratePagination();
   }, [productFilters, limit, pages, products.items.length]);
-  useEffect(() => {
-    if (!session) {
-      Router.push("/page-login");
-    } else if (session.user.role === "customer") {
-      Router.push("/");
-    } else if (session.user.role === "vendor") {
-      getOrders();
-    }
+  useEffect(() => {  
+      if (session?.user.role === "customer") {
+        Router.push("/");
+      } else if (session?.user.role === "vendor") {
+        getOrders();
+      }else if (!session) {
+        Router.push("/page-login");
+      } 
   }, [session]);
 
   const getOrders = async () => {
+    if (!session) {
+      return;
+    }
     try {
-      const res = await fetch(`/api/order`);
+      setLoading(true);
+      const res = await fetch('/api/order');
       const data = await res.json();
       setOrders(data.data);
-      const currentDate = new Date();
-      const currentWeekStart = new Date(currentDate);
-      currentWeekStart.setDate(currentDate.getDate() - currentDate.getDay()); // Start of the current week
-      const currentMonthStart = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        1
-      ); // Start of the current month
-      let todaySales = 0;
-      let thisWeekSales = 0;
-      let thisMonthSales = 0;
-      let thisYearSales = 0;
-
-      let todayProfit = 0;
-      let todayOrders = 0;
-      let thisWeekProfit = 0;
-      let thisWeekOrders = 0;
-      let thisMonthProfit = 0;
-      let thisMonthOrders = 0;
-      let thisYearProfit = 0;
-      let thisYearOrders = 0;
-
-
-      const deliveredOrders = data.data.filter((order) => order.status === "Delivered");
-      console.log(deliveredOrders);
-      deliveredOrders.forEach((order) => {
-        const orderDate = new Date(order.date);
-
-        if (orderDate.toDateString() === currentDate.toDateString()) {
-          todayProfit += parseFloat(order.profit);
-          todaySales += parseFloat(order.totalAmount);
-          todayOrders++;
-        }
-
-        if (orderDate >= currentWeekStart) {
-          thisWeekSales += parseFloat(order.totalAmount);
-          thisWeekProfit += parseFloat(order.profit);
-          thisWeekOrders++;
-        }
-
-        if (orderDate >= currentMonthStart) {
-          thisMonthSales += parseFloat(order.totalAmount);
-          thisMonthProfit += parseFloat(order.profit);
-          thisMonthOrders++;
-        }
-        if (orderDate.getFullYear() === currentDate.getFullYear()) {
-          thisYearSales += parseFloat(order.totalAmount);
-          thisYearProfit += parseFloat(order.profit);
-          thisYearOrders++;
-        }
-      });
-
-      setTodaySales({
+  
+      const salesStats = calculateSalesStats(data.data);
+      setTodaySales(salesStats.todaySales);
+      setThisWeekSales(salesStats.thisWeekSales);
+      setThisMonthSales(salesStats.thisMonthSales);
+      setThisYearSales(salesStats.thisYearSales);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      toast.error('Error fetching orders');
+    } finally {
+      setLoading(false);
+    }
+  };
+  const calculateSalesStats = (orders) => {
+    const currentDate = new Date();
+    const currentWeekStart = new Date(currentDate);
+    currentWeekStart.setDate(currentDate.getDate() - currentDate.getDay()); // Start of the current week
+    const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // Start of the current month
+  
+    let todaySales = 0;
+    let thisWeekSales = 0;
+    let thisMonthSales = 0;
+    let thisYearSales = 0;
+  
+    let todayProfit = 0;
+    let todayOrders = 0;
+    let thisWeekProfit = 0;
+    let thisWeekOrders = 0;
+    let thisMonthProfit = 0;
+    let thisMonthOrders = 0;
+    let thisYearProfit = 0;
+    let thisYearOrders = 0;
+  
+    orders.forEach((order) => {
+      const orderDate = new Date(order.date);
+  
+      if (orderDate.toDateString() === currentDate.toDateString()) {
+        todayProfit += parseFloat(order.profit);
+        todaySales += parseFloat(order.totalAmount);
+        todayOrders++;
+      }
+  
+      if (orderDate >= currentWeekStart) {
+        thisWeekSales += parseFloat(order.totalAmount);
+        thisWeekProfit += parseFloat(order.profit);
+        thisWeekOrders++;
+      }
+  
+      if (orderDate >= currentMonthStart) {
+        thisMonthSales += parseFloat(order.totalAmount);
+        thisMonthProfit += parseFloat(order.profit);
+        thisMonthOrders++;
+      }
+  
+      if (orderDate.getFullYear() === currentDate.getFullYear()) {
+        thisYearSales += parseFloat(order.totalAmount);
+        thisYearProfit += parseFloat(order.profit);
+        thisYearOrders++;
+      }
+    });
+  
+    return {
+      todaySales: {
         profit: todayProfit.toFixed(2),
         orders: todayOrders,
         sales: todaySales.toFixed(2),
-      });
-      setThisWeekSales({
+      },
+      thisWeekSales: {
         profit: thisWeekProfit.toFixed(2),
         orders: thisWeekOrders,
         sales: thisWeekSales.toFixed(2),
-      });
-      setThisMonthSales({
+      },
+      thisMonthSales: {
         profit: thisMonthProfit.toFixed(2),
         orders: thisMonthOrders,
         sales: thisMonthSales.toFixed(2),
-      });
-      setThisYearSales({
+      },
+      thisYearSales: {
         profit: thisYearProfit.toFixed(2),
         orders: thisYearOrders,
         sales: thisYearSales.toFixed(2),
-      });
-    } catch (error) {
-      console.error("Error fetching orders:", error);
-      toast.error("Error fetching orders");
-    }
+      },
+    };
   };
-
   const cratePagination = () => {
     // set pagination
     let arr = new Array(Math.ceil(products.items.length / limit))
@@ -411,8 +419,7 @@ const ProductsFullWidth = ({
           return order.status === "Delivered";
         } else if (filter === "cancelled") {
           return order.cancelled;
-        }
-        else if (filter === "confirmed") {
+        } else if (filter === "confirmed") {
           return !order.cancelled && order.status === "Confirmed";
         }
       });
@@ -542,16 +549,22 @@ const ProductsFullWidth = ({
     }
 
     return style;
-  }
+  };
 
   return (
     <>
+      {loading ? (
+        // Render a loading indicator while loading is true
+       <Preloader />
+      ) : (
       <Layout parent="Home" sub="Vendor  " subChild="Dashboard">
         <section className="mt-50 mb-50">
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h1 className="mt-30 pb-30 h1 font-xxl font-weight-bold">Dashboard</h1>
+                <h1 className="mt-30 pb-30 h1 font-xxl font-weight-bold">
+                  Dashboard
+                </h1>
                 <hr className="mb-80" />
                 <div className="row">
                   <div className="col-lg-9">
@@ -559,7 +572,9 @@ const ProductsFullWidth = ({
                     <div className="table-responsive mt-20 ps-2 pe-2">
                       <div className="input-group d-flex justify-content-between">
                         <div className="d-flex align-items-end">
-                          <label htmlFor="search-order"> Search by Order Number
+                          <label htmlFor="search-order">
+                            {" "}
+                            Search by Order Number
                             <input
                               type="search"
                               id="search-order"
@@ -575,32 +590,48 @@ const ProductsFullWidth = ({
                         {/* add filters for pending, delivered and cancelled orders */}
                         <div className="input-group-append">
                           <div className="mb-4">
-                            <label>Sort by status
+                            <label>
+                              Sort by status
                               <select
                                 className="form-select"
-                                style={{ outline: "none", borderColor: "#ced4da", boxShadow: "none" }}
+                                style={{
+                                  outline: "none",
+                                  borderColor: "#ced4da",
+                                  boxShadow: "none",
+                                }}
                                 onChange={handleFilterChange}
                               >
                                 <option value="">All Orders</option>
                                 <option value="pending">Pending Orders</option>
-                                <option value="delivered">Delivered Orders</option>
-                                <option value="cancelled">Cancelled Orders</option>
-                                <option value="confirmed">Confirmed Orders</option>
+                                <option value="delivered">
+                                  Delivered Orders
+                                </option>
+                                <option value="cancelled">
+                                  Cancelled Orders
+                                </option>
+                                <option value="confirmed">
+                                  Confirmed Orders
+                                </option>
                               </select>
                             </label>
                           </div>
                           <div>
-                            <label htmlFor="date-table">Search by date
-                              <input type="date" id="date-table" className="pe-3 col-12 d-block form-control-search"
+                            <label htmlFor="date-table">
+                              Search by date
+                              <input
+                                type="date"
+                                id="date-table"
+                                className="pe-3 col-12 d-block form-control-search"
                                 onChange={(e) => {
                                   // Filter the orders based on the search term
                                   //ignore case
                                   const filtered = orders.filter((order) =>
-                                    order.date.split("T")[0].includes(e.target.value)
+                                    order.date
+                                      .split("T")[0]
+                                      .includes(e.target.value)
                                   );
                                   setFilteredOrders(filtered);
                                 }}
-
                               />
                             </label>
                           </div>
@@ -633,12 +664,16 @@ const ProductsFullWidth = ({
                           ) : (
                             (filteredOrders || orders)?.map((order) => (
                               <React.Fragment key={order._id}>
-                                {order &&
+                                {order && (
                                   <tr
                                     key={order._id}
-                                    className={currentOrder === order ? "active-row" : ""}
+                                    className={
+                                      currentOrder === order ? "active-row" : ""
+                                    }
                                   >
-                                    <td className="font-weight-bold">{order.orderNumber}</td>
+                                    <td className="font-weight-bold">
+                                      {order.orderNumber}
+                                    </td>
                                     <td>
                                       {
                                         //only show sate and time
@@ -646,9 +681,27 @@ const ProductsFullWidth = ({
                                       }
                                     </td>
                                     <td>
-                                      {order.cancelled
-                                        ? <p style={{ ...getStatusStyle("Cancelled"), maxWidth: "120px", margin: "0 auto" }}>Cancelled</p>
-                                        : <p style={{ ...getStatusStyle(order.status), maxWidth: "120px", margin: "0 auto" }}>{order.status}</p>}
+                                      {order.cancelled ? (
+                                        <p
+                                          style={{
+                                            ...getStatusStyle("Cancelled"),
+                                            maxWidth: "120px",
+                                            margin: "0 auto",
+                                          }}
+                                        >
+                                          Cancelled
+                                        </p>
+                                      ) : (
+                                        <p
+                                          style={{
+                                            ...getStatusStyle(order.status),
+                                            maxWidth: "120px",
+                                            margin: "0 auto",
+                                          }}
+                                        >
+                                          {order.status}
+                                        </p>
+                                      )}
                                     </td>
                                     <td>Rs.{order.totalAmount}</td>
                                     <td className="d-flex justify-content-between">
@@ -659,7 +712,7 @@ const ProductsFullWidth = ({
                                           color: "#fff",
                                           borderRadius: "5px",
                                           backgroundColor: "#4a4175",
-                                          cursor: "pointer"
+                                          cursor: "pointer",
                                         }}
                                         href="#"
                                         className="btn-small"
@@ -682,14 +735,21 @@ const ProductsFullWidth = ({
                                           handleDelete(e, order._id);
                                         }}
                                       >
-                                        <FaRegTrashCan style={{ color: "#f83535" }} />
+                                        <FaRegTrashCan
+                                          style={{ color: "#f83535" }}
+                                        />
                                       </Link>
                                     </td>
                                   </tr>
-                                }
+                                )}
                                 {/* Conditionally render order details */}
                                 {currentOrder === order && (
-                                  <tr style={{ backgroundColor: "#d9e3ea", padding: "10px !important" }}>
+                                  <tr
+                                    style={{
+                                      backgroundColor: "#d9e3ea",
+                                      padding: "10px !important",
+                                    }}
+                                  >
                                     <td colSpan="5">
                                       <div className="order-details mt-1">
                                         {/* Display order details here */}
@@ -698,12 +758,17 @@ const ProductsFullWidth = ({
                                           <HiMiniXMark
                                             style={{ fontSize: "20px" }}
                                             onClick={(e) => {
-                                              handleToggleOrderDetails(e, order); // Call the function to toggle order details
+                                              handleToggleOrderDetails(
+                                                e,
+                                                order
+                                              ); // Call the function to toggle order details
                                             }}
                                           />
                                         </div>
-                                        <table className="table"
-                                          style={{ backgroundColor: "#eff3f6" }}>
+                                        <table
+                                          className="table"
+                                          style={{ backgroundColor: "#eff3f6" }}
+                                        >
                                           <thead>
                                             <tr>
                                               <th>Medicine</th>
@@ -739,21 +804,37 @@ const ProductsFullWidth = ({
                                         <div className="d-flex justify-content-between align-items-center">
                                           <div>
                                             <h5>Customer Details</h5>
-                                            <p>
-                                              Deliver to:
-                                            </p>
+                                            <p>Deliver to:</p>
                                             <ul>
-                                              <li><span className="me-2 font-weight-bold">Address:</span>{order.address}</li>
-                                              <li><span className="me-2 font-weight-bold">Ph #:</span>{order.user.phone}</li>
-                                              <li><span className="me-2 font-weight-bold">City:</span>{order.city}</li>
+                                              <li>
+                                                <span className="me-2 font-weight-bold">
+                                                  Address:
+                                                </span>
+                                                {order.address}
+                                              </li>
+                                              <li>
+                                                <span className="me-2 font-weight-bold">
+                                                  Ph #:
+                                                </span>
+                                                {order.user.phone}
+                                              </li>
+                                              <li>
+                                                <span className="me-2 font-weight-bold">
+                                                  City:
+                                                </span>
+                                                {order.city}
+                                              </li>
                                             </ul>
                                           </div>
                                           <div>
-                                            {!order.cancelled && (order.status === "Pending" || order.status === "Confirmed") &&
-                                              <span>
-                                                {
-                                                  !(order.status === "Confirmed") ?
-
+                                            {!order.cancelled &&
+                                              (order.status === "Pending" ||
+                                                order.status ===
+                                                  "Confirmed") && (
+                                                <span>
+                                                  {!(
+                                                    order.status === "Confirmed"
+                                                  ) ? (
                                                     <span
                                                       style={{
                                                         width: "70px",
@@ -761,7 +842,8 @@ const ProductsFullWidth = ({
                                                         color: "#fff",
                                                         padding: "5px 10px",
                                                         borderRadius: "5px",
-                                                        backgroundColor: "#17a2b8",
+                                                        backgroundColor:
+                                                          "#17a2b8",
                                                         cursor: "pointer",
                                                         marginRight: "12px",
                                                         // display: order.status ? "none" : "block"
@@ -774,35 +856,37 @@ const ProductsFullWidth = ({
                                                       }}
                                                     >
                                                       Confirmed
-                                                    </span> : null
-                                                }
+                                                    </span>
+                                                  ) : null}
 
-                                                <span
-                                                  style={{
-                                                    width: "70px",
-                                                    textAlign: "center",
-                                                    color: "#fff",
-                                                    padding: "5px 10px",
-                                                    borderRadius: "5px",
-                                                    backgroundColor: "#28a745",
-                                                    cursor: "pointer",
-                                                    marginRight: "12px",
-                                                    // display: order.status ? "none" : "block"
-                                                  }}
-                                                  onClick={(e) => {
-                                                    handleUpdateStatusClickDeliver(
-                                                      e,
-                                                      order._id,
-                                                      order.status
-                                                    );
-                                                  }}
-                                                >
-                                                  Delivered
+                                                  <span
+                                                    style={{
+                                                      width: "70px",
+                                                      textAlign: "center",
+                                                      color: "#fff",
+                                                      padding: "5px 10px",
+                                                      borderRadius: "5px",
+                                                      backgroundColor:
+                                                        "#28a745",
+                                                      cursor: "pointer",
+                                                      marginRight: "12px",
+                                                      // display: order.status ? "none" : "block"
+                                                    }}
+                                                    onClick={(e) => {
+                                                      handleUpdateStatusClickDeliver(
+                                                        e,
+                                                        order._id,
+                                                        order.status
+                                                      );
+                                                    }}
+                                                  >
+                                                    Delivered
+                                                  </span>
                                                 </span>
-                                              </span>
-                                            }
+                                              )}
                                             {!order.cancelled &&
-                                              (order.status === "Pending" || order.status === "Confirmed") ? (
+                                            (order.status === "Pending" ||
+                                              order.status === "Confirmed") ? (
                                               <span
                                                 style={{
                                                   width: "70px",
@@ -999,7 +1083,8 @@ const ProductsFullWidth = ({
         </section>
         <WishlistModal />
         <QuickView />
-      </Layout >
+      </Layout>
+      )}
     </>
   );
 };
