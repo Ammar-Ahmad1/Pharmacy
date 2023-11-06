@@ -52,7 +52,8 @@ const ProductsFullWidth = ({
 
   let Router = useRouter(),
     searchTerm = Router.query.search,
-    showLimit = 12,
+    showLimit = 100,
+    // showLimit = products.items.length,
     showPagination = 4;
 
   let [pagination, setPagination] = useState([]);

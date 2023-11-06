@@ -3961,8 +3961,14 @@ table .product-thumbnail img {
     -moz-transition: 0.2s;
     -webkit-transition: 0.2s;
     -o-transition: 0.2s;
-    min-height: 434px;
+    min-height: 420px;
     max-height: 434px;
+}
+
+@media screen and (max-width: 424px) {
+    .product-cart-wrap {
+        min-height: 340px !important;
+    }
 }
 
 .product-cart-wrap:hover {
