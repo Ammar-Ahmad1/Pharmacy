@@ -10,9 +10,9 @@ function SelectOp({ selectChange, showLimit }) {
                 </div>
                 <div className="sort-by-dropdown-wrap custom-select">
                     <select onChange={selectChange}>
-                        <option value={showLimit}>{showLimit}</option>
                         <option value={5}>5</option>
                         <option value={10}>10</option>
+                        <option value={showLimit}>All</option>
                     </select>
                 </div>
             </div>

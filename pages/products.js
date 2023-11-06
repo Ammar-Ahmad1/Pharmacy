@@ -19,7 +19,8 @@ const Products = ({ products, productFilters, fetchProduct }) => {
 
     let Router = useRouter(),
         searchingTerm = Router.query.search,
-        showLimit = 12,
+        showLimit = 100,
+        // showLimit = products.items.length,
         showPagination = 4;
 
     let [pagination, setPagination] = useState([]);
@@ -96,21 +97,21 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                     <div className="container mb-30">
                         <div className="row flex-row-reverse">
                             <div className="col-lg-4-5">
-                                <div className="shop-product-fillter">
-                                    <div className="mobile-search search-style-3 mobile-header-border col-10 m-auto mb-20 d-block d-lg-none">
-                                        <form action="#">
-                                            <input
-                                                value={searchTerm}
-                                                onKeyDown={handleInput}
-                                                onChange={(e) => setSearchTerm(e.target.value)}
-                                                type="text"
-                                                placeholder="Search Products"
-                                            />
-                                            <button type="submit">
-                                                <i className="fi-rs-search"></i>
-                                            </button>
-                                        </form>
-                                    </div>
+                                <div className="mobile-search search-style-3 mobile-header-border col-10 m-auto mb-20 d-block d-lg-none">
+                                    <form action="#">
+                                        <input
+                                            value={searchTerm}
+                                            onKeyDown={handleInput}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            type="text"
+                                            placeholder="Search Products"
+                                        />
+                                        <button type="submit">
+                                            <i className="fi-rs-search"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div className="shop-product-fillter d-sm-flex align-items-end">
                                     <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
                                         <nav aria-label="Page navigation example">
                                             <Pagination
@@ -135,7 +136,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                         </p>
                                     </div>
                                     <div className="sort-by-product-area">
-                                        <div className="sort-by-cover mr-10">
+                                        <div className="sort-by-cover mr-10 mb-10">
                                             <ShowSelect
                                                 selectChange={selectChange}
                                                 showLimit={showLimit}
@@ -153,7 +154,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
 
                                     {getPaginatedProducts.map((item, i) => (
                                         <div
-                                            className="col-lg-1-5 col-md-4 col-12 col-sm-6"
+                                            className="d-flex col-lg-1-5 col-md-4 col-6 col-sm-6"
                                             key={i}
                                         >
                                             <SingleProduct product={item} />
