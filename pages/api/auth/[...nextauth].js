@@ -45,12 +45,23 @@ const handler = NextAuth({
   ],
   callbacks: {
     async session({ session }) {
+      try{
+        const sessionUser = await User.findOne({ email: session.user.email });
+        if (sessionUser) {
+          session.user.id = sessionUser._id.toString();
+          session.user.role = sessionUser.role;
+        } else {
+          // Handle the case where the user is not found in the database
+          // You can choose to log the error, redirect the user, or take appropriate action
+        }
+        return session;
+      }catch (error) {
+        // Handle any errors that occur during the session modification
+        console.error("Error modifying session: ", error);
+        return session; // You can return the session with no changes or take other actions based on the error
+      }
       // store the user id from MongoDB to session
-      const sessionUser = await User.findOne({ email: session.user.email });
-      session.user.id = sessionUser._id.toString();
-      session.user.role = sessionUser.role;
-
-      return session;
+     
     },
     async signIn({ account, profile, user, credentials }) {
       try {
