@@ -104,7 +104,6 @@ function Login() {
                         </div>
                         <form method="post">
                           <div className="form-group">
-                            {/* <input type="text" required="" name="email" placeholder="Email *" onChange={(e) => setEmail(e.target.value)} /> */}
                             <label>Phone Number</label>
                             <input
                               type="text"
