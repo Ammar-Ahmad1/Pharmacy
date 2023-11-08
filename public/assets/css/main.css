@@ -3957,10 +3957,10 @@ table .product-thumbnail img {
     border: 1px solid #ececec;
     border-radius: 15px;
     overflow: hidden;
-    transition: 0.2s;
+    -o-transition: 0.2s;
     -moz-transition: 0.2s;
     -webkit-transition: 0.2s;
-    -o-transition: 0.2s;
+    transition: 0.2s;
     min-height: 420px;
     max-height: 434px;
 }
@@ -3975,10 +3975,10 @@ table .product-thumbnail img {
     -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
     border: 1px solid #bce3c9;
-    transition: 0.2s;
+    -o-transition: 0.2s;
     -moz-transition: 0.2s;
     -webkit-transition: 0.2s;
-    -o-transition: 0.2s;
+    transition: 0.2s;
 }
 
 .product-cart-wrap .product-img-action-wrap {
@@ -4489,10 +4489,10 @@ table .product-thumbnail img {
     max-width: 86%;
     margin-left: auto;
     margin-right: auto;
-    transition: 0.3s;
+    -o-transition: 0.3s;
     -moz-transition: 0.3s;
     -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .product-cart-wrap.style-2 .product-content-wrap .deals-content {
@@ -4514,10 +4514,10 @@ table .product-thumbnail img {
 .product-cart-wrap.style-2:hover .product-content-wrap {
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px);
-    transition: 0.3s;
+    -o-transition: 0.3s;
     -moz-transition: 0.3s;
     -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .product-price {
@@ -5094,8 +5094,8 @@ table .product-thumbnail img {
     background-repeat: repeat-x;
     height: 12px;
     width: 60px;
-    transition: all 0.5s ease-out 0s;
     -webkit-transition: all 0.5s ease-out 0s;
+    transition: all 0.5s ease-out 0s;
 }
 
 .product-rating {
@@ -5121,8 +5121,8 @@ table .product-thumbnail img {
     min-width: 30px;
     text-align: center;
     position: relative;
-    transition: all 0.5s ease-out 0s;
     -webkit-transition: all 0.5s ease-out 0s;
+    transition: all 0.5s ease-out 0s;
 }
 
 .color-filter.list-filter a span {
@@ -5329,8 +5329,8 @@ table .product-thumbnail img {
     vertical-align: top;
     width: 50px;
     margin: 0 5px;
-    transition: all 0.5s ease-out 0s;
     -webkit-transition: all 0.5s ease-out 0s;
+    transition: all 0.5s ease-out 0s;
 }
 
 .product-extra-link2 a:hover {
@@ -6274,10 +6274,10 @@ h6.post-title {
     background-size: cover;
     background-position: center center;
     overflow: hidden;
-    transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
-    -ms-transition: all 0.4s ease;
+    transition: all 0.4s ease;
 }
 
 .img-hover-slide {
@@ -6286,10 +6286,10 @@ h6.post-title {
     background-position: center center;
     min-height: 280px;
     overflow: hidden;
-    transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
-    -ms-transition: all 0.4s ease;
+    transition: all 0.4s ease;
 }
 
 .top-right-icon {
@@ -6303,12 +6303,12 @@ h6.post-title {
     line-height: 30px;
     z-index: 3;
     color: #fff;
-    transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
-    -ms-transition: all 0.4s ease;
+    transition: all 0.4s ease;
 }
 
 .top-left-icon {
@@ -6359,20 +6359,20 @@ h6.post-title {
     border: 1px solid #ececec;
     border-radius: 15px;
     overflow: hidden;
-    transition: 0.2s;
+    -o-transition: 0.2s;
     -moz-transition: 0.2s;
     -webkit-transition: 0.2s;
-    -o-transition: 0.2s;
+    transition: 0.2s;
 }
 
 .vendor-wrap:hover {
     -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
     border: 1px solid #bce3c9;
-    transition: 0.2s;
+    -o-transition: 0.2s;
     -moz-transition: 0.2s;
     -webkit-transition: 0.2s;
-    -o-transition: 0.2s;
+    transition: 0.2s;
 }
 
 .vendor-wrap .vendor-img-action-wrap {
@@ -7185,8 +7185,9 @@ h6.post-title {
     background-color: #fff;
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
-    -moz-appearance: none;
     -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     position: relative;
 }
 
@@ -8531,20 +8532,20 @@ span.fi-rs-apps {
     padding: 9px 18px;
     margin: 0 15px 15px 0;
     height: 50px;
-    transition: 0.3s;
+    -o-transition: 0.3s;
     -moz-transition: 0.3s;
     -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .categories-dropdown-wrap ul li:hover {
     border: 1px solid #bce3c9;
     -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
-    transition: 0.3s;
+    -o-transition: 0.3s;
     -moz-transition: 0.3s;
     -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .categories-dropdown-wrap ul li:hover a {
@@ -8819,10 +8820,10 @@ span.fi-rs-apps {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    transition: 0.3s;
+    -o-transition: 0.3s;
     -moz-transition: 0.3s;
     -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .widget-category-2 ul li:last-child {
@@ -8833,10 +8834,10 @@ span.fi-rs-apps {
     border: 1px solid #bce3c9;
     -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
-    transition: 0.3s;
+    -o-transition: 0.3s;
     -moz-transition: 0.3s;
     -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .widget-category-2 ul li:hover a {
@@ -9008,11 +9009,11 @@ span.fi-rs-apps {
 .follow-us .social-icon {
     display: inline-block;
     position: relative;
-    transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
 
 .follow-us a.follow-us-facebook,
