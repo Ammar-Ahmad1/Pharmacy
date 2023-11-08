@@ -9,6 +9,8 @@ import { addToWishlist } from "../../redux/action/wishlistAction";
 import { BsFillTrashFill } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Image from 'next/image'
+
 const SingleProduct = ({
   product,
   addToCart,
@@ -55,18 +57,23 @@ const SingleProduct = ({
         <div className="product-img-action-wrap">
           <div className="product-img product-img-zoom">
             <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-              <img
+              <Image
                 className="default-img"
                 src={product.image[0]}
                 alt="nest"
                 loading="lazy"
+                width={300}
+                height={300}
               />
 
-              <img
+              <Image
                 className="hover-img"
                 src={product.image[1]}
                 alt="nest"
                 loading="lazy"
+                width={300}
+                height={300}
+
               />
             </Link>
           </div>
