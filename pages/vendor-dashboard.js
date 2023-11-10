@@ -1015,7 +1015,7 @@ const ProductsFullWidth = ({
             </div>
 
             <Link
-              className="btn btn-small hover: font-weight-bold"
+              className="btn btn-small mt-4 hover: font-weight-bold"
               href={"/add-item"}
             >
               Add Medicine
@@ -1054,7 +1054,7 @@ const ProductsFullWidth = ({
 
                   {getPaginatedProducts.map((item, i) => (
                     <div
-                      className="col-lg-1-5 col-md-4 col-12 col-sm-6"
+                      className="col-lg-1-5 col-md-4 col-12 col-sm-6 d-flex"
                       key={i}
                     >
                       <SingleProduct
