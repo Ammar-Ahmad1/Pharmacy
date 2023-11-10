@@ -19,8 +19,8 @@ const Products = ({ products, productFilters, fetchProduct }) => {
 
     let Router = useRouter(),
         searchingTerm = Router.query.search,
-        showLimit = 100,
-        // showLimit = products.items.length,
+        // Set showLimit to the length of products.items or any default value (e.g., 100)
+        showLimit = products.items.length,
         showPagination = 4;
 
     let [pagination, setPagination] = useState([]);
